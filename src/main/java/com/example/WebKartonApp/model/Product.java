@@ -9,7 +9,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "product")
 @Getter
 @Setter
 @NoArgsConstructor

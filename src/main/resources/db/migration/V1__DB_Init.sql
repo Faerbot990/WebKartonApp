@@ -7,6 +7,16 @@ create sequence hibernate_sequence start 1 increment 1;
    filename varchar(255),
     title varchar(255),
      primary key (id));
+create table product
+(id int8 not null,
+ description varchar(255),
+ filename varchar(255),
+ product_category varchar(255),
+ product_name varchar(255),
+ price int4 not null,
+ quantity varchar(255),
+ primary key (id)
+);
 
  create table orders
  (id int8 not null,
