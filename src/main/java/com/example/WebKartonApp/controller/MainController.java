@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest")
+@RequestMapping("/rest/main")
 public class MainController {
 
     private final ProductService productService;
