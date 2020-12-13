@@ -1,4 +1,4 @@
-package com.example.WebKartonApp.config;
+package com.example.WebKartonApp.security;
 
 
 import io.jsonwebtoken.*;

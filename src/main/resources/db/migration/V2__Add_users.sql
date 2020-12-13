@@ -1,5 +1,5 @@
 
-insert into usr (id, password, username)
+insert into usr (id, password, username, active)
     values (1, '12345', '12345');
 
 insert into user_role (user_id, roles)
