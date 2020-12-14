@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 public class AdminController {
 

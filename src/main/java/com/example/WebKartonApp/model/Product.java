@@ -17,33 +17,6 @@ import javax.validation.constraints.NotNull;
 @EqualsAndHashCode(of ={"id", "productName","productCategory", "productDescription", "price" })
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product {
-    public Long getId() {
-        return id;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public String getProductCategory() {
-        return productCategory;
-    }
-
-    public String getProductDescription() {
-        return productDescription;
-    }
-
-    public String getFilename() {
-        return filename;
-    }
-
-    public Integer getPrice() {
-        return price;
-    }
-
-    public String getQuantity() {
-        return quantity;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

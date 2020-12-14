@@ -75,9 +75,6 @@ public class User implements UserDetails {
         return getRoles();
     }
 
-    public Collection<? extends GrantedAuthority> getRoles() {
-        return getRoles();
-    }
 
     @Override
     public String getPassword() {
