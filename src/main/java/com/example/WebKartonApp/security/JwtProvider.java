@@ -29,7 +29,6 @@ public class JwtProvider {
     @Value("${jwt.expiration}")
     private long validityInMilliseconds;
 
-    @Autowired
     public JwtProvider(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService){
         this.userDetailsService = userDetailsService;
 
@@ -54,13 +53,13 @@ public class JwtProvider {
     }
 
 
-    public boolean validateToken(String token) throws JwtAuthException {
+    public boolean validateToken(String token){
 
         try {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
 
             return !claimsJws.getBody().getExpiration().before(new Date());
-        } catch (JwtException | IllegalArgumentException exception) {
+        } catch (JwtException | IllegalArgumentException e) {
             throw new JwtAuthException("JWT token is expired or invalid", HttpStatus.UNAUTHORIZED);
         }
     }
