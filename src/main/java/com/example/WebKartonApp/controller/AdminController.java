@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/admin")
 @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
 public class AdminController {
 
@@ -46,7 +46,7 @@ public class AdminController {
         this.orderService = orderService;
     }
 
-    @PostMapping("/admin/add_prod")
+    @PostMapping("/add_prod")
     public ResponseEntity<?> addProduct(
             @Valid Product product,
             BindingResult bindingResult,
@@ -65,7 +65,7 @@ public class AdminController {
         }
     }
 
-    @PostMapping("/admin/update_prod")
+    @PostMapping("/update_prod")
     public ResponseEntity<?> updateProduct(
             @Valid Product product,
             BindingResult bindingResult,
@@ -91,21 +91,21 @@ public class AdminController {
 
     }
 
-    @GetMapping("/admin/orders")
+    @GetMapping("/orders")
     public ResponseEntity<?> getAllOrders() {
         List<Order> orders = orderService.findAll();
 
         return new ResponseEntity<>(orders, HttpStatus.OK);
     }
 
-    @GetMapping("/admin/user/{id}")
+    @GetMapping("/user/{id}")
     public ResponseEntity<?> getUser(@PathVariable("id") Long userId) {
         User user = userService.getOne(userId);
 
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/admin/user/all")
+    @GetMapping("/user/all")
     public ResponseEntity<?> getAllUsers() {
         List<User> users = userService.findAll();
 

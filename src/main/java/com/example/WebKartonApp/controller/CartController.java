@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/cart/menu")
 public class CartController {
 
     private final UserService userService;
@@ -31,7 +31,7 @@ public class CartController {
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
-    @PostMapping("/cart/add")
+    @PostMapping("/add")
     public ResponseEntity<?> addToCart(@RequestBody Product product, @AuthenticationPrincipal User userSession) {
         User user = userService.findByUsername(userSession.getUsername());
         user.getProductList().add(product);
@@ -39,7 +39,7 @@ public class CartController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/cart/remove")
+    @PostMapping("/remove")
     public ResponseEntity<?> removeFromCart(@RequestBody Product product, @AuthenticationPrincipal User userSession) {
         User user = userService.findByUsername(userSession.getUsername());
         user.getProductList().add(product);

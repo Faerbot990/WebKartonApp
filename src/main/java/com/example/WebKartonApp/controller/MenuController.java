@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/menu")
 public class MenuController {
     private final ProductService productService;
 
@@ -25,14 +25,14 @@ public class MenuController {
         this.productService = productService;
     }
 
-    @PostMapping("/menu/search")
+    @PostMapping("/search")
     public ResponseEntity<?> findProductsByFilterParams(@RequestBody ProductSearchDto filterDto) {
         List<Product> filter = productService.filter(filterDto.getProductName(), filterDto.getProductCategory(), filterDto.getPrices());
 
         return new ResponseEntity<>(filter, HttpStatus.OK);
     }
 
-    @PostMapping("/menu/category")
+    @PostMapping("/category")
     public ResponseEntity<?> findByProductCategory(@RequestBody ProductSearchDto filterDto) {
         List<Product> category = productService.findByProductOrderByCategoryDesc(String.valueOf(filterDto.getProductCategory()));
 

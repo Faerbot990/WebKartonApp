@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/order/menu")
 public class OrderController {
 
     private final UserService userService;
@@ -69,7 +69,7 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @GetMapping("/order/finalize")
+    @GetMapping("/finalize")
     public ResponseEntity<?> finalizeOrder() {
         List<Order> orderList = orderService.findAll();
         Order orderIndex = orderList.get(orderList.size() - 1);
@@ -77,7 +77,7 @@ public class OrderController {
         return new ResponseEntity<>(orderIndex.getId(), HttpStatus.OK);
     }
 
-    @GetMapping("/order/list")
+    @GetMapping("/list")
     public ResponseEntity<?> getUserOrdersList(@AuthenticationPrincipal User userSession) {
         User user = userService.findByUsername(userSession.getUsername());
         List<Order> orders = orderService.findOrderByUser(user);

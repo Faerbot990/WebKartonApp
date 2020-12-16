@@ -1,5 +1,6 @@
 package com.example.WebKartonApp.config;
 
+import com.example.WebKartonApp.model.Role;
 import com.example.WebKartonApp.security.JwtConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -32,20 +33,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/",
-                        "/api/v1/",
-                        "/api/v1/product/*",
-                        "/api/v1/admin/*",
-                        "/api/v1/admin/user/*",
-                        "/api/v1/menu/**",
-                        "/api/v1/cart",
-                        "/api/v1/cart/*",
-                        "/api/v1/order",
-                        "/api/v1/order/*",
-                        "/api/v1/user/*",
+                        "/admin/**",
+                        "/cart/**",
+                        "/order/**",
                         "/img/**",
                         "/static/**",
                         "/menu/**").permitAll()
-                .antMatchers("/api/v1/login").permitAll()
+                .antMatchers("/auth/login").permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
