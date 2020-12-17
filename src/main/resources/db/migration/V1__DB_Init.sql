@@ -1,12 +1,13 @@
 
 create sequence hibernate_sequence start 1 increment 1;
 
- create table news
- (id int8 not null,
-  description varchar(255),
+create table news
+(id int8 not null,
+ information varchar(255),
+  title varchar(255),
    filename varchar(255),
-    title varchar(255),
-     primary key (id));
+    primary key (id)
+);
 create table product
 (id int8 not null,
  description varchar(255),

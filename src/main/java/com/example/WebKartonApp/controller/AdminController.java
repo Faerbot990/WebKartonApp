@@ -2,9 +2,11 @@ package com.example.WebKartonApp.controller;
 
 
 
+import com.example.WebKartonApp.model.News;
 import com.example.WebKartonApp.model.Order;
 import com.example.WebKartonApp.model.Product;
 import com.example.WebKartonApp.model.User;
+import com.example.WebKartonApp.service.NewsService;
 import com.example.WebKartonApp.service.OrderService;
 import com.example.WebKartonApp.service.ProductService;
 import com.example.WebKartonApp.service.UserService;
@@ -33,6 +35,8 @@ public class AdminController {
     @Value("${upload.path}")
     private String uploadPath;
 
+    private final NewsService newsService;
+
     private final UserService userService;
 
     private final ProductService productService;
@@ -40,7 +44,8 @@ public class AdminController {
     private final OrderService orderService;
 
     @Autowired
-    public AdminController(UserService userService, ProductService productService, OrderService orderService) {
+    public AdminController(NewsService newsService, UserService userService, ProductService productService, OrderService orderService) {
+        this.newsService = newsService;
         this.userService = userService;
         this.productService = productService;
         this.orderService = orderService;
@@ -112,6 +117,49 @@ public class AdminController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @PostMapping("/add_news")
+    public ResponseEntity<?> addNews(
+            @Valid News news,
+            BindingResult bindingResult,
+            @RequestPart(name = "file1", required = false) MultipartFile file1
+    ) throws IOException {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+
+            return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
+        } else {
+            saveFileTwo(news, file1);
+
+            News savedNews = newsService.save(news);
+
+            return new ResponseEntity<>(savedNews, HttpStatus.CREATED);
+        }
+    }
+
+    @PostMapping("/update_news")
+    public ResponseEntity<?> updateNews(
+            @Valid News news,
+            BindingResult bindingResult,
+            @RequestPart(name = "file1", required = false) MultipartFile file1
+    ) throws IOException {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+
+            return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
+        } else {
+            saveFileTwo(news, file1);
+
+            newsService.saveNewsInfoById(news.getTitle(),
+                    news.getInformation(),
+                    news.getFilename(),
+                    news.getId());
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+    }
+
+
 
     private void saveFile(Product product, @RequestParam("file") MultipartFile file) throws IOException {
         if (file == null) {
@@ -127,6 +175,22 @@ public class AdminController {
 
             file.transferTo(new File(uploadPath + "/" + resultFilename));
             product.setFilename(resultFilename);
+        }
+    }
+    private void saveFileTwo(News news , @RequestParam("file1") MultipartFile file1) throws IOException {
+        if (file1 == null) {
+            news.setFilename("empty.jpg");
+        } else {
+            File uploadDir = new File(uploadPath);
+
+            if (!uploadDir.exists()) {
+                uploadDir.mkdir();
+            }
+            String uuidFile = UUID.randomUUID().toString();
+            String resultFilename = uuidFile + "." + file1.getOriginalFilename();
+
+            file1.transferTo(new File(uploadPath + "/" + resultFilename));
+            news.setFilename(resultFilename);
         }
     }
 }

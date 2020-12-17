@@ -6,41 +6,25 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "product")
+@Table(name = "news")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of ={"id", "productName","productCategory", "productDescription", "price" })
+@EqualsAndHashCode(of ={"id", "Title","Information"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Product {
-
+public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotBlank(message = "")
     @Length(max = 255)
-    private String productName;
+    private String Title;
 
-    @NotBlank(message = "")
-    private String productCategory;
-
-    private String productDescription;
+    private String Information;
     /**файл изображеня*/
     private String filename;
-
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
-
-    @NotNull(message = "")
-    private Integer price;
-
-    @NotBlank(message = "")
-    @Length(max = 255)
-    private String quantity;
 }
