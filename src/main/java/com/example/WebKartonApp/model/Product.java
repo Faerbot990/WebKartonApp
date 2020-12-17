@@ -29,13 +29,13 @@ public class Product {
     @NotBlank(message = "")
     private String productCategory;
 
+    @NotBlank(message = "")
+    @Length(max = 255)
     private String productDescription;
-    /**файл изображеня*/
-    private String filename;
 
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
+    @NotBlank(message = "")
+    @Length(max = 255)
+    private String filename;
 
     @NotNull(message = "")
     private Integer price;

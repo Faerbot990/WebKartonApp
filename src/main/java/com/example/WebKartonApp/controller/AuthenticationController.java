@@ -53,7 +53,6 @@ public class AuthenticationController {
         try {
             log.info("got login request: {}", request);
             // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-
             User user = userService.findByUsername(request.getUsername());
             String userRole = user.getRoles().iterator().next().name();
             String token = jwtProvider.createToken(request.getUsername(), userRole);
