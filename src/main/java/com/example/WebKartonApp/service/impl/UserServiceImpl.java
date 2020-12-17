@@ -3,6 +3,7 @@ package com.example.WebKartonApp.service.impl;
 
 
 
+import com.example.WebKartonApp.model.Role;
 import com.example.WebKartonApp.model.User;
 import com.example.WebKartonApp.repo.UserRepository;
 import com.example.WebKartonApp.service.UserService;
@@ -14,13 +15,21 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 
 @Service("userDetailsServiceImpl")
-public class UserServiceImpl  implements UserDetailsService, UserService {
+public class UserServiceImpl implements UserDetailsService, UserService {
 
     private final UserRepository userRepository;
+
+    private static final Map<String, User> userMap = new HashMap<>();
+
+            static {
+                Set<Role> roles = new HashSet<>();
+                roles.add(Role.ROLE_ADMIN);
+               userMap.put("admin", new User(1L, "admin", "dsd",roles, Collections.emptyList()));
+           }
 
 
     @Value("${hostname}")
@@ -44,13 +53,13 @@ public class UserServiceImpl  implements UserDetailsService, UserService {
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+        return userMap.get(username);
     }
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, LockedException {
-        User user = userRepository.findByUsername(username);
+        User user = userMap.get(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("User not found");

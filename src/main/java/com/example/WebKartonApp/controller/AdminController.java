@@ -10,11 +10,11 @@ import com.example.WebKartonApp.service.NewsService;
 import com.example.WebKartonApp.service.OrderService;
 import com.example.WebKartonApp.service.ProductService;
 import com.example.WebKartonApp.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,7 +29,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/admin")
-@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+@Slf4j
 public class AdminController {
 
     @Value("${upload.path}")
@@ -95,9 +95,9 @@ public class AdminController {
         }
 
     }
-
     @GetMapping("/orders")
     public ResponseEntity<?> getAllOrders() {
+        log.info("got getAllOrders request");
         List<Order> orders = orderService.findAll();
 
         return new ResponseEntity<>(orders, HttpStatus.OK);

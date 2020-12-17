@@ -2,7 +2,6 @@ package com.example.WebKartonApp.security;
 
 
 import io.jsonwebtoken.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,7 @@ public class JwtProvider {
 
     private final UserDetailsService userDetailsService ;
 
-    @Value("$(jwt.header)")
+    @Value("${jwt.header}")
     private String authorizationHeader;
     @Value("${jwt.secret}")
     private String secretKey;

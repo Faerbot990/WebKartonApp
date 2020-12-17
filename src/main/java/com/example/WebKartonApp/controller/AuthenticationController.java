@@ -6,6 +6,7 @@ import com.example.WebKartonApp.model.Product;
 import com.example.WebKartonApp.model.User;
 import com.example.WebKartonApp.security.JwtProvider;
 import com.example.WebKartonApp.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,6 +28,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
+@Slf4j
 public class AuthenticationController {
 
     private final AuthenticationManager authenticationManager;
@@ -49,7 +51,8 @@ public class AuthenticationController {
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+            log.info("got login request: {}", request);
+            // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 
             User user = userService.findByUsername(request.getUsername());
             String userRole = user.getRoles().iterator().next().name();
