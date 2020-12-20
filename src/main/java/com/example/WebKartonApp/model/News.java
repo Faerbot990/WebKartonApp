@@ -24,7 +24,11 @@ public class News {
     @Length(max = 255)
     private String Title;
 
+    @NotBlank(message = "")
+    @Length(max = 255)
     private String Information;
-    /**файл изображеня*/
+
+    @NotBlank(message = "")
+    @Length(max = 255)
     private String filename;
 }

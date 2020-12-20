@@ -11,14 +11,17 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @Component
 public class JwtFilter extends GenericFilterBean {
     private final JwtProvider jwtProvider;
+
     public JwtFilter(JwtProvider jwtProvider) {
         this.jwtProvider = jwtProvider;
     }
+
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         String token = jwtProvider.resolveToken((HttpServletRequest) servletRequest);
@@ -26,6 +29,12 @@ public class JwtFilter extends GenericFilterBean {
             if (token != null && jwtProvider.validateToken(token.replace("Bearer ", ""))) {
                 Authentication authentication = jwtProvider.getAuthentication(token.replace("Bearer ", ""));
                 if (authentication != null) {
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
+            }
+            if (token != null && jwtProvider.validateToken(token.replace("User ", ""))){
+                Authentication authentication = jwtProvider.getAuthentication(token.replace("User ", ""));
+                if (authentication !=null){
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }

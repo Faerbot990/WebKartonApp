@@ -66,6 +66,9 @@ public class AdminController {
 
             Product savedProduct = productService.save(product);
 
+            log.debug("ADMIN added product to DB: id={}, product={}, category={}",
+                    product.getId(), product.getProductName(), product.getProductCategory());
+
             return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
         }
     }
