@@ -41,6 +41,5 @@ public class Product {
     private Integer price;
 
     @NotBlank(message = "")
-    @Length(max = 255)
     private String quantity;
 }
