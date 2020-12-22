@@ -23,13 +23,13 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     private final UserRepository userRepository;
 
-    private static final Map<String, User> userMap = new HashMap<>();
-
-            static {
-                Set<Role> roles = new HashSet<>();
-                roles.add(Role.ROLE_ADMIN);
-               userMap.put("admin", new User(1L, "admin", "dsd",roles, Collections.emptyList()));
-           }
+//    private static final Map<String, User> userMap = new HashMap<>();
+//
+//            static {
+//                Set<Role> roles = new HashSet<>();
+//                roles.add(Role.ROLE_ADMIN);
+//               userMap.put("admin", new User(1L, "admin", "dsd",roles, Collections.emptyList()));
+//           }
 
 
     @Value("${hostname}")
@@ -53,13 +53,14 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     @Override
     public User findByUsername(String username) {
-        return userMap.get(username);
+        return userRepository.findByUsername(username);
     }
+
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException, LockedException {
-        User user = userMap.get(username);
+        User user = userRepository.findByUsername(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("User not found");

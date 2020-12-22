@@ -47,8 +47,8 @@ create table product
 
  create table usr
  (id int8 not null,
-  password varchar(255),
-   username varchar(255),
+  password varchar(255) not null ,
+   username varchar(255) not null ,
     primary key (id));
  create table usr_product_list
  (user_id int8 not null,
