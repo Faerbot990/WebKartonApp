@@ -28,7 +28,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/api/v1/admin")
 @Slf4j
 public class AdminController {
 

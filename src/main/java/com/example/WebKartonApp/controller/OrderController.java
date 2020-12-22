@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/order/menu")
+@RequestMapping("/api/v1/order")
 public class OrderController {
 
     private final UserService userService;

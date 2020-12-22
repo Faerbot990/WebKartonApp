@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/menu")
+@RequestMapping("/api/v1/menu")
 public class MenuController {
     private final ProductService productService;
 

@@ -24,7 +24,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("/api/v1/auth")
 @Slf4j
 public class AuthenticationController {
 //    @GetMapping("/login")
@@ -56,11 +56,11 @@ public class AuthenticationController {
     }
 
 
-    @PostMapping("/login")
+    @PostMapping ("/login")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
         try {
             log.info("got login request: {}", request);
-//            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+//authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
             User user = userService.findByUsername(request.getUsername());
             String userRole = user.getRoles().iterator().next().name();
             String token = jwtProvider.createToken(request.getUsername(), userRole);
