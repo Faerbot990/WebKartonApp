@@ -46,12 +46,12 @@ $(document).ready(function () {
 			var name = $(this).attr('name'),
 			value = $(this).val();
 			data[name] = value;
-			var jsonData = JSON.stringify(data);
+			data = JSON.stringify(data);
 		});
 		$.ajax({
 			url: url,
 			type: 'post',
-			data: jsonData,
+			data: data,
 			success: function(){
 				
 			},
