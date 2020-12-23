@@ -31,12 +31,12 @@ public class JwtFilter extends GenericFilterBean {
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }
             }
-            if (token != null && jwtProvider.validateToken(token.replace("User ", ""))){
-                Authentication authentication = jwtProvider.getAuthentication(token.replace("User ", ""));
-                if (authentication !=null){
-                    SecurityContextHolder.getContext().setAuthentication(authentication);
-                }
-            }
+//            if (token != null && jwtProvider.validateToken(token.replace("User ", ""))){
+//                Authentication authentication = jwtProvider.getAuthentication(token.replace("User ", ""));
+//                if (authentication !=null){
+//                    SecurityContextHolder.getContext().setAuthentication(authentication);
+//                }
+//            }
         } catch (JwtAuthException e) {
             SecurityContextHolder.clearContext();
             ((HttpServletResponse) servletResponse).sendError(e.getHttpStatus().value());

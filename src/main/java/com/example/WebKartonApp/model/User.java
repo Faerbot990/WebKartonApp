@@ -33,10 +33,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank(message = "")
+    @Column (name = "username")
     private String username;
 
-    @NotBlank(message = " ")
+    @Column (name = "password")
     private String password;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
