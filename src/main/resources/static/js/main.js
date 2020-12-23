@@ -50,6 +50,7 @@ $(document).ready(function () {
 		});
 		$.ajax({
 			url: url,
+			dataType: 'json',
 			type: 'post',
 			data: data,
 			success: function(){
