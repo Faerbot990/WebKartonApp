@@ -42,12 +42,17 @@ $(document).ready(function () {
 	$('.send_form').on('submit', function(){
 		var data = {};
 		var url = $(this).attr('action');
-		$(this).find('[name]').each(function(index, value){
-			var name = $(this).attr('name'),
-			value = $(this).val();
-			data[name] = value;
-			data = JSON.stringify(data);
-		});
+		// $(this).find('[name]').each(function(index, value){
+		// 	var name = $(this).attr('name'),
+		// 	value = $(this).val();
+		// 	data[name] = value;
+		// 	data = JSON.stringify(data);
+		// });
+
+		data["username"] = $("[name='username']").val();
+		data["password"] = $("[name='password']").val();
+
+
 		$.ajax({
 			url: url,
 			dataType: 'json',
