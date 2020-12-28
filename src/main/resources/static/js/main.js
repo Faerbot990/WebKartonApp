@@ -55,17 +55,19 @@ $(document).ready(function () {
 
 		data["username"] = $("[name='username']").val();
 		data["password"] = $("[name='password']").val();
+		console.log(data);
 
 		$.ajax({
 			url: url,
 			dataType: 'json',
 			type: 'post',
-			contentType: 'application/json',
+			contentType: 'json',
 			data: data,
 			success: function(){
 				alert('GOOD');
 			},
 			error: function (xhr, str) {
+
 				alert('Возникла ошибка: ' + xhr.responseCode);
 			}
 		});
