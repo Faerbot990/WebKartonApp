@@ -63,6 +63,7 @@ $(document).ready(function () {
 			url: url,
 			dataType: 'json',
 			type: 'post',
+			contentType: 'application/json',
 			data: myJSON,
 			success: function(){
 				
