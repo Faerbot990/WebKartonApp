@@ -53,26 +53,29 @@ public class AdminController {
 
 
     @PostMapping("/add_prod")
-    public ResponseEntity<?> addProduct(
-            @Valid Product product,
-            BindingResult bindingResult,
-            @RequestPart(name = "file", required = false) MultipartFile file
-    ) throws IOException {
-        if (bindingResult.hasErrors()) {
-            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
-
-            return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
-        } else {
-            saveFile(product, file);
-
-            Product savedProduct = productService.save(product);
-
-            log.debug("ADMIN added product to DB: id={}, product={}, category={}",
-                    product.getId(), product.getProductName(), product.getProductCategory());
-
-            return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
-        }
+    public ResponseEntity<?> addProduct (@RequestBody Product product){
+        productService.save(product);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
+//            @Valid Product product,
+//            BindingResult bindingResult,
+//            @RequestPart(name = "file", required = false) MultipartFile file
+//    ) throws IOException {
+//        if (bindingResult.hasErrors()) {
+//            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+//
+//            return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
+//        } else {
+//            saveFile(product, file);
+//
+//            Product savedProduct = productService.save(product);
+//
+//            log.debug("ADMIN added product to DB: id={}, product={}, category={}",
+//                    product.getId(), product.getProductName(), product.getProductCategory());
+//
+//            return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
+//        }
+//    }
 
     @PostMapping("/update_prod")
     public ResponseEntity<?> updateProduct(

@@ -27,16 +27,7 @@ import java.util.Map;
 @RequestMapping("/api/v1/auth")
 @Slf4j
 public class AuthenticationController {
-//    @GetMapping("/login")
-//    public String getLoginPage() {
-//        log.info("Logining");
-//        return "login";
-//    }
-//
-//    @GetMapping("/success")
-//    public String getSuccessPage() {
-//        return "admin_panel";
-//    }
+
 
 
     private final AuthenticationManager authenticationManager;
