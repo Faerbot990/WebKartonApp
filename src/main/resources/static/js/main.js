@@ -56,17 +56,14 @@ $(document).ready(function () {
 		data["username"] = $("[name='username']").val();
 		data["password"] = $("[name='password']").val();
 
-		var myJSON = JSON.stringify(data);
-
-
 		$.ajax({
 			url: url,
 			dataType: 'json',
 			type: 'post',
 			contentType: 'application/json',
-			data: myJSON,
+			data: data,
 			success: function(){
-				
+				alert('GOOD');
 			},
 			error: function (xhr, str) {
 				alert('Возникла ошибка: ' + xhr.responseCode);
