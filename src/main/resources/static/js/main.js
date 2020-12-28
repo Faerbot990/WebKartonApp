@@ -57,13 +57,14 @@ $(document).ready(function () {
 		data.password = $("[name='password']").val();
 
 		console.log(data);
-
+		console.log(url);
 		$.ajax({
+			type: 'POST',
 			url: url,
+			crossDomain: true,
+			data: JSON.stringify(data),
+			contentType: 'application/json; charset=utf-8',
 			dataType: 'json',
-			type: 'post',
-			contentType: 'application/json; charset=utf-8;',
-			data: data,
 			success: function(){
 				alert('GOOD');
 			},
@@ -73,5 +74,7 @@ $(document).ready(function () {
 			}
 		});
 		return false;
+
+
 	});
 });
