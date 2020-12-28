@@ -53,15 +53,16 @@ $(document).ready(function () {
 		// 	data = JSON.stringify(data);
 		// });
 
-		data["username"] = $("[name='username']").val();
-		data["password"] = $("[name='password']").val();
+		data.username = $("[name='username']").val();
+		data.password = $("[name='password']").val();
+
 		console.log(data);
 
 		$.ajax({
 			url: url,
 			dataType: 'json',
 			type: 'post',
-			contentType: 'json',
+			contentType: 'application/json; charset=utf-8;',
 			data: data,
 			success: function(){
 				alert('GOOD');
