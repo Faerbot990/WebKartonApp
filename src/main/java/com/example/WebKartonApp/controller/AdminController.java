@@ -3,11 +3,11 @@ package com.example.WebKartonApp.controller;
 
 
 import com.example.WebKartonApp.model.News;
-import com.example.WebKartonApp.model.Order;
+//import com.example.WebKartonApp.model.Order;
 import com.example.WebKartonApp.model.Product;
 import com.example.WebKartonApp.model.User;
 import com.example.WebKartonApp.service.NewsService;
-import com.example.WebKartonApp.service.OrderService;
+//import com.example.WebKartonApp.service.OrderService;
 import com.example.WebKartonApp.service.ProductService;
 import com.example.WebKartonApp.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -41,14 +41,14 @@ public class AdminController {
 
     private final ProductService productService;
 
-    private final OrderService orderService;
+//    private final OrderService orderService;
 
     @Autowired
-    public AdminController(NewsService newsService, UserService userService, ProductService productService, OrderService orderService) {
+    public AdminController(NewsService newsService, UserService userService, ProductService productService) {
         this.newsService = newsService;
         this.userService = userService;
         this.productService = productService;
-        this.orderService = orderService;
+
     }
 
 
@@ -102,27 +102,27 @@ public class AdminController {
         }
 
     }
-    @GetMapping("/orders")
-    public ResponseEntity<?> getAllOrders() {
-        log.info("got getAllOrders request");
-        List<Order> orders = orderService.findAll();
-
-        return new ResponseEntity<>(orders, HttpStatus.OK);
-    }
-
-    @GetMapping("/user/{id}")
-    public ResponseEntity<?> getUser(@PathVariable("id") Long userId) {
-        User user = userService.getOne(userId);
-
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
-    @GetMapping("/user/all")
-    public ResponseEntity<?> getAllUsers() {
-        List<User> users = userService.findAll();
-
-        return new ResponseEntity<>(users, HttpStatus.OK);
-    }
+//    @GetMapping("/orders")
+//    public ResponseEntity<?> getAllOrders() {
+//        log.info("got getAllOrders request");
+//        List<Order> orders = orderService.findAll();
+//
+//        return new ResponseEntity<>(orders, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/user/{id}")
+//    public ResponseEntity<?> getUser(@PathVariable("id") Long userId) {
+//        User user = userService.getOne(userId);
+//
+//        return new ResponseEntity<>(user, HttpStatus.OK);
+//    }
+//
+//    @GetMapping("/user/all")
+//    public ResponseEntity<?> getAllUsers() {
+//        List<User> users = userService.findAll();
+//
+//        return new ResponseEntity<>(users, HttpStatus.OK);
+//    }
 
     @PostMapping("/add_news")
     public ResponseEntity<?> addNews(
