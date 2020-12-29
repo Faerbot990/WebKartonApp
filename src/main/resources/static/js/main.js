@@ -16,6 +16,22 @@ $(document).ready(function () {
 	$('.blog_slider').slick({
 		slidesToShow: 4,
 		slidesToScroll: 1,
+		responsive: [
+		    {
+		      breakpoint: 1024,
+		      settings: {
+		        arrows: false,
+		        slidesToShow: 2
+		      }
+		    },
+		    {
+		      breakpoint: 768,
+		      settings: {
+		        arrows: false,
+		        slidesToShow: 1
+		      }
+		    }
+		  ]
 	});
 	
 	$('input[type="tel"]').mask('+7(000)000-00-00');
