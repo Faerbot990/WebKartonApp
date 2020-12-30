@@ -53,33 +53,30 @@ public class AdminController {
 
 
     @PostMapping("/add_prod")
-    public ResponseEntity<?> addProduct (@RequestBody Product product){
-        productService.save(product);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<?> addProduct (
+            @RequestBody Product product,
+            BindingResult bindingResult,
+            @RequestPart(name = "file", required = false) MultipartFile file)
+            throws IOException {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+
+            return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
+        } else {
+            saveFile(product, file);
+
+            Product savedProduct = productService.save(product);
+
+            log.debug("ADMIN added product to DB: id={}, product={}, category={}",
+                    product.getId(), product.getProductName(), product.getProductCategory());
+
+            return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
+        }
     }
-//            @Valid Product product,
-//            BindingResult bindingResult,
-//            @RequestPart(name = "file", required = false) MultipartFile file
-//    ) throws IOException {
-//        if (bindingResult.hasErrors()) {
-//            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
-//
-//            return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
-//        } else {
-//            saveFile(product, file);
-//
-//            Product savedProduct = productService.save(product);
-//
-//            log.debug("ADMIN added product to DB: id={}, product={}, category={}",
-//                    product.getId(), product.getProductName(), product.getProductCategory());
-//
-//            return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
-//        }
-//    }
 
     @PostMapping("/update_prod")
     public ResponseEntity<?> updateProduct(
-            @Valid Product product,
+            @RequestBody Product product,
             BindingResult bindingResult,
             @RequestPart(name = "file", required = false) MultipartFile file
     ) throws IOException {
@@ -126,7 +123,7 @@ public class AdminController {
 
     @PostMapping("/add_news")
     public ResponseEntity<?> addNews(
-            @Valid News news,
+            @RequestBody News news,
             BindingResult bindingResult,
             @RequestPart(name = "file1", required = false) MultipartFile file1
     ) throws IOException {
@@ -145,7 +142,7 @@ public class AdminController {
 
     @PostMapping("/update_news")
     public ResponseEntity<?> updateNews(
-            @Valid News news,
+            @RequestBody News news,
             BindingResult bindingResult,
             @RequestPart(name = "file1", required = false) MultipartFile file1
     ) throws IOException {
