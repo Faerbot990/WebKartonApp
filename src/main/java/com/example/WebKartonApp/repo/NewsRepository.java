@@ -8,12 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 public interface NewsRepository extends JpaRepository<News, Long> {
-
-
+    
     @Modifying
     @Transactional
     @Query("update News n set n.Title = ?1, n.Information = ?2, n.filename = ?3 where n.id = ?4")
-
     void saveNewsInfoById(String Title,
                           String Information,
                           String filename,

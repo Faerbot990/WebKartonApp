@@ -1,8 +1,6 @@
 package com.example.WebKartonApp.service.impl;
 
 
-
-
 import com.example.WebKartonApp.model.Role;
 import com.example.WebKartonApp.model.User;
 import com.example.WebKartonApp.repo.UserRepository;
@@ -55,7 +53,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-
 
 
     @Override

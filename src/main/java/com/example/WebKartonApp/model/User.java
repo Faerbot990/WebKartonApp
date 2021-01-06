@@ -18,7 +18,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"id", "username","password"})
+@EqualsAndHashCode(of = {"id", "username", "password"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User implements UserDetails {
     public List<Product> getProductList() {
@@ -33,10 +33,10 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column (name = "username")
+    @Column(name = "username")
     private String username;
 
-    @Column (name = "password")
+    @Column(name = "password")
     private String password;
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)

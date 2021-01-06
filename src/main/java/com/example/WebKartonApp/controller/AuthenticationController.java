@@ -29,7 +29,6 @@ import java.util.Map;
 public class AuthenticationController {
 
 
-
     private final AuthenticationManager authenticationManager;
 
 
@@ -47,7 +46,7 @@ public class AuthenticationController {
     }
 
 
-    @PostMapping ("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
         try {
             log.info("got login request: {}", request);

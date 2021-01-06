@@ -13,8 +13,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
-  @Value("${upload.path}")
-  private String uploadPath;
+    @Value("${upload.path}")
+    private String uploadPath;
 
     @Bean
     public RestTemplate getRestTemplate() {
@@ -26,7 +26,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/login").setViewName("login");
         registry.addViewController("/panel").setViewName("panel");
         registry.addViewController("/catalog").setViewName("catalog");
-        registry.addViewController("/product").setViewName("product");	
+        registry.addViewController("/product").setViewName("product");
     }
 
     @Override

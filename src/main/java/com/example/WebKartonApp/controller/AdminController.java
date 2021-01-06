@@ -1,11 +1,11 @@
 package com.example.WebKartonApp.controller;
 
 
-
 import com.example.WebKartonApp.model.News;
 //import com.example.WebKartonApp.model.Order;
 import com.example.WebKartonApp.model.Product;
 import com.example.WebKartonApp.model.User;
+import com.example.WebKartonApp.repo.ProductRepository;
 import com.example.WebKartonApp.service.NewsService;
 //import com.example.WebKartonApp.service.OrderService;
 import com.example.WebKartonApp.service.ProductService;
@@ -43,19 +43,22 @@ public class AdminController {
 
     private final ProductService productService;
 
+    private final ProductRepository productRepository;
+
 //    private final OrderService orderService;
 
     @Autowired
-    public AdminController(NewsService newsService, UserService userService, ProductService productService) {
+    public AdminController(NewsService newsService, UserService userService, ProductService productService, ProductRepository productRepository) {
         this.newsService = newsService;
         this.userService = userService;
         this.productService = productService;
+        this.productRepository = productRepository;
 
     }
 
 
     @PostMapping("/add_prod")
-    public ResponseEntity<?> addProduct (
+    public ResponseEntity<?> addProduct(
             @RequestBody Product product,
             BindingResult bindingResult,
             @RequestPart(name = "file", required = false) MultipartFile file)
@@ -99,7 +102,11 @@ public class AdminController {
 
             return new ResponseEntity<>(HttpStatus.OK);
         }
+    }
 
+    @DeleteMapping("/delete")
+    public void deleteProduct(@RequestBody Product product) {
+        productRepository.delete(product);
     }
 //    @GetMapping("/orders")
 //    public ResponseEntity<?> getAllOrders() {
@@ -166,7 +173,6 @@ public class AdminController {
     }
 
 
-
     private void saveFile(Product product, @RequestParam("file") MultipartFile file) throws IOException {
         if (file == null) {
             product.setFilename("empty.jpg");
@@ -183,7 +189,8 @@ public class AdminController {
             product.setFilename(resultFilename);
         }
     }
-    private void saveFileTwo(News news , @RequestParam("file1") MultipartFile file1) throws IOException {
+
+    private void saveFileTwo(News news, @RequestParam("file1") MultipartFile file1) throws IOException {
         if (file1 == null) {
             news.setFilename("empty.jpg");
         } else {

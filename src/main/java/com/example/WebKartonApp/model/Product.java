@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of ={"id", "productName","productCategory", "productDescription", "price" })
+@EqualsAndHashCode(of = {"id", "productName", "productCategory", "productDescription", "price"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product {
 

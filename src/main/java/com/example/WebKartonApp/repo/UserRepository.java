@@ -1,7 +1,6 @@
 package com.example.WebKartonApp.repo;
 
 
-
 import com.example.WebKartonApp.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

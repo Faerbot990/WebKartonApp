@@ -13,7 +13,8 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
-@Autowired
+
+    @Autowired
     public ProductServiceImpl(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
@@ -32,13 +33,13 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> filter(List<String> productName, List<String> category, List<Integer> prices) {
         List<Product> productList;
 
-        if (!prices.isEmpty()){
+        if (!prices.isEmpty()) {
             productList = productRepository.findByPriceBetweenOrderByPriceDesc(prices.get(0), prices.get(1));
-        }else if (!productName.isEmpty() && !category.isEmpty()){
-            productList = productRepository.findByProductNameInAndProductCategoryInOrderByPriceDesc(productName,category);
-        }else if (!productName.isEmpty() || !category.isEmpty()){
-            productList = productRepository.findByProductNameInOrProductCategoryInOrderByPriceDesc(productName,category);
-        }else {
+        } else if (!productName.isEmpty() && !category.isEmpty()) {
+            productList = productRepository.findByProductNameInAndProductCategoryInOrderByPriceDesc(productName, category);
+        } else if (!productName.isEmpty() || !category.isEmpty()) {
+            productList = productRepository.findByProductNameInOrProductCategoryInOrderByPriceDesc(productName, category);
+        } else {
             productList = productRepository.findAll();
         }
         return productList;
@@ -56,9 +57,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void saveProductInfoById(String productName, String category, String description, String filename, Integer price, String quantity, Long id) {
-
-
-productRepository.saveProductInfoById(productName,category,description,filename,price,quantity,id);
+        productRepository.saveProductInfoById(productName, category, description, filename, price, quantity, id);
     }
 
     @Override

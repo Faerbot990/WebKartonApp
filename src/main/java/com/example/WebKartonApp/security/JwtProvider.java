@@ -19,7 +19,7 @@ import java.util.Date;
 @Component
 public class JwtProvider {
 
-    private final UserDetailsService userDetailsService ;
+    private final UserDetailsService userDetailsService;
 
     @Value("${jwt.header}")
     private String authorizationHeader;
@@ -28,10 +28,11 @@ public class JwtProvider {
     @Value("${jwt.expiration}")
     private long validityInMilliseconds;
 
-    public JwtProvider(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService){
+    public JwtProvider(@Qualifier("userDetailsServiceImpl") UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
 
     }
+
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
@@ -52,7 +53,7 @@ public class JwtProvider {
     }
 
 
-    public boolean validateToken(String token){
+    public boolean validateToken(String token) {
 
         try {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);

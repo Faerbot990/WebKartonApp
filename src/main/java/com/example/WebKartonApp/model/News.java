@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of ={"id", "Title","Information"})
+@EqualsAndHashCode(of = {"id", "Title", "Information"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class News {
     @Id

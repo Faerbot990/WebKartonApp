@@ -12,9 +12,10 @@ public interface NewsService {
     List<News> findAll();
 
     void saveNewsInfoById(String Title,
-                             String Information,
-                             String filename,
-                             Long id);
+                          String Information,
+                          String filename,
+                          Long id);
+
     News save(News news);
 
 

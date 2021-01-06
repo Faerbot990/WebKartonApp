@@ -8,10 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @Slf4j
 public class WebKartonAppApplication {
 
-	public static void main(String[] args) {
-		log.info("Starting app");
-		SpringApplication.run(WebKartonAppApplication.class, args);
-		log.info("app started");
-	}
-
+    public static void main(String[] args) {
+        log.info("Starting app");
+        SpringApplication.run(WebKartonAppApplication.class, args);
+        log.info("app started");
+    }
 }
