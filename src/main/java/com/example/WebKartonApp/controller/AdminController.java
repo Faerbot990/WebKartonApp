@@ -5,6 +5,7 @@ import com.example.WebKartonApp.model.News;
 //import com.example.WebKartonApp.model.Order;
 import com.example.WebKartonApp.model.Product;
 import com.example.WebKartonApp.model.User;
+import com.example.WebKartonApp.repo.NewsRepository;
 import com.example.WebKartonApp.repo.ProductRepository;
 import com.example.WebKartonApp.service.NewsService;
 //import com.example.WebKartonApp.service.OrderService;
@@ -45,14 +46,17 @@ public class AdminController {
 
     private final ProductRepository productRepository;
 
+    private final NewsRepository newsRepository;
+
 //    private final OrderService orderService;
 
     @Autowired
-    public AdminController(NewsService newsService, UserService userService, ProductService productService, ProductRepository productRepository) {
+    public AdminController(NewsService newsService, UserService userService, ProductService productService, ProductRepository productRepository,NewsRepository newsRepository) {
         this.newsService = newsService;
         this.userService = userService;
         this.productService = productService;
         this.productRepository = productRepository;
+        this.newsRepository = newsRepository;
 
     }
 
@@ -79,7 +83,7 @@ public class AdminController {
         }
     }
 
-    @PostMapping("/update_prod")
+    @PutMapping("/update_prod")
     public ResponseEntity<?> updateProduct(
             @RequestBody Product product,
             BindingResult bindingResult,
@@ -104,7 +108,7 @@ public class AdminController {
         }
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping("/delete_prod")
     public void deleteProduct(@RequestBody Product product) {
         productRepository.delete(product);
     }
@@ -170,6 +174,10 @@ public class AdminController {
             return new ResponseEntity<>(HttpStatus.OK);
         }
 
+    }
+    @DeleteMapping("/delete_news")
+    public void deleteNews(@RequestBody News news) {
+        newsRepository.delete(news);
     }
 
 
