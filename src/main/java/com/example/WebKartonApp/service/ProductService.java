@@ -18,9 +18,10 @@ public interface ProductService {
 
     void saveProductInfoById(String productName,
                              String category,
+                             String color,
                              String description,
                              String filename,
-                             Integer price,
+                             Double price,
                              String quantity,
                              Long id);
 

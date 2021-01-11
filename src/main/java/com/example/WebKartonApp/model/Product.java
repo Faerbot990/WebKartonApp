@@ -14,7 +14,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"id", "productName", "productCategory", "productDescription", "price"})
+@EqualsAndHashCode(of = {"id", "productName", "productCategory","productColor", "productDescription", "price"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product {
 
@@ -30,6 +30,9 @@ public class Product {
     private String productCategory;
 
     @NotBlank(message = "")
+    private String productColor;
+
+    @NotBlank(message = "")
     @Length(max = 255)
     private String productDescription;
 
@@ -38,7 +41,7 @@ public class Product {
     private String filename;
 
     @NotNull(message = "")
-    private Integer price;
+    private Double price;
 
     @NotBlank(message = "")
     private String quantity;

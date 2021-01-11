@@ -56,8 +56,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public void saveProductInfoById(String productName, String category, String description, String filename, Integer price, String quantity, Long id) {
-        productRepository.saveProductInfoById(productName, category, description, filename, price, quantity, id);
+    public void saveProductInfoById(String productName,
+                                    String category,
+                                    String color,
+                                    String description,
+                                    String filename,
+                                    Double price,
+                                    String quantity,
+                                    Long id) {
+        productRepository.saveProductInfoById(productName,category,color,quantity,price,description,filename,id);
+
     }
 
     @Override
