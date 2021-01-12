@@ -82,7 +82,7 @@ $(document).ready(function () {
 			contentType: 'application/json; charset=utf-8',
 			dataType: 'json',
 			success: function(){
-				alert('GOOD');
+				window.location.replace('/panel');
 			},
 			error: function (xhr, str) {
 
