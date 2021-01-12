@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
@@ -50,7 +51,7 @@ public class AuthenticationController {
         try {
             log.info("got login request: {}", request);
 //authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-            User user = userService.findByUsername(request.getUsername());
+            User user = userService.findByUsernameAndPassword(request.getUsername(), request.getPassword());
             String userRole = user.getRoles().iterator().next().name();
             String token = jwtProvider.createToken(request.getUsername(), userRole);
             List<Product> productList = user.getProductList();

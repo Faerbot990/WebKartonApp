@@ -10,14 +10,14 @@ create table news
 
 create table product
 (id int8 not null,
- description varchar(255),
- filename varchar(255),
- product_category varchar(255),
- product_name varchar(255),
- price int4 not null,
- quantity varchar(255),
- primary key (id)
-);
+filename varchar(255),
+price float8 not null,
+product_category varchar(255),
+product_color varchar(255),
+product_description varchar(255),
+product_name varchar(255),
+quantity varchar(255),
+primary key (id));
 
 create table orders
 (id int8 not null,

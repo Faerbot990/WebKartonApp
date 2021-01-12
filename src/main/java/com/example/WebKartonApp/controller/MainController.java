@@ -1,7 +1,9 @@
 package com.example.WebKartonApp.controller;
 
 
+import com.example.WebKartonApp.model.News;
 import com.example.WebKartonApp.model.Product;
+import com.example.WebKartonApp.service.NewsService;
 import com.example.WebKartonApp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,23 +20,31 @@ import java.util.List;
 public class MainController {
 
     private final ProductService productService;
+    private final NewsService newsService;
 
     @Autowired
-    public MainController(ProductService productService) {
+    public MainController(ProductService productService, NewsService newsService) {
         this.productService = productService;
+        this.newsService = newsService;
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllProducts() {
-        List<Product> products = productService.findAll();
+    public ResponseEntity<?> getAllNews() {
+        List<News> news = newsService.findAll();
 
-        return new ResponseEntity<>(products, HttpStatus.OK);
+        return new ResponseEntity<>(news, HttpStatus.OK);
     }
+//    @GetMapping
+//    public ResponseEntity<?> getAllProducts() {
+//        List<Product> products = productService.findAll();
+//
+//        return new ResponseEntity<>(products, HttpStatus.OK);
+//    }
 
-    @GetMapping("/product/{id}")
-    public ResponseEntity<?> getProduct(@PathVariable("id") Long productId) {
-        Product product = productService.getOne(productId);
+    @GetMapping("/news/{id}")
+    public ResponseEntity<?> getNews(@PathVariable("id") Long newsId) {
+        News news = newsService.getOne(newsId);
 
-        return new ResponseEntity<>(product, HttpStatus.OK);
+        return new ResponseEntity<>(news, HttpStatus.OK);
     }
 }
