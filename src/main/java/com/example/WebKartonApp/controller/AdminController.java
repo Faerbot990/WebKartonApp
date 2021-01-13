@@ -1,12 +1,14 @@
 package com.example.WebKartonApp.controller;
 
 
+import com.example.WebKartonApp.model.Category;
 import com.example.WebKartonApp.model.News;
 //import com.example.WebKartonApp.model.Order;
 import com.example.WebKartonApp.model.Product;
-import com.example.WebKartonApp.model.User;
+import com.example.WebKartonApp.repo.CategoryRepository;
 import com.example.WebKartonApp.repo.NewsRepository;
 import com.example.WebKartonApp.repo.ProductRepository;
+import com.example.WebKartonApp.service.CategoryService;
 import com.example.WebKartonApp.service.NewsService;
 //import com.example.WebKartonApp.service.OrderService;
 import com.example.WebKartonApp.service.ProductService;
@@ -21,11 +23,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
 import java.io.File;
 import java.io.IOException;
 
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -48,18 +48,33 @@ public class AdminController {
 
     private final NewsRepository newsRepository;
 
+    private final CategoryService categoryService;
+
+    private final CategoryRepository categoryRepository;
+
 //    private final OrderService orderService;
 
     @Autowired
-    public AdminController(NewsService newsService, UserService userService, ProductService productService, ProductRepository productRepository,NewsRepository newsRepository) {
+    public AdminController(NewsService newsService, UserService userService, ProductService productService, ProductRepository productRepository, NewsRepository newsRepository, CategoryRepository categoryRepository, CategoryService categoryService) {
         this.newsService = newsService;
         this.userService = userService;
         this.productService = productService;
         this.productRepository = productRepository;
         this.newsRepository = newsRepository;
-
+        this.categoryService = categoryService;
+        this.categoryRepository = categoryRepository;
     }
 
+    @PostMapping("/add_category")
+    public ResponseEntity<?> addCategory(@RequestBody Category category){
+       categoryService.save(category);
+       return new ResponseEntity<>(category,HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/delete_category")
+    public void deleteCategory(@RequestBody Category category) {
+        categoryRepository.delete(category);
+    }
 
     @PostMapping("/add_prod")
     public ResponseEntity<?> addProduct(
