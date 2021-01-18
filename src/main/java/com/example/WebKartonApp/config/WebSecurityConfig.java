@@ -18,7 +18,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     private final JwtConfig jwtConfig;
 
     @Autowired
@@ -34,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-//                .antMatchers("/").permitAll()
+                .antMatchers("/").permitAll()
 //                .antMatchers("/auth/loginpost").permitAll()
 //                        .antMatchers("/login.html").permitAll()
 //                        .antMatchers("/static/**").permitAll()
@@ -43,7 +42,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .apply(jwtConfig);
     }
-
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {

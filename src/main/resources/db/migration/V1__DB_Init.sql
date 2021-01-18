@@ -13,6 +13,7 @@ create table product
 filename varchar(255),
 price float8 not null,
 product_category varchar(255),
+sub_category varchar(255),
 product_color varchar(255),
 product_description varchar(255),
 product_name varchar(255),

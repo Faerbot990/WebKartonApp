@@ -18,6 +18,7 @@ public interface ProductService {
 
     void saveProductInfoById(String productName,
                              String category,
+                             String subCategory,
                              String color,
                              String description,
                              String filename,

@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.File;
 
 @Entity
 @Table(name = "product")
@@ -16,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id", "productName", "productCategory","productColor", "productDescription", "price"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Product {
+public class Product  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,6 +29,9 @@ public class Product {
 
     @NotBlank(message = "")
     private String productCategory;
+
+    @NotBlank(message = "")
+    private String subCategory;
 
     @NotBlank(message = "")
     private String productColor;
