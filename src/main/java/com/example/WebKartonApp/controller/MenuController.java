@@ -26,7 +26,7 @@ public class MenuController {
 
     @PostMapping("/search")
     public ResponseEntity<?> findProductsByFilterParams(@RequestBody ProductSearchDto filterDto) {
-        List<Product> filter = productService.filter(filterDto.getProductName(), filterDto.getProductCategory(), filterDto.getPrices());
+        List<Product> filter = productService.filter(filterDto.getProductName(), filterDto.getProductCategory(), filterDto.getPrices(), filterDto.getProductColor());
 
         return new ResponseEntity<>(filter, HttpStatus.OK);
     }
@@ -36,6 +36,12 @@ public class MenuController {
         List<Product> category = productService.findByProductOrderByCategoryDesc(String.valueOf(filterDto.getProductCategory()));
 
         return new ResponseEntity<>(category, HttpStatus.OK);
+    }
+    @PostMapping("/color")
+    public ResponseEntity<?> findByProductColor(@RequestBody ProductSearchDto filterDto) {
+        List<Product> color = productService.findByProductOrderByCategoryDesc(String.valueOf(filterDto.getProductCategory()));
+
+        return new ResponseEntity<>(color, HttpStatus.OK);
     }
 
 }

@@ -514,56 +514,21 @@
 	</div>
 	<div class="adm_content" data-id="add_prods">
 		<h2>Добавление/редактирование товара:</h2>
-		<form action="/api/v1/auth/add_prod" class="add_form" method="post">
+		<form action="/api/v1/admin/add_prod" class="add_form" method="post">
 			<p>Название товара</p>
-			<input type="text" name="title">
+			<input type="text" name="productName">
 			<p>Категория товара</p>
-			<select name="category">
+			<select name="productCategory">
+				<option value="" selected>Выберите категорию</option>
 				<option value="Картон">Картон</option>
-				<option value="Бумага">Бумаги</option>
+				<option value="Бумага">Бумага</option>
+				<option value="Переплетенные_материалы">Переплетенные материалы</option>
+			</select>
+			<div class="subcategory-wrapper"></div>
 
-			</select>
-<!--			<p>Подкатегория бумаги</p>-->
-<!--			<select name="subCategory">-->
-<!--				<option value="Бумага для высоких изданий (ВХИ)">Бумага для высоких изданий (ВХИ)</option>-->
-<!--				<option value="Газетная бумага">Газетная бумага</option>-->
-<!--				<option value="Крафт бумага">Крафт бумага</option>-->
-<!--				<option value="Мелованная бумага">Мелованная бумага</option>-->
-<!--				<option value="Офсетная бумага">Офсетная бумага</option>-->
-<!--				<option value="Пергаментная бумага для выпечки">Пергаментная бумага для выпечки</option>-->
-<!--				<option value="Типографская бумага">Типографская бумага</option>-->
-<!--			</select>-->
-			<p>Подкатегория картона</p>
-			<select name="subCategory">
-				<option value="Переплетенный картон">Переплетенный картон</option>
-				<option value="Переплетенный картон Hollboard">Переплетенный картон Hollboard</option>
-				<option value="Переплетенный картон Luxline">Переплетенный картон Luxline</option>
-				<option value="Переплетенный картон Сураж серый">Переплетенный картон Сураж серый</option>
-				<option value="Переплетенный картон Сураж белый">Переплетенный картон Сураж белый</option>
-				<option value="Переплетенный картон Сураж черный">Переплетенный картон Сураж черный</option>
-				<option value="Спичечный картон">Спичечный картон</option>
-				<option value="Картон хром-эрзац немелованный">Картон хром-эрзац немелованный</option>
-				<option value="Коробочный картон">Коробочный картон</option>
-				<option value="Крафт-картон">Крафт-картон</option>
-				<option value="Крафт-картон svetocoat">Крафт-картон svetocoat</option>
-				<option value="Мелованный картон">Мелованный картон</option>
-				<option value="Металлизированый картон">Металлизированый картон</option>
-				<option value="Микрогофро-переплетенный X-Line">Микрогофро-переплетенный X-Line</option>
-				<option value="Микрогофрокартон">Микрогофрокартон</option>
-				<option value="Облицовочный картон">Облицовочный картон</option>
-				<option value="Плоские слои для гофрокартона">Плоские слои для гофрокартона</option>
-				<option value="Электрокартон">Электрокартон</option>
-				<option value="Картон с поролоном">Картон с поролоном</option>
-			</select>
-<!--			<p>Переплетенные материалы</p>-->
-<!--			<select name="subCategory">-->
-<!--				<option value="Бумвинил">Бумвинил</option>-->
-<!--				<option value="Картон с поролоном">Картон с поролоном</option>-->
-<!--				<option value="Кленкор">Кленкор</option>-->
-<!--			</select>-->
 
 			<p>Цвет товара</p>
-			<select onchange="color">
+			<select name="productColor">
 				<option value="Red">Красный</option>
 				<option value="Blue">Синий</option>
 				<option value="Green">Зеленый</option>
@@ -582,20 +547,20 @@
 			</select>
 
 			<p>Описание</p>
-			<textarea rows="4"></textarea>
+			<textarea name="productDesription" rows="4"></textarea>
 			<p>Таблица характеристик</p>
 			<input type="text" placeholder="?">
 			<p>Цена за 1 шт.</p>
 			<input type="text" name="price">
-			<p>Изображение</p>
-			<div class="current flx">
-				<img src="images/prod.jpg">
-				<img src="images/delete.svg" class="delete">
-				<label>
-					<input type="file" name="filename">
-					<span class="btn">Выберите файл</span>
-				</label>
-			</div>
+<!--			<p>Изображение</p>-->
+<!--			<div class="current flx">-->
+<!--				<img src="images/prod.jpg">-->
+<!--				<img src="images/delete.svg" class="delete">-->
+<!--				<label>-->
+<!--					<input type="file" name="filename">-->
+<!--					<span class="btn">Выберите файл</span>-->
+<!--				</label>-->
+<!--			</div>-->
 			<button class="btn add">Добавить/Изменить</button>
 		</form>
 	</div>

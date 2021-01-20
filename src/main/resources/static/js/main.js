@@ -33,7 +33,7 @@ $(document).ready(function () {
 		    }
 		  ]
 	});
-	
+
 	$('input[type="tel"]').mask('+7(000)000-00-00');
 
 	$('.menu span, .change_window').on('click', function(){
@@ -59,15 +59,160 @@ $(document).ready(function () {
 	  $('nav.menu').fadeToggle(300);
 	});
 
+	const categories ={
+		Переплетенные_материалы:[
+			{
+				label: "Бумвинил",
+				value: "Бумвинил"
+			},
+			{
+				label: "Картон с поролоном",
+				value: "Картон с поролоном"
+			},
+			{
+				label: "Кленкор",
+				value: "Кленкор"
+			}
+		],
+		Картон:[
+			{
+				label: "Переплетенный картон",
+				value: "Переплетенный картон"
+			},
+			{
+				label: "Переплетенный картон Hollboard",
+				value: "Переплетенный картон Hollboard"
+			},
+			{
+				label: "Переплетенный картон Luxline",
+				value: "Переплетенный картон Luxline"
+			},
+			{
+				label: "Переплетенный картон Сураж серый",
+				value: "Переплетенный картон Сураж серый"
+			},
+			{
+				label: "Переплетенный картон Сураж белый",
+				value: "Переплетенный картон Сураж белый"
+			},
+			{
+				label: "Переплетенный картон Сураж черный",
+				value: "Переплетенный картон Сураж черный"
+			},
+			{
+				label: "Спичечный картон",
+				value: "Спичечный картон"
+			},
+			{
+				label: "Картон хром-эрзац немелованный",
+				value: "Картон хром-эрзац немелованный"
+			},
+			{
+				label: "Коробочный картон",
+				value: "Коробочный картон"
+			},
+			{
+				label: "Крафт-картон",
+				value: "Крафт-картон"
+			},
+			{
+				label: "Крафт-картон svetocoat",
+				value: "Крафт-картон svetocoat"
+			},
+			{
+				label: "Мелованный картон",
+				value: "Мелованный картон"
+			},
+			{
+				label: "Металлизированый картон",
+				value: "Металлизированый картон"
+			},
+			{
+				label: "Микрогофро-переплетенный X-Line",
+				value: "Микрогофро-переплетенный X-Line"
+			},
+			{
+				label: "Микрогофрокартон",
+				value: "Микрогофрокартон"
+			},
+			{
+				label: "Облицовочный картон",
+				value: "Облицовочный картон"
+			},
+			{
+				label: "Плоские слои для гофрокартона",
+				value: "Плоские слои для гофрокартона"
+			},
+			{
+				label: "Электрокартон",
+				value: "Электрокартон"
+			},
+			{
+				label: "Картон с поролоном",
+				value: "Картон с поролоном"
+			}
+		],
+		Бумага:[
+			{
+				label: "Бумага для высоких изданий (ВХИ)",
+				value: "Бумага для высоких изданий (ВХИ)"
+			},
+			{
+				label: "Газетная бумага",
+				value: "Газетная бумага"
+			},
+			{
+				label: "Крафт бумага",
+				value: "Крафт бумага"
+			},
+			{
+				label: "Мелованная бумага",
+				value: "Мелованная бумага"
+			},
+			{
+				label: "Офсетная бумага",
+				value: "Офсетная бумага"
+			},
+			{
+				label: "Пергаментная бумага для выпечки",
+				value: "Пергаментная бумага для выпечки"
+			},
+			{
+				label: "Типографская бумага",
+				value: "Типографская бумага"
+			}
+		]
+	};
+
+	function createSubcategorySelect(selectedCategory, categories) {
+		return $(`
+    <select name="subCategory">
+      ${categories[selectedCategory].map(function (subcategory) {
+			return `
+          <option value='${subcategory.value}'>${subcategory.label}</option>
+        `;
+		})}
+    </select>
+  `);
+	}
+
+	$("[name=productCategory]").on("change", function onChange(evt) {
+		const subcategoryWrapper = $(".subcategory-wrapper");
+		const selectedCategory = evt.target.value;
+		subcategoryWrapper.html("");
+
+		if (!selectedCategory) {
+			return;
+		}
+
+		subcategoryWrapper.append(
+			createSubcategorySelect(selectedCategory, categories)
+		);
+	});
+
 	$('.send_form').on('submit', function(){
 		var data = {};
 		var url = $(this).attr('action');
-		// $(this).find('[name]').each(function(index, value){
-		// 	var name = $(this).attr('name'),
-		// 	value = $(this).val();
-		// 	data[name] = value;
-		// 	data = JSON.stringify(data);
-		// });
 
 		data.username = $("[name='username']").val();
 		data.password = $("[name='password']").val();
@@ -81,16 +226,82 @@ $(document).ready(function () {
 			data: JSON.stringify(data),
 			contentType: 'application/json; charset=utf-8',
 			dataType: 'json',
-			success: function(){
+			success: function () {
 				window.location.replace('/panel');
 			},
 			error: function (xhr, str) {
-
 				alert('Возникла ошибка: ' + xhr.responseCode);
 			}
 		});
 		return false;
-
-
 	});
+	// $('.add_form').on('submit', function(e){
+	// 	e.preventDefault();
+	// 	// console.log('thisfile', e.filename)
+	// 	// console.log('title', e.title)
+	// 	var data = new FormData(this);
+	// 	var url = $(this).attr('action');
+	//
+	// 	// const dataObj = $(this).serializeArray().reduce((acc, d) => {
+	// 	// 	return {
+	// 	// 		...acc,
+	// 	// 		[d.name]: d.value
+	// 	// 	}
+	// 	// })
+	// 	// const formData = new FormData()
+	// 	// formData.append('filename', dataObj.filename)
+	//
+	// 	// console.log('dataObj', dataObj);
+	// 	// console.log(url);
+	// 	// const form = $(this)
+	$('.add_form').on('submit', function(e){
+		e.preventDefault();
+
+		$.ajax({
+			type: 'POST',
+			url: url,
+			processData: false,
+			crossDomain: true,
+			contentType: 'application/json; charset=utf-8',
+			data: JSON.stringify(data),
+			dataType: 'json',
+			headers: {
+				"Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNjExMDAyMjUxLCJleHAiOjE2MTE2MDcwNTF9.xN3q2iIOjOP3R-J1wnG7gnmAviQjHWAc-1X2Goa8xZY"
+			},
+			success: function() {
+				window.location.replace('/panel');
+			},
+			error: function (xhr, str) {
+				alert('Возникла ошибка: ' + xhr.responseCode);
+			}
+		});
+		return false;
+	});
+// 	$('.add_form').on('submit', function(e){
+// 		e.preventDefault();
+// 		var data = new FormData(this);
+// 		var url = $(this).attr('action');
+//
+// 		console.log(data);
+// 		console.log(url);
+// 		$.ajax({
+// 			type: 'POST',
+// 			url: url,
+// 			processData: false,
+// 			contentType: false,
+// 			crossDomain: true,
+// 			data: data,
+// 			dataType: 'json',
+// 			headers: {
+// 				"Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNjExMDAyMjUxLCJleHAiOjE2MTE2MDcwNTF9.xN3q2iIOjOP3R-J1wnG7gnmAviQjHWAc-1X2Goa8xZY"
+// 				 },
+// 			success: function(){
+// 				window.location.replace('/panel');
+// 			},
+// 			error: function (xhr, str) {
+// 				alert('Возникла ошибка: ' + xhr.responseCode);
+// 			}
+// 		});
+// 		return false;
+// 	});
 });

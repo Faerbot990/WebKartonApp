@@ -20,10 +20,10 @@ product_name varchar(255),
 quantity varchar(255),
 primary key (id));
 
-create table category
-(id int8 not null,
- category varchar(255),
-  primary key (id));
+-- create table category
+-- (id int8 not null,
+--  category varchar(255),
+--   primary key (id));
 
 create table orders
 (id int8 not null,
