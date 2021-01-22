@@ -26,7 +26,7 @@ public class MenuController {
 
     @PostMapping("/search")
     public ResponseEntity<?> findProductsByFilterParams(@RequestBody ProductSearchDto filterDto) {
-        List<Product> filter = productService.filter(filterDto.getProductName(), filterDto.getProductCategory(), filterDto.getPrices(), filterDto.getProductColor());
+        List<Product> filter = productService.filter(filterDto.getProductName(), filterDto.getProductCategory(), filterDto.getPrices());
 
         return new ResponseEntity<>(filter, HttpStatus.OK);
     }

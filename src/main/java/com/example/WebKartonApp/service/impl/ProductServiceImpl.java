@@ -45,9 +45,16 @@ public class ProductServiceImpl implements ProductService {
         return productList;
     }
 
+
+
     @Override
     public List<Product> findByProductOrderByPriceDesc(String productName) {
         return productRepository.findByProductNameOrderByPriceDesc(productName);
+    }
+
+    @Override
+    public List<Product> findByProductOrderByNameDesc(String product) {
+        return null;
     }
 
     @Override
@@ -61,8 +68,8 @@ public class ProductServiceImpl implements ProductService {
                                     String subCategory,
                                     String color,
                                     String description,
-                                    String filename,
                                     Double price,
+                                    String filename,
                                     String quantity,
                                     Long id) {
         productRepository.saveProductInfoById(productName,category,subCategory, color,quantity,price,description,filename,id);

@@ -10,7 +10,7 @@ create table news
 
 create table product
 (id int8 not null,
-filename varchar(255),
+filename varchar(100000),
 price float8 not null,
 product_category varchar(255),
 sub_category varchar(255),

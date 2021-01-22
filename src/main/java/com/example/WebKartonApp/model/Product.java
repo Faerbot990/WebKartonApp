@@ -3,6 +3,7 @@ package com.example.WebKartonApp.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -40,8 +41,6 @@ public class Product  {
     @Length(max = 255)
     private String productDescription;
 
-    @NotBlank(message = "")
-    @Length(max = 255)
     private String filename;
 
     @NotNull(message = "")

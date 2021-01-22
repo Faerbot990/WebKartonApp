@@ -30,7 +30,12 @@ public class ProductSearchDto {
         this.productCategory = productCategory;
     }
 
+
+
+
+
     List<Integer> prices;
     List<String> productName;
     List<String> productCategory;
+
 }

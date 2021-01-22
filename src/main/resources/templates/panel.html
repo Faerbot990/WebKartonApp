@@ -514,7 +514,7 @@
 	</div>
 	<div class="adm_content" data-id="add_prods">
 		<h2>Добавление/редактирование товара:</h2>
-		<form action="/api/v1/admin/add_prod" class="add_form" method="post">
+		<form action="api/v1/admin/add_prod" id="add-prods" class="add_form" method="post">
 			<p>Название товара</p>
 			<input type="text" name="productName">
 			<p>Категория товара</p>
@@ -525,7 +525,6 @@
 				<option value="Переплетенные_материалы">Переплетенные материалы</option>
 			</select>
 			<div class="subcategory-wrapper"></div>
-
 
 			<p>Цвет товара</p>
 			<select name="productColor">
@@ -547,20 +546,22 @@
 			</select>
 
 			<p>Описание</p>
-			<textarea name="productDesription" rows="4"></textarea>
+			<textarea name="productDescription" rows="4"></textarea>
 			<p>Таблица характеристик</p>
 			<input type="text" placeholder="?">
 			<p>Цена за 1 шт.</p>
 			<input type="text" name="price">
-<!--			<p>Изображение</p>-->
-<!--			<div class="current flx">-->
-<!--				<img src="images/prod.jpg">-->
-<!--				<img src="images/delete.svg" class="delete">-->
-<!--				<label>-->
-<!--					<input type="file" name="filename">-->
-<!--					<span class="btn">Выберите файл</span>-->
-<!--				</label>-->
-<!--			</div>-->
+			<p>Количество</p>
+			<input type="text" name="quantity">
+			<p>Изображение</p>
+			<div class="current flx">
+				<img src="images/prod.jpg">
+				<img src="images/delete.svg" class="delete">
+				<label>
+					<input type="file" name="filename">
+					<span class="btn">Выберите файл</span>
+				</label>
+			</div>
 			<button class="btn add">Добавить/Изменить</button>
 		</form>
 	</div>

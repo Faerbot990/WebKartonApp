@@ -14,15 +14,19 @@ public interface ProductService {
 
     List<Product> findByProductOrderByPriceDesc(String product);
 
+    List<Product> findByProductOrderByNameDesc(String product);
+
     List<Product> findByProductOrderByCategoryDesc(String product);
+
+
 
     void saveProductInfoById(String productName,
                              String category,
                              String subCategory,
                              String color,
                              String description,
-                             String filename,
                              Double price,
+                             String filename,
                              String quantity,
                              Long id);
 
