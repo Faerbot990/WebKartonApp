@@ -4040,7 +4040,7 @@ $(document).ready(function () {
         console.log(url);
         $.ajax({
             type: 'POST',
-            url: "http://localhost:8089/login",
+            url: url,
             crossDomain: true,
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
@@ -4097,8 +4097,11 @@ $(document).ready(function () {
             data: JSON.stringify(data),
             dataType: 'json',
             headers: {
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNjExMDAyMjUxLCJleHAiOjE2MTE2MDcwNTF9.xN3q2iIOjOP3R-J1wnG7gnmAviQjHWAc-1X2Goa8xZY"
+                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNjExODQyODE4LCJleHAiOjE2MTI0NDc2MTh9.m0m0i93-hJJk42aVgkAA8kCZ3-VRZXbRW1fapDw7av8"
             },
+//            beforeSend function (xhr){
+//            xhr.setRequestHeader("Authorization", 'Bearer '+ jwt);},
+
             success: function () {
                 window.location.replace('/panel');
             },

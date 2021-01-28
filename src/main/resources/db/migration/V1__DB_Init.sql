@@ -4,7 +4,7 @@ create sequence hibernate_sequence start 1 increment 1;
 create table news
 (id int8 not null,
  description varchar(255),
- filename varchar(255),
+ filename varchar(100000),
  title varchar(255),
  primary key (id));
 

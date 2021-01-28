@@ -54,13 +54,13 @@ public class AuthenticationController {
             User user = userService.findByUsernameAndPassword(request.getUsername(), request.getPassword());
             String userRole = user.getRoles().iterator().next().name();
             String token = jwtProvider.createToken(request.getUsername(), userRole);
-            List<Product> productList = user.getProductList();
+
 
             Map<Object, Object> response = new HashMap<>();
             response.put("username", request.getUsername());
             response.put("token", token);
             response.put("userRole", userRole);
-            response.put("productList", productList);
+
 
             return new ResponseEntity<>(response, HttpStatus.OK);
 
