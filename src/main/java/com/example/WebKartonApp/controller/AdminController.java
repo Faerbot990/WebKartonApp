@@ -164,11 +164,11 @@ public class AdminController {
         }
     }
 
-    @PostMapping("/update_news")
+    @PutMapping("/update_news")
     public ResponseEntity<?> updateNews(
             @RequestBody News news,
-            BindingResult bindingResult,
-            @RequestPart(name = "file1", required = false) MultipartFile file1
+            BindingResult bindingResult
+//            @RequestPart(name = "file1", required = false) MultipartFile file1
     ) throws IOException {
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);

@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"id", "Title", "Information"})
+@EqualsAndHashCode(of = {"id", "title", "information"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class News {
     @Id
@@ -21,14 +21,14 @@ public class News {
     private Long id;
 
     @NotBlank(message = "")
-    @Length(max = 255)
-    private String Title;
+
+    private String title;
 
     @NotBlank(message = "")
-    @Length(max = 255)
-    private String Information;
+
+    private String information;
 
     @NotBlank(message = "")
-    @Length(max = 255)
+
     private String filename;
 }

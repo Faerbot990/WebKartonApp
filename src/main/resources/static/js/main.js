@@ -4040,11 +4040,14 @@ $(document).ready(function () {
         console.log(url);
         $.ajax({
             type: 'POST',
-            url: "http://localhost:8089/login",
+            url: url,
             crossDomain: true,
             data: JSON.stringify(data),
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
+            // beforeSend: function (xhr) {
+            //     xhr.setRequestHeader("Authorization", 'Bearer '+ token);
+            // },
             success: function () {
                 window.location.replace('/panel');
             },
@@ -4093,11 +4096,59 @@ $(document).ready(function () {
             url: url,
             processData: false,
             crossDomain: true,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            dataType: 'json',
+            headers: {
+                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNjExODQ4Nzc0LCJleHAiOjE2MTI0NTM1NzR9.VzKsh4HDk4trAZ8kmQQKdMJYzIcfFGu98zSlYJVWUls"
+            },
+            success: function () {
+                window.location.replace('/panel');
+            },
+            error: function (xhr, str) {
+                alert('Возникла ошибка: ' + xhr.responseCode);
+            }
+        });
+        return false;
+    });
+    ///////////////////////////////
+    function encodeImageFileAsURL(cb) {
+        return function(){
+            var file = this.files[0];
+            var reader  = new FileReader();
+            reader.onloadend = function () {
+                cb(reader.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+    $('#add-posts input[name="filename"]').on('change', encodeImageFileAsURL(function(base64Img){
+        $('#add-posts input[name="filename"]')
+            .after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
+    }));
+
+    $('#add-posts').on('submit', function (r) {
+        r.preventDefault();
+
+        let url = $(this).attr('action');
+        let data = {};
+        let file = $('[name="filename"]').prop('files')[0];
+
+
+        data.title = $("[name='title']").val();
+        data.information = $("[name='information']").val();
+        data.filename = $('[name="fileBase64"]').val();
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            processData: false,
+            crossDomain: true,
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data),
             dataType: 'json',
             headers: {
-                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNjExMDAyMjUxLCJleHAiOjE2MTE2MDcwNTF9.xN3q2iIOjOP3R-J1wnG7gnmAviQjHWAc-1X2Goa8xZY"
+                "Authorization": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGUiOiJST0xFX0FETUlOIiwiaWF0IjoxNjExODQ4Nzc0LCJleHAiOjE2MTI0NTM1NzR9.VzKsh4HDk4trAZ8kmQQKdMJYzIcfFGu98zSlYJVWUls"
             },
             success: function () {
                 window.location.replace('/panel');

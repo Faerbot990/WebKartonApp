@@ -29,9 +29,9 @@ public class NewsServiceImpl implements NewsService {
     }
 
     @Override
-    public void saveNewsInfoById(String Title, String Information, String filename, Long id) {
+    public void saveNewsInfoById(String title, String information, String filename, Long id) {
 
-        newsRepository.saveNewsInfoById(Title, Information, filename, id);
+        newsRepository.saveNewsInfoById(title, information, filename, id);
     }
 
     @Override

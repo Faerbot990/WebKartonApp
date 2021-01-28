@@ -11,8 +11,8 @@ public interface NewsService {
 
     List<News> findAll();
 
-    void saveNewsInfoById(String Title,
-                          String Information,
+    void saveNewsInfoById(String title,
+                          String information,
                           String filename,
                           Long id);
 
