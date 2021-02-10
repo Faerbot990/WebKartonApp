@@ -1,6 +1,7 @@
 package com.example.WebKartonApp.service;
 
 
+import com.example.WebKartonApp.model.Categories;
 import com.example.WebKartonApp.model.Product;
 
 import java.util.List;
@@ -17,6 +18,10 @@ public interface ProductService {
     List<Product> findByProductOrderByNameDesc(String product);
 
     List<Product> findByProductOrderByCategoryDesc(String product);
+
+    Product getCategoryByName(String name);
+
+    List<Product> getSubcategoriesByName(String name);
 
 
 

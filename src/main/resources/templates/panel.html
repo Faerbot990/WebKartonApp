@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Продажа картонной упаковки: коробки из картона любых размеров, гофротара, гофроящики, гофрокороба. Большой выбор, низкие цены.">
 	<title>Админка</title>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="../static/css/style.css">
 	<link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
 	<link rel="icon" href="favicon.svg" type="image/x-icon">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -306,14 +306,25 @@
 		<div class="categories_box flx">
 			<div class="add_category">
 				<h3>Добавить категорию</h3>
-				<form>
+				<form action="api/v1/admin/add_category" id="categories" class="add_form" method="post">
 					<p>Название новой категории</p>
-					<input type="text">
+					<input type="text" name="categoryName">
 					<p>Родительская категория</p>
-					<select>
+					<select name="name">
 						<option value="Нет">Нет</option>
 						<option value="Картон">Картон</option>
 					</select>
+					<p>Описание</p>
+					<input type="text" name="description">
+					<div class="current flx">
+						<img src="images/prod.jpg">
+						<img src="images/delete.svg" class="delete">
+						<label>
+							<input type="file" name="filename">
+							<span class="btn">Выберите файл</span>
+						</label>
+					</div>
+
 					<button class="btn add">Добавить категорию</button>
 				</form>
 			</div>
@@ -522,7 +533,11 @@
 				<option value="" selected>Выберите категорию</option>
 				<option value="Картон">Картон</option>
 				<option value="Бумага">Бумага</option>
-				<option value="Переплетенные_материалы">Переплетенные материалы</option>
+				<option value="Переплетные_материалы">Переплетеные материалы</option>
+				<option value="Кондитерская_упаковка">Кондитерская упаковка</option>
+				<option value="Одноразовая_посуда">Одноразовая посуда</option>
+				<option value="Бумажные_изделия">Бумажные изделия</option>
+
 			</select>
 			<div class="subcategory-wrapper"></div>
 

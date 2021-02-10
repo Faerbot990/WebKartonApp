@@ -1,5 +1,6 @@
 package com.example.WebKartonApp.dto;
 
+import com.example.WebKartonApp.model.Categories;
 import lombok.Data;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class ProductSearchDto {
 
 
 
-
+    List<Categories> categoryName;
     List<Integer> prices;
     List<String> productName;
     List<String> productCategory;

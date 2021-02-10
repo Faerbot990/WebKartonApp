@@ -1,6 +1,7 @@
 package com.example.WebKartonApp.service.impl;
 
 
+import com.example.WebKartonApp.model.Categories;
 import com.example.WebKartonApp.model.Product;
 import com.example.WebKartonApp.repo.ProductRepository;
 import com.example.WebKartonApp.service.ProductService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -60,6 +62,34 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<Product> findByProductOrderByCategoryDesc(String productCategory) {
         return productRepository.findByProductCategoryOrderByPriceDesc(productCategory);
+    }
+
+    @Override
+    public Product getCategoryByName(String name) {
+        List<Product> cat = productRepository
+                .findAll()
+                .stream()
+                .filter(category -> category.getProductCategory().equals(name))
+                .collect(Collectors.toList());
+
+
+
+        return productRepository
+                .findAll()
+                .stream()
+                .filter(category -> category.getProductCategory().equals(name))
+                .collect(Collectors.toList())
+                .get(0);
+    }
+
+
+    @Override
+    public List<Product> getSubcategoriesByName(String name) {
+        return productRepository
+                .findAll()
+                .stream()
+                .filter(category -> category.getSubCategory() != null && category.getSubCategory().equals(name))
+                .collect(Collectors.toList());
     }
 
     @Override

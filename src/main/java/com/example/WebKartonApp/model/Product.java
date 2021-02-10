@@ -38,8 +38,9 @@ public class Product  {
     private String productColor;
 
     @NotBlank(message = "")
-    @Length(max = 255)
+    @Length(max = 2048)
     private String productDescription;
+
 
     private String filename;
 

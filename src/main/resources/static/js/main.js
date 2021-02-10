@@ -61,127 +61,105 @@ $(document).ready(function (response) {
     });
 
     const categories = {
-        Переплетенные_материалы: [
+        Кондитерская_упаковка: [
+            {
+                label: "Коробки для зефира",
+                value: "Коробки для зефира"
+            },
+            {
+                label: "Коробки для панкейков",
+                value: "Коробки для панкейков"
+            },
+            {
+                label: "Коробки для печенья и пряников",
+                value: "Коробки для печенья и пряников"
+            },
+            {
+                label: "Коробки для тортов",
+                value: "Коробки для тортов"
+            },
+            {
+                label: "Коробки для конфет",
+                value: "Коробки для конфет"
+            },
+            {
+                label: "Коробки для макарон, кексов и конд. изделий",
+                value: "Коробки для макарон, кексов и конд. изделий"
+            },
+            {
+                label: "Коробки для рулетов",
+                value: "Коробки для рулетов"
+            },
+            {
+                label: "Коробки для шоколада",
+                value: "Коробки для шоколада"
+            },
+            {
+                label: "Коробки для эклеров и пирожных",
+                value: "Коробки для эклеров и пирожных"
+            },
+            {
+                label: "Подложки",
+                value: "Подложки"
+            }
+        ],
+        Одноразовая_посуда: [
+            {
+                label: "Тарелки",
+                value: "Тарелки"
+            }
+        ],
+        Бумажные_изделия: [
+            {
+                label: "Бумага обёрточная",
+                value: "Бумага обёрточная"
+            },
+            {
+                label: "Пакеты бумажные с плоским дном с окном",
+                value: "Пакеты бумажные с плоским дном с окном"
+            },
+            {
+                label: "Пакеты под столовые приборы",
+                value: "Пакеты под столовые приборы"
+            },
+            {
+                label: "Пакеты с плоским дном без окна",
+                value: "Пакеты с плоским дном без окна"
+            },
+            {
+                label: "Пакеты с плоским дном для кур гриль (термопакеты) и жиросодержащих продуктов",
+                value: "Пакеты с плоским дном для кур гриль (термопакеты) и жиросодержащих продуктов"
+            },
+            {
+                label: "Уголки бумажные",
+                value: "Уголки бумажные"
+            }
+        ],
+        Картон: [
+            {
+                label: "Нет",
+                value: "Нет"
+            }
+        ],
+        Бумага: [
+            {
+                label: "Нет",
+                value: "Нет"
+            }
+        ],
+        Переплетные_материалы: [
+            {
+                label: "Коленкор",
+                value: "Коленкор"
+            },
             {
                 label: "Бумвинил",
                 value: "Бумвинил"
             },
             {
-                label: "Картон с поролоном",
-                value: "Картон с поролоном"
+                label: "Картон с паралоном",
+                value: "Картон с паралоном"
             },
-            {
-                label: "Кленкор",
-                value: "Кленкор"
-            }
-        ],
-        Картон: [
-            {
-                label: "Переплетенный картон",
-                value: "Переплетенный картон"
-            },
-            {
-                label: "Переплетенный картон Hollboard",
-                value: "Переплетенный картон Hollboard"
-            },
-            {
-                label: "Переплетенный картон Luxline",
-                value: "Переплетенный картон Luxline"
-            },
-            {
-                label: "Переплетенный картон Сураж серый",
-                value: "Переплетенный картон Сураж серый"
-            },
-            {
-                label: "Переплетенный картон Сураж белый",
-                value: "Переплетенный картон Сураж белый"
-            },
-            {
-                label: "Переплетенный картон Сураж черный",
-                value: "Переплетенный картон Сураж черный"
-            },
-            {
-                label: "Спичечный картон",
-                value: "Спичечный картон"
-            },
-            {
-                label: "Картон хром-эрзац немелованный",
-                value: "Картон хром-эрзац немелованный"
-            },
-            {
-                label: "Коробочный картон",
-                value: "Коробочный картон"
-            },
-            {
-                label: "Крафт-картон",
-                value: "Крафт-картон"
-            },
-            {
-                label: "Крафт-картон svetocoat",
-                value: "Крафт-картон svetocoat"
-            },
-            {
-                label: "Мелованный картон",
-                value: "Мелованный картон"
-            },
-            {
-                label: "Металлизированый картон",
-                value: "Металлизированый картон"
-            },
-            {
-                label: "Микрогофро-переплетенный X-Line",
-                value: "Микрогофро-переплетенный X-Line"
-            },
-            {
-                label: "Микрогофрокартон",
-                value: "Микрогофрокартон"
-            },
-            {
-                label: "Облицовочный картон",
-                value: "Облицовочный картон"
-            },
-            {
-                label: "Плоские слои для гофрокартона",
-                value: "Плоские слои для гофрокартона"
-            },
-            {
-                label: "Электрокартон",
-                value: "Электрокартон"
-            },
-            {
-                label: "Картон с поролоном",
-                value: "Картон с поролоном"
-            }
-        ],
-        Бумага: [
-            {
-                label: "Бумага для высоких изданий (ВХИ)",
-                value: "Бумага для высоких изданий (ВХИ)"
-            },
-            {
-                label: "Газетная бумага",
-                value: "Газетная бумага"
-            },
-            {
-                label: "Крафт бумага",
-                value: "Крафт бумага"
-            },
-            {
-                label: "Мелованная бумага",
-                value: "Мелованная бумага"
-            },
-            {
-                label: "Офсетная бумага",
-                value: "Офсетная бумага"
-            },
-            {
-                label: "Пергаментная бумага для выпечки",
-                value: "Пергаментная бумага для выпечки"
-            },
-            {
-                label: "Типографская бумага",
-                value: "Типографская бумага"
-            }
         ]
     };
 
@@ -290,7 +268,7 @@ $(document).ready(function (response) {
                 xhr.setRequestHeader("Authorization", Cookies.get('token'));
             },
             success: function () {
-                window.location.replace('/api/v1/product');
+                window.location.replace('/product');
             },
             error: function (xhr, str) {
                 alert('Возникла ошибка: ' + xhr.responseCode);
@@ -347,5 +325,44 @@ $(document).ready(function (response) {
             }
         });
         return false;
+    });
+    $('#categories input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
+        $('#categories input[name="filename"]')
+            .after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
+    }));
+
+    $('#categories').on('submit', function (e) {
+        e.preventDefault();
+
+        let url = $(this).attr('action');
+        let data = {};
+
+        let file = $('[name="filename"]').prop('files')[0];
+
+
+        data.name = $("[name='name']").val();
+        data.categoryName = $("[name='categoryName']").val();
+        data.description = $("[name='description']").val();
+        data.filename = $('[name="fileBase64"]').val();
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            processData: false,
+            crossDomain: true,
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify(data),
+            dataType: 'json',
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("Authorization", Cookies.get('token'));
+            },
+            success: function () {
+                window.location.replace('/categories/{id}');
+            },
+            error: function (xhr, str) {
+                alert('Возникла ошибка: ' + xhr.responseCode);
+            }
+        });
+        //return false;
     });
 });

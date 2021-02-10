@@ -3,19 +3,19 @@ create sequence hibernate_sequence start 1 increment 1;
 
 create table news
 (id int8 not null,
- information varchar(255),
- filename varchar(100000),
+ information varchar(500),
+ filename varchar(200000),
  title varchar(255),
  primary key (id));
 
 create table product
 (id int8 not null,
-filename varchar(100000),
+filename varchar(200000),
 price float8 not null,
 product_category varchar(255),
 sub_category varchar(255),
 product_color varchar(255),
-product_description varchar(255),
+product_description varchar(2048),
 product_name varchar(255),
 quantity varchar(255),
 primary key (id));
