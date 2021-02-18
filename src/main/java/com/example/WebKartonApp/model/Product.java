@@ -18,7 +18,7 @@ import java.io.File;
 @AllArgsConstructor
 @EqualsAndHashCode(of = {"id", "productName", "productCategory","productColor", "productDescription", "price"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Product  {
+public class Product   {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,7 +28,7 @@ public class Product  {
     @Length(max = 255)
     private String productName;
 
-    @NotBlank(message = "")
+
     private String productCategory;
 
     @NotBlank(message = "")
@@ -41,7 +41,6 @@ public class Product  {
     @Length(max = 2048)
     private String productDescription;
 
-
     private String filename;
 
     @NotNull(message = "")
@@ -49,4 +48,10 @@ public class Product  {
 
     @NotBlank(message = "")
     private String quantity;
+
+    private String categorySlug;
+
+    private String subcategorySlug;
+
+    private String productSlug;
 }

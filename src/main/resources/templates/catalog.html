@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Продажа картонной упаковки: коробки из картона любых размеров, гофротара, гофроящики, гофрокороба. Большой выбор, низкие цены.">
 	<title>Картон, бумага, упаковка напрямую от производителя</title>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
 	<link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
 	<link rel="icon" href="favicon.svg" type="image/x-icon">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
 	<header>
 		<div class="container flx">
 			<div class="logo_box flx">
-				<a href="/"><img src="images/logo.svg"></a>
+				<a href="/"><img src="../static/images/logo.svg" th:src="@{/images/logo.svg}"></a>
 				<div class="slogan">Производство и реализация упаковочной продукции</div>
 			</div>
 			<div class="burger">
@@ -24,7 +24,7 @@
 			<div class="head_contact flx">
 				<a href="https://wa.me/+79687054636" class="wa_link">
 					<div class="whatsapp_box flx">
-						<img src="images/whatsapp.svg">
+						<img src="images/whatsapp.svg" th:src="@{/images/whatsapp.svg}">
 						<span>+ 7 (968) 705-46-36</span>
 					</div>
 				</a>
@@ -39,14 +39,14 @@
 				<li class="has_sub">
 					Материалы
 					<span class="sub_menu">
-						<span class="sub_item"><a href="/catalog">Картон</a></span>
-						<span class="sub_item"><a href="/catalog">Бумага</a></span>
+						<span class="sub_item"><a href="/product/Картон">Картон</a></span>
+						<span class="sub_item"><a href="/product/Бумага">Бумага</a></span>
 						<span class="sub_item has_under">
-							<a href="/catalog">Переплетные материалы</a>
+							<a href="/product/Переплетеные_материалы">Переплетные материалы</a>
 							<span class="under_menu">
-								<span class="under_item"><a href="/product">Коленкор</a></span>
-								<span class="under_item"><a href="/product">Бумвинил</a></span>
-								<span class="under_item"><a href="/product">Картон с паралоном</a></span>
+								<span class="under_item"><a href="/product/Переплетеные_материалы/Кленкор">Коленкор</a></span>
+								<span class="under_item"><a href="/product/Переплетеные_материалы/Бумвинил">Бумвинил</a></span>
+								<span class="under_item"><a href="/product/Переплетеные_материалы/Картон_с_паралоном">Картон с паралоном</a></span>
 							</span>
 						</span>
 					</span>
@@ -55,9 +55,9 @@
 					Готовая продукция
 					<span class="sub_menu">
 						<span class="sub_item has_under">
-							<a href="/catalog">Кондитерская упаковка</a>
+							<a href="/product/Кондитерская_упаковка">Кондитерская упаковка</a>
 							<span class="under_menu">
-								<span class="under_item"><a href="/product">Коробки для зефира</a></span>
+								<span class="under_item"><a href="/product/Кондитерская_упаковка/134">Коробки для зефира</a></span>
 								<span class="under_item"><a href="/product">Коробки для капкейков</a></span>
 								<span class="under_item"><a href="/product">Коробки для печенья и пряников</a></span>
 								<span class="under_item"><a href="/product">Коробки для тортов</a></span>
@@ -122,71 +122,26 @@
 </section>
 <section class="catalog_page">
 	<div class="container">
-		<h1>Картон</h1>
-		<div class="catalog_list">
-			<a href="/product">
-				<span class="cat_item" style="background-image: url(images/cat_img1.jpg);">
-					<p>Переплетный картон</p>
+		<h1 th:text="${category}"></h1>
+
+		<div th:if="${!subcategories.isEmpty()}" class="catalog_list subcategor">
+			<a
+					th:each="s : ${subcategories}"
+					th:href="@{/product/{category}/{subcategory}(category = ${category}, subcategory = ${s})}"
+			>
+				<span class="cat_item" th:style="'background-image: url(static/images/'+ ${s} +  ')'">
+					<p th:text="${s}"></p>
+
 				</span>
 			</a>
-			<a href="/product">
-				<span class="cat_item" style="background-image: url(images/cat_img2.jpg);">
-					<p>Спичечный картон</p>
-				</span>
-			</a>
-			<a href="/product">
-				<span class="cat_item" style="background-image: url(images/cat_img3.jpg);">
-					<p>Картон хром-эрзац немелованный</p>
-				</span>
-			</a>
-			<a href="/product">
-				<span class="cat_item" style="background-image: url(images/cat_img4.jpg);">
-					<p>Коробочный картон</p>
-				</span>
-			</a>
-			<a href="/product">
-				<span class="cat_item" style="background-image: url(images/cat_img5.jpg);">
-					<p>Крафт-картон</p>
-				</span>
-			</a>
-			<a href="/product">
-				<span class="cat_item" style="background-image: url(images/cat_img6.jpg);">
-					<p>Мелованный картон</p>
-				</span>
-			</a>
-			<a href="/product">
-				<span class="cat_item" style="background-image: url(images/cat_img7.jpg);">
-					<p>Металлизированный картон</p>
-				</span>
-			</a>
-			<a href="/product">
-				<span class="cat_item" style="background-image: url(images/cat_img8.jpg);">
-					<p>Микрогофро-переплетный X-Line</p>
-				</span>
-			</a>
-			<a href="/product">
-				<span class="cat_item" style="background-image: url(images/cat_img9.jpg);">
-					<p>Микрогофрокартон</p>
-				</span>
-			</a>
-			<a href="/product">
-				<span class="cat_item" style="background-image: url(images/cat_img10.jpg);">
-					<p>Облицовочный картон</p>
-				</span>
-			</a>
-			<a href="/product">
-				<span class="cat_item" style="background-image: url(images/cat_img11.jpg);">
-					<p>Плоские слои для гофрокартона</p>
-				</span>
-			</a>
-			<a href="/product">
-				<span class="cat_item" style="background-image: url(images/cat_img12.jpg);">
-					<p>Электрокартон</p>
-				</span>
-			</a>
-			<a href="/product">
-				<span class="cat_item" style="background-image: url(images/cat_img13.jpg);">
-					<p>Картон с поролоном</p>
+		</div>
+		<div th:if="${subcategories.isEmpty()}" class="catalog_list products">
+			<a
+					th:each="p : ${products}"
+					th:href="@{/product/{category}/{subcategory}/{product}(category = ${category}, subcategory = ${subcategory}, product = ${p.productSlug})}"
+			>
+				<span class="cat_item" th:style="'background-image: url('+ ${p.filename} +')'">
+					<p th:text="${p.productName}"></p>
 				</span>
 			</a>
 		</div>
@@ -195,16 +150,16 @@
 <footer>
 	<div class="container flx">
 		<div class="logo">
-			<img src="images/footer_logo.svg" alt="footer_logo">
+			<img src="../static/images/footer_logo.svg" alt="footer_logo">
 			<p>Производство и реализация <br>упаковочной продукции</p>
 		</div>
 		<div class="footer_phones">
 			<div class="item">
-				<img src="images/footer_whatsapp.svg" alt="whatsapp">
+				<img src="../static/images/footer_whatsapp.svg" alt="whatsapp">
 				<a href="https://wa.me/+79687054636">+ 7(968) 705-46-36</a>
 			</div>
 			<div class="item">
-				<img src="images/footer_phone.svg" alt="phone">
+				<img src="../static/images/footer_phone.svg" alt="phone">
 				<a href="tel:+7(962)373-78-78">+ 7(962) 373-78-78</a>
 			</div>
 		</div>
@@ -226,6 +181,6 @@
 		</form>
 	</div>
 </div>
-<script src="js/main.js"></script>
+<script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 </body>
 </html>

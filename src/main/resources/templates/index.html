@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Продажа картонной упаковки: коробки из картона любых размеров, гофротара, гофроящики, гофрокороба. Большой выбор, низкие цены.">
 	<title>Картон, бумага, упаковка напрямую от производителя</title>
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
 	<link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
 	<link rel="icon" href="favicon.svg" type="image/x-icon">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
@@ -15,7 +15,7 @@
 	<header>
 		<div class="container flx">
 			<div class="logo_box flx">
-				<a href="/"><img src="images/logo.svg"></a>
+				<a href="/"><img src="../static/images/logo.svg"></a>
 				<div class="slogan">Производство и реализация упаковочной продукции</div>
 			</div>
 			<div class="burger">
@@ -24,7 +24,7 @@
 			<div class="head_contact flx">
 				<a href="https://wa.me/+79687054636" class="wa_link">
 					<div class="whatsapp_box flx">
-						<img src="images/whatsapp.svg">
+						<img src="../static/images/whatsapp.svg">
 						<span>+ 7 (968) 705-46-36</span>
 					</div>
 				</a>
@@ -39,14 +39,14 @@
 				<li class="has_sub">
 					Материалы
 					<span class="sub_menu">
-						<span class="sub_item"><a href="/catalog">Картон</a></span>
-						<span class="sub_item"><a href="/catalog">Бумага</a></span>
+						<span class="sub_item"><a href="/product/Картон">Картон</a></span>
+						<span class="sub_item"><a href="/product/Бумага">Бумага</a></span>
 						<span class="sub_item has_under">
-							<a href="/catalog">Переплетные материалы</a>
+							<a href="/product/Переплетеные_материалы">Переплетные материалы</a>
 							<span class="under_menu">
-								<span class="under_item"><a href="/product">Коленкор</a></span>
-								<span class="under_item"><a href="/product">Бумвинил</a></span>
-								<span class="under_item"><a href="/product">Картон с паралоном</a></span>
+								<span class="under_item"><a href="/product/Переплетеные_материалы/Кленкор">Коленкор</a></span>
+								<span class="under_item"><a href="/product/Переплетеные_материалы/Бумвинил">Бумвинил</a></span>
+								<span class="under_item"><a href="/product/Переплетеные_материалы/Картон_с_паралоном">Картон с паралоном</a></span>
 							</span>
 						</span>
 					</span>
@@ -55,9 +55,9 @@
 					Готовая продукция
 					<span class="sub_menu">
 						<span class="sub_item has_under">
-							<a href="/catalog">Кондитерская упаковка</a>
+							<a href="/product/Кондитерская_упаковка">Кондитерская упаковка</a>
 							<span class="under_menu">
-								<span class="under_item"><a href="/product">Коробки для зефира</a></span>
+								<span class="under_item"><a href="/product/Кондитерская_упаковка/Коробки_для_зефира">Коробки для зефира</a></span>
 								<span class="under_item"><a href="/product">Коробки для капкейков</a></span>
 								<span class="under_item"><a href="/product">Коробки для печенья и пряников</a></span>
 								<span class="under_item"><a href="/product">Коробки для тортов</a></span>
@@ -252,7 +252,7 @@
 		</form>
 	</div>
 </div>
-<script src="js/main.js"></script>
+<script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 <script>
 	var ww = $(window).width();
 	if(ww > 1024){

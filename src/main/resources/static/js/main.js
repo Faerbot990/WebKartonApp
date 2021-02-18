@@ -61,7 +61,7 @@ $(document).ready(function (response) {
     });
 
     const categories = {
-        Кондитерская_упаковка: [
+    'Кондитерская упаковка': [
             {
                 label: "Коробки для зефира",
                 value: "Коробки для зефира"
@@ -103,13 +103,13 @@ $(document).ready(function (response) {
                 value: "Подложки"
             }
         ],
-        Одноразовая_посуда: [
+        'Одноразовая посуда': [
             {
                 label: "Тарелки",
                 value: "Тарелки"
             }
         ],
-        Бумажные_изделия: [
+        'Бумажные изделия': [
             {
                 label: "Бумага обёрточная",
                 value: "Бумага обёрточная"
@@ -135,19 +135,19 @@ $(document).ready(function (response) {
                 value: "Уголки бумажные"
             }
         ],
-        Картон: [
+        'Картон': [
             {
-                label: "Нет",
-                value: "Нет"
+                label: "",
+                value: ""
             }
         ],
-        Бумага: [
+        'Бумага': [
             {
-                label: "Нет",
-                value: "Нет"
+                label: "",
+                value: ""
             }
         ],
-        Переплетные_материалы: [
+        'Переплетные материалы': [
             {
                 label: "Коленкор",
                 value: "Коленкор"
@@ -268,7 +268,7 @@ $(document).ready(function (response) {
                 xhr.setRequestHeader("Authorization", Cookies.get('token'));
             },
             success: function () {
-                window.location.replace('/product');
+                window.location.replace('/panel');
             },
             error: function (xhr, str) {
                 alert('Возникла ошибка: ' + xhr.responseCode);

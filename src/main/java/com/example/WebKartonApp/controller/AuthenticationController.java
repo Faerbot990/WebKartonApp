@@ -24,7 +24,7 @@ import java.util.Map;
 
 
 @RestController
-@RequestMapping("/api/v1/auth")
+@RequestMapping("/auth")
 @Slf4j
 public class AuthenticationController {
 
