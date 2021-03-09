@@ -1,6 +1,7 @@
 package com.example.WebKartonApp.service;
 
 
+import com.example.WebKartonApp.model.Category;
 import com.example.WebKartonApp.model.Product;
 
 import java.util.List;
@@ -18,17 +19,17 @@ public interface ProductService {
 
     List<Product> findByProductOrderByCategoryDesc(String product);
 
-    List<Product> getProductsByCategoryName(String name);
+//    List<Product> getProductsByCategoryName(String name);
+//
+//    List<String> getSubcategoriesByCategoryName(String name);
+//
+//    List<Product> getProductsBySubcategoryName(String name);
+//
+//    Product getProductBySlug(String productSlug);
 
-    List<String> getSubcategoriesByCategoryName(String name);
-
-    List<Product> getProductsBySubcategoryName(String name);
-
-    Product getProductBySlug(String productSlug);
 
     void saveProductInfoById(String productName,
-                             String category,
-                             String subCategory,
+                             Category productCategory,
                              String color,
                              String description,
                              Double price,

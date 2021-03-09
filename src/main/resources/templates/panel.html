@@ -306,21 +306,17 @@
 		<div class="categories_box flx">
 			<div class="add_category">
 				<h3>Добавить категорию</h3>
-				<form action="api/v1/admin/add_category" id="categories" class="add_form" method="post">
+				<form action="admin/add_category" id="categories" class="add_form" method="post">
 					<p>Название новой категории</p>
-					<input type="text" name="categoryName">
-					<p>Родительская категория</p>
-					<select name="name">
-						<option value="Нет">Нет</option>
-						<option value="Картон">Картон</option>
-					</select>
-					<p>Описание</p>
-					<input type="text" name="description">
+					<input type="text" name="name">
+					<p>Подкатегория</p>
+					<input name="parentCategorySlug">
+					</input>
 					<div class="current flx">
 						<img src="images/prod.jpg">
 						<img src="images/delete.svg" class="delete">
 						<label>
-							<input type="file" name="filename">
+							<input type="file" name="image">
 							<span class="btn">Выберите файл</span>
 						</label>
 					</div>

@@ -1,6 +1,7 @@
 package com.example.WebKartonApp.service.impl;
 
 
+import com.example.WebKartonApp.model.Category;
 import com.example.WebKartonApp.model.Product;
 import com.example.WebKartonApp.repo.ProductRepository;
 import com.example.WebKartonApp.service.ProductService;
@@ -111,15 +112,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void saveProductInfoById(String productName,
-                                    String category,
-                                    String subCategory,
+                                    Category productCategory,
                                     String color,
                                     String description,
                                     Double price,
                                     String filename,
                                     String quantity,
                                     Long id) {
-        productRepository.saveProductInfoById(productName,category,subCategory, color,quantity,price,description,filename,id);
+        productRepository.saveProductInfoById(productName,productCategory , color,quantity,price,description,filename,id);
 
     }
 

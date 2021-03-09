@@ -3,12 +3,10 @@ package com.example.WebKartonApp.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.File;
 
 @Entity
 @Table(name = "product")
@@ -16,7 +14,7 @@ import java.io.File;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"id", "productName", "productCategory","productColor", "productDescription", "price"})
+@EqualsAndHashCode(of = {"id", "productName", "productColor", "productDescription", "price"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product   {
 
@@ -28,12 +26,6 @@ public class Product   {
     @Length(max = 255)
     private String productName;
 
-
-    private String productCategory;
-
-    @NotBlank(message = "")
-    private String subCategory;
-
     @NotBlank(message = "")
     private String productColor;
 
@@ -41,6 +33,7 @@ public class Product   {
     @Length(max = 2048)
     private String productDescription;
 
+    @Length(max = 200000)
     private String filename;
 
     @NotNull(message = "")
@@ -49,9 +42,10 @@ public class Product   {
     @NotBlank(message = "")
     private String quantity;
 
-    private String categorySlug;
+//    @NotBlank(message = "")
+//    @Length(max = 255)
+//    private String productCategory;
+    @ManyToOne
+    private Category productCategory;
 
-    private String subcategorySlug;
-
-    private String productSlug;
 }

@@ -326,8 +326,8 @@ $(document).ready(function (response) {
         });
         return false;
     });
-    $('#categories input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
-        $('#categories input[name="filename"]')
+    $('#categories input[name="image"]').on('change', encodeImageFileAsURL(function (base64Img) {
+        $('#categories input[name="image"]')
             .after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
     }));
 
@@ -341,9 +341,8 @@ $(document).ready(function (response) {
 
 
         data.name = $("[name='name']").val();
-        data.categoryName = $("[name='categoryName']").val();
-        data.description = $("[name='description']").val();
-        data.filename = $('[name="fileBase64"]').val();
+        data.parentCategorySlug = $("[name='parentCategorySlug']").val();
+        data.image = $('[name="fileBase64"]').val();
 
         $.ajax({
             type: 'POST',
@@ -357,7 +356,7 @@ $(document).ready(function (response) {
                 xhr.setRequestHeader("Authorization", Cookies.get('token'));
             },
             success: function () {
-                window.location.replace('/categories/{id}');
+                window.location.replace('/panel');
             },
             error: function (xhr, str) {
                 alert('Возникла ошибка: ' + xhr.responseCode);
