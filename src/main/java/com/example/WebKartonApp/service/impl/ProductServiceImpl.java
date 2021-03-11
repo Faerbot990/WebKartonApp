@@ -64,51 +64,51 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByProductCategoryOrderByPriceDesc(productCategory);
     }
 
-    @Override
-    public List<Product> getProductsByCategoryName(String name) {
-        List<Product> cat = productRepository
-                .findAll()
-                .stream()
-                .filter(product -> product.getCategorySlug().equals(name))
-                .collect(Collectors.toList());
-
-        return productRepository
-                .findAll()
-                .stream()
-                .filter(product -> product.getCategorySlug() != null && product.getCategorySlug().equals(name))
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<String> getSubcategoriesByCategoryName(String name) {
-        return productRepository
-                .findAll()
-                .stream()
-                .filter(product -> product.getCategorySlug().equals((name)))
-                .filter(product -> !product.getSubcategorySlug().isEmpty())
-                .map(product -> product.getSubcategorySlug())
-                .distinct()
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public Product getProductBySlug(String productSlug) {
-        return productRepository
-                .findAll()
-                .stream()
-                .filter(product -> product.getProductSlug().equals(productSlug))
-                .collect(Collectors.toList())
-                .get(0);
-    }
-
-    @Override
-    public List<Product> getProductsBySubcategoryName(String name) {
-        return productRepository
-                .findAll()
-                .stream()
-                .filter(product -> product.getSubcategorySlug().equals(name))
-                .collect(Collectors.toList());
-    }
+//    @Override
+//    public List<Product> getProductsByCategoryName(String name) {
+//        List<Product> cat = productRepository
+//                .findAll()
+//                .stream()
+//                .filter(product -> product.getCategorySlug().equals(name))
+//                .collect(Collectors.toList());
+//
+//        return productRepository
+//                .findAll()
+//                .stream()
+//                .filter(product -> product.getCategorySlug() != null && product.getCategorySlug().equals(name))
+//                .collect(Collectors.toList());
+//    }
+//
+//    @Override
+//    public List<String> getSubcategoriesByCategoryName(String name) {
+//        return productRepository
+//                .findAll()
+//                .stream()
+//                .filter(product -> product.getCategorySlug().equals((name)))
+//                .filter(product -> !product.getSubcategorySlug().isEmpty())
+//                .map(product -> product.getSubcategorySlug())
+//                .distinct()
+//                .collect(Collectors.toList());
+//    }
+//
+//    @Override
+//    public Product getProductBySlug(String productSlug) {
+//        return productRepository
+//                .findAll()
+//                .stream()
+//                .filter(product -> product.getProductSlug().equals(productSlug))
+//                .collect(Collectors.toList())
+//                .get(0);
+//    }
+//
+//    @Override
+//    public List<Product> getProductsBySubcategoryName(String name) {
+//        return productRepository
+//                .findAll()
+//                .stream()
+//                .filter(product -> product.getSubcategorySlug().equals(name))
+//                .collect(Collectors.toList());
+//    }
 
     @Override
     public void saveProductInfoById(String productName,

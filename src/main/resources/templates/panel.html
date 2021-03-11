@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -333,9 +333,9 @@
 							<td></td>
 						</tr>
 					</thead>
-					<tbody>
-						<tr>
-							<td>Бумажные пакеты</td>
+					<tbody th:object="${categoryAll}" >
+						<tr th:each="c :${categoryAll}">
+							<td th:text="*{}">Бумажные пакеты</td>
 							<td>10</td>
 							<td>
 								<img src="images/delete.svg">
