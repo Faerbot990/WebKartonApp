@@ -1,20 +1,16 @@
 package com.example.WebKartonApp.controller;
 
 
+import com.example.WebKartonApp.dto.ProductDto;
 import com.example.WebKartonApp.model.Category;
 import com.example.WebKartonApp.model.News;
-
 import com.example.WebKartonApp.model.Product;
-
 import com.example.WebKartonApp.repo.CategoryRepository;
 import com.example.WebKartonApp.repo.NewsRepository;
 import com.example.WebKartonApp.repo.ProductRepository;
-
 import com.example.WebKartonApp.service.CategoryService;
 import com.example.WebKartonApp.service.NewsService;
-
 import com.example.WebKartonApp.service.ProductService;
-import com.example.WebKartonApp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,12 +18,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
-
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-
 import java.util.Map;
 
 @RestController
@@ -70,6 +68,7 @@ public class AdminController {
             return new ResponseEntity<>(saveCategory, HttpStatus.CREATED);
         }
     }
+
     @DeleteMapping("/delete_category")
     public void deleteProduct(@RequestBody Category category) {
         categoryRepository.delete(category);
@@ -77,24 +76,23 @@ public class AdminController {
 
     @PostMapping("/add_prod")
     public ResponseEntity<?> addProduct(
-            @RequestBody Product product,
+            @RequestBody ProductDto productDto,
             BindingResult bindingResult
-//        @RequestPart(name = "file", required = false) MultipartFile file
-    ) throws IOException {
+    ) {
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
-
             return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
         } else {
-//                saveFile(product, file);
-//            product.setProductSlug(transliterate(product.getProductName()));
-//            product.setSubcategorySlug(transliterate(product.getSubCategory()));
-//            product.setCategorySlug(transliterate(product.getProductCategory()));
-            Product savedProduct = productService.save(product);
+            Category category = categoryService.getOne(productDto.getCategoryId());
+            Product p =
+                    new Product(productDto.getId(), productDto.getProductName(),
+                            productDto.getProductColor(), productDto.getProductDescription(),
+                            productDto.getFilename(), productDto.getPrice(), productDto.getQuantity(),
+                            category);
+            Product savedProduct = productService.save(p);
 
-
-            log.debug("ADMIN added product to DB: id={}, product={}, category={}",
-                    product.getId(), product.getProductName());
+            log.info("ADMIN added product to DB: id={}, product={}, category={}",
+                    savedProduct.getId(), savedProduct.getProductName(), category);
 
             return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
         }
