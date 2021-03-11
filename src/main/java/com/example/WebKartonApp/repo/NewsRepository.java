@@ -12,10 +12,10 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     @Modifying
     @Transactional
     @Query("update News n set n.title = ?1, n.information = ?2, n.filename = ?3 where n.id = ?4")
-    void saveNewsInfoById(String title,
-                          String information,
-                          String filename,
-                          Long id);
+    void updateNewsInfoById(String title,
+                            String information,
+                            String filename,
+                            Long id);
 
 }
 

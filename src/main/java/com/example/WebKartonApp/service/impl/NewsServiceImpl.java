@@ -31,7 +31,7 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public void saveNewsInfoById(String title, String information, String filename, Long id) {
 
-        newsRepository.saveNewsInfoById(title, information, filename, id);
+        newsRepository.updateNewsInfoById(title, information, filename, id);
     }
 
     @Override
