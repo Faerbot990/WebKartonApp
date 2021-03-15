@@ -1,6 +1,5 @@
 package com.example.WebKartonApp.dto;
 
-import com.example.WebKartonApp.model.Category;
 import lombok.Data;
 
 @Data

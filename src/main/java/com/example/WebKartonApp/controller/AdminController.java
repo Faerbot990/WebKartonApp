@@ -35,9 +35,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class AdminController {
 
-    @Value("${upload.path}")
-    private String uploadPath;
-
     private final NewsService newsService;
     private final ProductService productService;
     private final ProductRepository productRepository;
@@ -49,15 +46,14 @@ public class AdminController {
     public ResponseEntity<?> addCategory(
             @RequestBody Category category,
             BindingResult bindingResult
-//        @RequestPart(name = "file", required = false) MultipartFile file
     ) throws IOException {
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
 
             return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
         } else {
+            category.setParentCategorySlug(transliterate(category.getParentCategoryName()));
             category.setSlug(transliterate(category.getName()));
-//            product.setCategorySlug(transliterate(product.getProductCategory()));
             Category saveCategory = categoryService.save(category);
 
 
@@ -70,7 +66,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/delete_category")
-    public void deleteProduct(@RequestBody Category category) {
+    public void deleteCategory(@RequestBody Category category) {
         categoryRepository.delete(category);
     }
 
@@ -99,33 +95,31 @@ public class AdminController {
     }
 
 
-//    @PutMapping("/update_prod")
-//    public ResponseEntity<?> updateProduct(
-//            @RequestBody Product product,
-//            BindingResult bindingResult
-////            @RequestPart(name = "file", required = false) MultipartFile file
-//    ) throws IOException {
-//        if (bindingResult.hasErrors()) {
-//            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
-//
-//            return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
-//        } else {
-////            saveFile(product, file);
-//
-//            productService.saveProductInfoById(product.getProductName(),
-//                    product.getProductCategory(),
-//                    product.getProductColor(),
-//                    product.getProductDescription(),
-//                    product.getPrice(),
-//                    product.getFilename(),
-//                    product.getQuantity(),
-//                    product.getId());
-//
-//            return new ResponseEntity<>(HttpStatus.OK);
-//        }
-//    }
+    @PutMapping("/update_prod")
+    public ResponseEntity<?> updateProduct(
+            @RequestBody Product product,
+            BindingResult bindingResult
+    )  {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
 
-    @DeleteMapping("/delete_prod")
+            return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
+        } else {
+
+            productService.saveProductInfoById(product.getProductName(),
+                    product.getProductCategory(),
+                    product.getProductColor(),
+                    product.getProductDescription(),
+                    product.getPrice(),
+                    product.getFilename(),
+                    product.getQuantity(),
+                    product.getId());
+
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+    }
+
+    @DeleteMapping("/delete_product")
     public void deleteProduct(@RequestBody Product product) {
         productRepository.delete(product);
     }
@@ -152,14 +146,12 @@ public class AdminController {
     public ResponseEntity<?> updateNews(
             @RequestBody News news,
             BindingResult bindingResult
-//            @RequestPart(name = "file1", required = false) MultipartFile file1
     ) throws IOException {
         if (bindingResult.hasErrors()) {
             Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
 
             return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
         } else {
-//            saveFileTwo(news, file1);
 
             newsService.saveNewsInfoById(news.getTitle(),
                     news.getInformation(),

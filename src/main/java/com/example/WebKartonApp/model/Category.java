@@ -27,6 +27,7 @@ public class Category {
     @Length(max = 200000)
     private String image;
 
+    private String parentCategoryName;
     private String parentCategorySlug;
 
 }
