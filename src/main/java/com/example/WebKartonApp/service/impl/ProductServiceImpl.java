@@ -82,4 +82,14 @@ public class ProductServiceImpl implements ProductService {
     public Product save(Product product) {
         return productRepository.save(product);
     }
+
+    @Override
+    public List<Product> findByCategorySlug(String slug) {
+        return productRepository.findByProductCategorySlug(slug);
+    }
+
+    @Override
+    public List<Product> findBySlug(String slug) {
+        return productRepository.findBySlug(slug);
+    }
 }

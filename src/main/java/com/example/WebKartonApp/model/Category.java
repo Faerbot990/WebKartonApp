@@ -3,7 +3,6 @@ package com.example.WebKartonApp.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 
@@ -11,22 +10,27 @@ import javax.persistence.*;
 @Table(name = "category")
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(of = {"id", "name", "slug", "parentCategorySlug"})
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@EqualsAndHashCode(of = { "slug", "name", "slug" })
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Category {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String slug;
 
     @Length(max = 255)
     private String name;
-    @Length(max = 255)
-    private String slug;
+
     @Length(max = 200000)
     private String image;
 
-    private String parentCategorySlug;
+    @Length(max = 255)
+    private String nameSub;
+
+    @Length(max = 255)
+    private String nameSubSlug;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_slug", referencedColumnName = "slug")
+    private Category parentCategory;
 
 }

@@ -39,7 +39,7 @@
 				<li class="has_sub">
 					Материалы
 					<span class="sub_menu">
-						<span class="sub_item"><a href="/product/Картон">Картон</a></span>
+						<span class="sub_item"><a href="/categories/karton">Картон</a></span>
 						<span class="sub_item"><a href="/product/Бумага">Бумага</a></span>
 						<span class="sub_item has_under">
 							<a href="/product/Переплетеные_материалы">Переплетные материалы</a>
@@ -122,15 +122,15 @@
 </section>
 <section class="catalog_page">
 	<div class="container">
-		<h1 th:text="${category}"></h1>
+		<h1 th:text="${category.name}"></h1>
 
 		<div th:if="${!subcategories.isEmpty()}" class="catalog_list subcategor">
 			<a
 					th:each="s : ${subcategories}"
-					th:href="@{/product/{category}/{subcategory}(category = ${category}, subcategory = ${s})}"
+					th:href="@{/categories/{category}/{subcategory}(category = ${category.slug}, subcategory = ${s.slug})}"
 			>
-				<span class="cat_item" th:style="'background-image: url(static/images/'+ ${s} +  ')'">
-					<p th:text="${s}"></p>
+				<span class="cat_item" th:style="'background-image: url(${s.image})'">
+					<p th:text="${s.name}"></p>
 
 				</span>
 			</a>
@@ -138,9 +138,9 @@
 		<div th:if="${subcategories.isEmpty()}" class="catalog_list products">
 			<a
 					th:each="p : ${products}"
-					th:href="@{/product/{category}/{subcategory}/{product}(category = ${category}, subcategory = ${subcategory}, product = ${p.productSlug})}"
-			>
-				<span class="cat_item" th:style="'background-image: url('+ ${p.filename} +')'">
+					th:href="@{/products/{productSlug}(productSlug = ${p.slug})}"
+					>
+				<span class="cat_item" th:style="'background-image: url(' + ${p.filename} + ');'">
 					<p th:text="${p.productName}"></p>
 				</span>
 			</a>

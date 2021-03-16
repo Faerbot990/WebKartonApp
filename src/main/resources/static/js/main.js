@@ -135,10 +135,10 @@ $(document).ready(function (response) {
                 value: "Уголки бумажные"
             }
         ],
-        'Картон': [
+        'karton': [
             {
-                label: "",
-                value: ""
+                label: "Подкатегория картона",
+                value: "karton-sub"
             }
         ],
         'Бумага': [
@@ -246,10 +246,10 @@ $(document).ready(function (response) {
 
         let file = $('[name="filename"]').prop('files')[0];
 
-        //data.token = Cookies.get('token');
+        const categorySlug = $("[name='subCategory']").val() || $("[name='productCategory']").val();
+
         data.productName = $("[name='productName']").val();
-        data.productCategory = $("[name='productCategory']").val();
-        data.subCategory = $("[name='subCategory']").val();
+        data.categorySlug = categorySlug;
         data.productColor = $("[name='productColor']").val();
         data.productDescription = $("[name='productDescription']").val();
         data.price = $("[name='price']").val();

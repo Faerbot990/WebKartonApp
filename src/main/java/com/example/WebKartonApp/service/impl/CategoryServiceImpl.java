@@ -16,8 +16,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getOne(Long id) {
-        return categoryRepository.getOne(id);
+    public Category getOne(String slug) {
+        return categoryRepository.getBySlug(slug);
     }
 
     @Override
@@ -28,5 +28,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category save(Category category) {
         return categoryRepository.save(category);
+    }
+
+    @Override
+    public List<Category> getSubcategoriesByCategorySlug(String slug) {
+        return categoryRepository.findByParentCategorySlug(slug);
     }
 }

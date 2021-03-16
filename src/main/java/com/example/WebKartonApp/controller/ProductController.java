@@ -1,6 +1,8 @@
 package com.example.WebKartonApp.controller;
 
+import com.example.WebKartonApp.model.Category;
 import com.example.WebKartonApp.model.Product;
+import com.example.WebKartonApp.service.CategoryService;
 import com.example.WebKartonApp.service.ProductService;
 import lombok.Data;
 import org.springframework.stereotype.Controller;
@@ -14,28 +16,50 @@ import java.util.List;
 
 @Data
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/")
 public class ProductController {
     private final ProductService productService;
+    private final CategoryService categoryService;
+
 
     @GetMapping
-    public String getAllProducts(Model model) {
-        model.addAttribute("product", productService.findAll());
-        return "panel";
+    public String getIndex(Model model) {
+        return "index";
     }
 
-//    @GetMapping("/{category}")
-//    public String getCategory(@PathVariable String category, Model model) {
-//        model.addAttribute("category", category);
-//
-//        List<String> subcategories = productService.getSubcategoriesByCategoryName(category);
-//        List<Product> products = productService.getProductsByCategoryName(category);
-//
-//        model.addAttribute("subcategories", subcategories);
-//        model.addAttribute("products", products);
-//
-//        return "catalog";
-//    }
+   @GetMapping("/categories/{categorySlug}")
+   public String getCategory(@PathVariable String categorySlug, Model model) {
+    Category category = categoryService.getOne(categorySlug);
+    List<Category> subCategories = categoryService.getSubcategoriesByCategorySlug(categorySlug);
+    List<Product> products = productService.findByCategorySlug(categorySlug);
+
+    model.addAttribute("category", category);
+    model.addAttribute("subcategories", subCategories);
+    model.addAttribute("products", products);
+
+    return "catalog";
+   }
+
+   @GetMapping("/categories/{categorySlug}/{subCategorySlug}")
+   public String getSubCategory(@PathVariable String categorySlug, @PathVariable String subCategorySlug, Model model) {
+    Category category = categoryService.getOne(subCategorySlug);
+    List<Category> subCategories = Collections.emptyList();
+    List<Product> products = productService.findByCategorySlug(subCategorySlug);
+
+    model.addAttribute("category", category);
+
+    model.addAttribute("subcategories", subCategories);
+    model.addAttribute("products", products);
+
+    return "catalog";
+   }
+
+   @GetMapping("/products/{productSlug}")
+   public String getSubCategory(@PathVariable String productSlug, Model model) {
+    model.addAttribute("product", productService.findBySlug(productSlug).get(0));
+
+    return "product";
+   }
 //
 //    @GetMapping("/{category}/{subcategory}")
 //    public String getSubcategory(@PathVariable String category, @PathVariable String subcategory, Model model) {

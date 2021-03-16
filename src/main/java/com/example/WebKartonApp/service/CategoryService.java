@@ -7,9 +7,11 @@ import com.example.WebKartonApp.model.Product;
 import java.util.List;
 
 public interface CategoryService {
- Category getOne(Long id);
+ Category getOne(String slug);
 
  List<Category> findAll();
+
+ List<Category> getSubcategoriesByCategorySlug(String slug);
 
 
  Category save(Category category);

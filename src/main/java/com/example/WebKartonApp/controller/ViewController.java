@@ -16,6 +16,11 @@ import java.util.List;
 @RequestMapping("/menu")
 public class ViewController {
     private final CategoryService categoryService;
+
+    @GetMapping
+    public String getIndex() {
+        return "index";
+    }
 //
 //    @GetMapping
 //    public String getAllCategory(Model model, @PathVariable String categoryList ) {

@@ -19,6 +19,10 @@ public interface ProductService {
 
     List<Product> findByProductOrderByCategoryDesc(String product);
 
+    List<Product> findByCategorySlug(String slug);
+
+    List<Product> findBySlug(String slug);
+
 //    List<Product> getProductsByCategoryName(String name);
 //
 //    List<String> getSubcategoriesByCategoryName(String name);

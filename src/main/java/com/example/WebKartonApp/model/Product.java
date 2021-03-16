@@ -15,13 +15,11 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = {"id", "productName", "productColor", "productDescription", "price"})
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-public class Product   {
-
+@EqualsAndHashCode(of = { "slug", "productName", "productColor", "productDescription", "price" })
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private String slug;
 
     @NotBlank(message = "")
     @Length(max = 255)
@@ -34,7 +32,7 @@ public class Product   {
     @Length(max = 2048)
     private String productDescription;
 
-    @Length(max = 200000)
+    @Length(max = 999999)
     private String filename;
 
     @NotNull(message = "")
@@ -43,12 +41,7 @@ public class Product   {
     @NotBlank(message = "")
     private String quantity;
 
-//    @NotBlank(message = "")
-//    @Length(max = 255)
-//    private String productCategory;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_slug")
     private Category productCategory;
-//    @OneToMany (mappedBy = "product")
-//    private Set<Category> category;
-
 }
