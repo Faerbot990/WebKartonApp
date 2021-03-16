@@ -34,12 +34,6 @@ public class MainController {
 
         return new ResponseEntity<>(news, HttpStatus.OK);
     }
-//    @GetMapping
-//    public ResponseEntity<?> getAllProducts() {
-//        List<Product> products = productService.findAll();
-//
-//        return new ResponseEntity<>(products, HttpStatus.OK);
-//    }
 
     @GetMapping("/news/{id}")
     public ResponseEntity<?> getNews(@PathVariable("id") Long newsId) {

@@ -21,15 +21,6 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     private final UserRepository userRepository;
 
-//    private static final Map<String, User> userMap = new HashMap<>();
-//
-//            static {
-//                Set<Role> roles = new HashSet<>();
-//                roles.add(Role.ROLE_ADMIN);
-//               userMap.put("admin", new User(1L, "admin", "dsd",roles, Collections.emptyList()));
-//           }
-
-
     @Value("${hostname}")
     private String hostname;
 
