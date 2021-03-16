@@ -50,6 +50,7 @@ public class AdminController {
             return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
         } else {
             category.setSlug(transliterate(category.getName()));
+            category.setNameSubSlug(transliterate(category.getNameSub()));
             Category saveCategory = categoryService.save(category);
 
             log.debug("ADMIN added product to DB: id={}, product={}, category={}", category.getSlug(), category.getName(),
