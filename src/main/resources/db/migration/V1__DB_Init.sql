@@ -14,7 +14,7 @@ create table category
 create table news
 (
     id          int8 not null,
-    filename    varchar(255),
+    filename    varchar(200000),
     information varchar(255),
     title       varchar(255),
     primary key (id)

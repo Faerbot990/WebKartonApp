@@ -29,6 +29,6 @@ public class News {
     private String information;
 
     @NotBlank(message = "")
-
+    @Length(max = 2000000)
     private String filename;
 }
