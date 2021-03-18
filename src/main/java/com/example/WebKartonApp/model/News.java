@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Date;
 
 @Entity
 @Table(name = "news")
@@ -31,4 +32,6 @@ public class News {
     @NotBlank(message = "")
     @Length(max = 2000000)
     private String filename;
+
+    private Date date;
 }
