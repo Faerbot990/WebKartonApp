@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -33,5 +34,5 @@ public class News {
     @Length(max = 2000000)
     private String filename;
 
-    private Date date;
+    private LocalDate localDate;
 }

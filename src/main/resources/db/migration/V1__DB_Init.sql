@@ -17,6 +17,7 @@ create table news
     filename    varchar(2000000),
     information varchar(255),
     title       varchar(255),
+    local_date  date,
     primary key (id)
 );
 create table product
@@ -29,6 +30,7 @@ create table product
     product_name        varchar(255),
     quantity            varchar(255),
     category_slug       varchar(255),
+    local_date          date,
     primary key (slug)
 );
 create table user_role

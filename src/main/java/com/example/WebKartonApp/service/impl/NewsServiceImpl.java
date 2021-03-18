@@ -6,6 +6,7 @@ import com.example.WebKartonApp.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -37,7 +38,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public News save(News news) {
-        news.setDate(new Date());
+        news.setLocalDate(LocalDate.now());
         return newsRepository.save(news);
     }
 }

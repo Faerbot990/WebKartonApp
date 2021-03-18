@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.Map;
 
 @RestController
@@ -81,7 +83,8 @@ public class AdminController {
                     productDto.getFilename(), //
                     productDto.getPrice(), //
                     productDto.getQuantity(), //
-                    category//
+                    category,//
+                    productDto.getLocalDate()//
             );
             Product savedProduct = productService.save(product);
 
