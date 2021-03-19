@@ -32,7 +32,7 @@ function getNewsList(tbodyWrap) {
     let data;
     let ajaxParams = {};
     ajaxParams.method = 'GET';
-    ajaxParams.url = '/main.json';
+    ajaxParams.url = '/main';
     ajaxParams.params = null;
 
     data = sendAjax(ajaxParams);
