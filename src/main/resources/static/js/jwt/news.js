@@ -28,10 +28,11 @@ function sendAjax(settings) {
  * News
  */
 // Get
-function getNewsList(tbodyWrap) {
+function getPostsList(tbodyWrap) {
     let data;
     let ajaxParams = {};
     ajaxParams.method = 'GET';
+    // ajaxParams.url = '/main';
     ajaxParams.url = '/main';
     ajaxParams.params = null;
 
@@ -41,67 +42,66 @@ function getNewsList(tbodyWrap) {
         return;
     }
 
-    buildNewsList(data, tbodyWrap);
+    buildPostsList(data, tbodyWrap);
 }
 
 // Build
-function buildNewsList(data, tbodyWrap) {
+function buildPostsList(data, tbodyWrap) {
     Object.entries(data).forEach(([key, value]) => {
-        var $tr = $('<tr>').append(
-            $('<td><lable>').text(''),
+        let $tr = $('<tr>').append(
+            $('<td>').html('<label><input type="checkbox" name="posts-checks" value="' + value.id + '"><span></span></label>'),
             $(`<td><img src="${value.filename}" class="prod_img">`),
             $('<td>').text(value.title),
             $('<td>').text(value.information),
-            $('<td>').text(value.date),
-            $('<td><lable>').text('')
+            $('<td>').text(value.localDate),
+            $('<td>').html('<img src="images/delete.svg">')
         );
         $tr.appendTo(tbodyWrap);
-        // $tr.wrap('<p>').html();
-        console.log(`${key} ${value.id}`);
     });
 }
 
+function postsDelete(arrId) {
+    let data;
+    let ajaxParams = {};
+    ajaxParams.method = 'DELETE';
+    ajaxParams.url = '/admin/delete_news';
+    ajaxParams.params = arrId;
+
+    data = sendAjax(ajaxParams);
+}
+
 $(document).ready(function (response) {
+    // Open News page
     $('.menu [data-id="posts"]').on('click', function (e) {
         e.preventDefault();
 
         let tbodyWrap = $('.adm_content[data-id="posts"] table tbody');
-        let newsList;
 
         // Clear table list
         tbodyWrap.html('');
 
         // Get news list
-        getNewsList(tbodyWrap);
-
-
-        /*let url = $(this).attr('action');
-        let data = {};
-
-        let file = $('[name="filename"]').prop('files')[0];
-
-
-        data.name = $("[name='name']").val();
-        data.parentCategorySlug = $("[name='parentCategorySlug']").val();
-        data.image = $('[name="fileBase64"]').val();
-
-        $.ajax({
-            type: 'POST',
-            url: url,
-            processData: false,
-            crossDomain: true,
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(data),
-            dataType: 'json',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", Cookies.get('token'));
-            },
-            success: function () {
-                window.location.replace('/panel');
-            },
-            error: function (xhr, str) {
-                alert('Возникла ошибка: ' + xhr.responseCode);
-            }
-        });*/
+        getPostsList(tbodyWrap);
     });
+
+    // Delete checked posts
+    $('.adm_content [data-action="posts-delete"]').on('click', function (e) {
+        e.preventDefault();
+
+        let arrId = [];
+        let checkedItems = $('[name="posts-checks"]:checked');
+
+        if (checkedItems.length === 0) {
+            alert("Выберите необходимые посты");
+            return false;
+        }
+
+        $.each(checkedItems, function(key, item) {
+            let object = {};
+            object.id = item.value;
+            arrId.push(object);
+        });
+
+        postsDelete(arrId[0]);
+    })
 });

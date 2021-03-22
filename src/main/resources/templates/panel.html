@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Продажа картонной упаковки: коробки из картона любых размеров, гофротара, гофроящики, гофрокороба. Большой выбор, низкие цены.">
 	<title>Админка</title>
-	<link rel="stylesheet" href="../static/css/style.css">
+	<link rel="stylesheet" href="css/style.css">
 	<link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
 	<link rel="icon" href="favicon.svg" type="image/x-icon">
 	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
@@ -249,7 +249,7 @@
 		<div class="prod_head_wrap flx">
 			<div class="wrap">
 				<span class="btn add change_window" data-id="add_posts">Добавить пост</span>
-				<span class="btn">Удалить</span>
+				<span class="btn" data-action="posts-delete">Удалить</span>
 			</div>
 		</div>
 		<table>
@@ -502,7 +502,7 @@
 	</div>
 	<div class="adm_content" data-id="add_posts">
 		<h2>Добавление/редактирование поста для блога:</h2>
-		<form action="/admin/add_news" id="add-posts" class="adm_form" method="post">
+		<form action="api/v1/admin/add_news" id="add-posts" class="adm_form" method="post">
 			<button class="btn add">Добавить/Изменить</button>
 			<p>Название поста</p>
 			<input type="text" name="title">
@@ -588,7 +588,7 @@
 	</div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
-<script src="js/main.js"></script>
-<script src="js/jwt/news.js" ></script>
+<script src="/js/main.js"></script>
+<script src="/js/jwt/news.js"></script>
 </body>
 </html>

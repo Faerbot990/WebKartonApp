@@ -127,7 +127,7 @@
 		<div th:if="${!subcategories.isEmpty()}" class="catalog_list subcategor">
 			<a
 					th:each="s : ${subcategories}"
-					th:href="@{/categories/{category}/{subcategory}(category = ${category.slug}, subcategory = ${s.slug})}"
+					th:href="@{/categories/{category}/{subcategory}(category = ${category.slug}, subcategory = ${s.nameSubSlug})}"
 			>
 				<span class="cat_item" th:style="'background-image: url(${s.image})'">
 					<p th:text="${s.name}"></p>
