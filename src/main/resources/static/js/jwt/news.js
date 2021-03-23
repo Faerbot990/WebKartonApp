@@ -107,7 +107,7 @@ $(document).ready(function (response) {
         });
 
         $.each(arrId, function (key, item) {
-            if (postsDelete(arrId[item.id]) === true) {
+            if (postsDelete(arrId[item.id]) == true) {
                 $('.adm_content[data-id="posts"] tr[data-id="' + item.id + '"]').remove();
             }
         });
