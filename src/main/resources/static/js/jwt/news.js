@@ -9,19 +9,19 @@ function sendAjax(settings) {
         crossDomain: true,
         contentType: "application/json; charset=utf-8",
         data: settings.params ? JSON.stringify(settings.params) : null,
-        dataType: 'json',
+        dataType: settings.dataType,
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Authorization", Cookies.get('token'));
         },
-        success: function (data) {
+        success: function (data = settings.successDefaultParam) {
             response = data;
         },
-        error: function (xhr, str) {
+        error: function (xhr) {
             alert('Возникла ошибка: ' + xhr.responseCode);
         }
     });
 
-    return response ?? null;
+    return response;
 }
 
 /**
@@ -32,9 +32,10 @@ function getPostsList(tbodyWrap) {
     let data;
     let ajaxParams = {};
     ajaxParams.method = 'GET';
-    // ajaxParams.url = '/main';
     ajaxParams.url = '/main';
     ajaxParams.params = null;
+    ajaxParams.dataType = 'json';
+    ajaxParams.successDefaultParam = null;
 
     data = sendAjax(ajaxParams);
 
@@ -45,10 +46,23 @@ function getPostsList(tbodyWrap) {
     buildPostsList(data, tbodyWrap);
 }
 
+// Delete
+function postsDelete(arrId) {
+    let data;
+    let ajaxParams = {};
+    ajaxParams.method = 'DELETE';
+    ajaxParams.url = '/admin/delete_news';
+    ajaxParams.params = arrId;
+    ajaxParams.dataType = 'text';
+    ajaxParams.successDefaultParam = true;
+
+    return sendAjax(ajaxParams);
+}
+
 // Build
 function buildPostsList(data, tbodyWrap) {
     Object.entries(data).forEach(([key, value]) => {
-        let $tr = $('<tr>').append(
+        let $tr = $('<tr>').attr('data-id', value.id).append(
             $('<td>').html('<label><input type="checkbox" name="posts-checks" value="' + value.id + '"><span></span></label>'),
             $(`<td><img src="${value.filename}" class="prod_img">`),
             $('<td>').text(value.title),
@@ -58,16 +72,6 @@ function buildPostsList(data, tbodyWrap) {
         );
         $tr.appendTo(tbodyWrap);
     });
-}
-
-function postsDelete(arrId) {
-    let data;
-    let ajaxParams = {};
-    ajaxParams.method = 'DELETE';
-    ajaxParams.url = '/admin/delete_news';
-    ajaxParams.params = arrId;
-
-    data = sendAjax(ajaxParams);
 }
 
 $(document).ready(function (response) {
@@ -85,7 +89,7 @@ $(document).ready(function (response) {
     });
 
     // Delete checked posts
-    $('.adm_content [data-action="posts-delete"]').on('click', function (e) {
+    $('.adm_content[data-id="posts"] [data-action="posts-delete"]').on('click', function (e) {
         e.preventDefault();
 
         let arrId = [];
@@ -102,6 +106,10 @@ $(document).ready(function (response) {
             arrId.push(object);
         });
 
-        postsDelete(arrId[0]);
+        $.each(arrId, function (key, item) {
+            if (postsDelete(arrId[item.id]) === true) {
+                $('.adm_content[data-id="posts"] tr[data-id="' + item.id + '"]').remove();
+            }
+        });
     })
 });
