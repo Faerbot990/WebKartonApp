@@ -68,7 +68,7 @@ function buildPostsList(data, tbodyWrap) {
             $('<td>').text(value.title),
             $('<td>').text(value.information),
             $('<td>').text(value.localDate),
-            $('<td>').html('<img src="images/delete.svg">')
+            $('<td>').html('<img src="images/delete.svg" data-post-delete="' + value.id + '">')
         );
         $tr.appendTo(tbodyWrap);
     });
@@ -92,10 +92,14 @@ $(document).ready(function (response) {
     $('.adm_content[data-id="posts"] [data-action="posts-delete"]').on('click', function (e) {
         e.preventDefault();
 
+        if (confirm("Вы уверены, что хотите удалить выбранные посты?") === false) {
+            return false;
+        }
+
         let arrId = [];
         let checkedItems = $('[name="posts-checks"]:checked');
 
-        if (checkedItems.length == 0) {
+        if (checkedItems.length === 0) {
             alert("Выберите необходимые посты");
             return false;
         }
@@ -107,9 +111,24 @@ $(document).ready(function (response) {
         });
 
         $.each(arrId, function (key, item) {
-            if (postsDelete(arrId[item.id]) == true) {
+            if (postsDelete(item) === true) {
                 $('.adm_content[data-id="posts"] tr[data-id="' + item.id + '"]').remove();
             }
         });
+    })
+    $('.adm_content[data-id="posts"]').on('click', '[data-post-delete]', function (e) {
+        e.preventDefault();
+
+        if (confirm("Вы уверены, что хотите удалить пост?") === false) {
+            return false;
+        }
+
+        let item = $(this).attr('data-post-delete');
+        let object = {};
+        object.id = item;
+
+        if (postsDelete(object) === true) {
+            $('.adm_content[data-id="posts"] tr[data-id="' + item.id + '"]').remove();
+        }
     })
 });
