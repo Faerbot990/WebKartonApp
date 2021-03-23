@@ -95,7 +95,7 @@ $(document).ready(function (response) {
         let arrId = [];
         let checkedItems = $('[name="posts-checks"]:checked');
 
-        if (checkedItems.length === 0) {
+        if (checkedItems.length == 0) {
             alert("Выберите необходимые посты");
             return false;
         }
