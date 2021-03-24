@@ -1,7 +1,6 @@
 package com.example.WebKartonApp.service;
 
 import com.example.WebKartonApp.model.News;
-import com.example.WebKartonApp.model.Product;
 
 import java.util.List;
 

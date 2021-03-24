@@ -8,7 +8,7 @@ import com.example.WebKartonApp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,10 +32,14 @@ public class MainController {
     @GetMapping
     public ResponseEntity<?> getAllNews(@RequestParam(value = "page", required = false,defaultValue = "1") Integer page) {
 
-        Page<News> news = newsRepository.findAll(PageRequest.of(page,
-                10));
+        Page<News> newsPage = newsRepository.findAll
+                (PageRequest.of(page,
+                        10,
+                        Direction.DESC,"LocalDate")
+                        );
 
-        return new ResponseEntity<>(news, HttpStatus.OK);
+
+        return new ResponseEntity<>(newsPage, HttpStatus.OK);
     }
 
     @GetMapping("/news/{id}")
