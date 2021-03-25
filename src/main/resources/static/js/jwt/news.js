@@ -21,7 +21,7 @@ function sendAjax(settings) {
             alert('Возникла ошибка: ' + xhr.responseCode);
         }
     });
-
+    console.log(typeof response);
     return response;
 }
 
@@ -80,7 +80,7 @@ function postsDelete(arrId) {
     ajaxParams.dataType = 'text';
     ajaxParams.successDefaultParam = true;
 
-    return sendAjax(ajaxParams);
+    return console.log(typeof sendAjax(ajaxParams));
 }
 
 // Build
