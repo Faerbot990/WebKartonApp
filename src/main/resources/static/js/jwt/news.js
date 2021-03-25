@@ -158,7 +158,7 @@ $(document).ready(function (response) {
         });
 
         $.each(arrId, function (key, item) {
-            if (console.log(postsDelete(item)) === "") {
+            if (console.log(typeof postsDelete(item)) === "") {
                 $('.adm_content[data-id="posts"] tr[data-id="' + item.id + '"]').remove();
             }
         });
