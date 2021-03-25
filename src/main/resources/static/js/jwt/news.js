@@ -1,3 +1,4 @@
+// Ajax
 function sendAjax(settings) {
     let response;
 
@@ -24,6 +25,18 @@ function sendAjax(settings) {
     return response;
 }
 
+// Encode image to base64
+function encodeImageFileAsURL(cb) {
+    return function () {
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            cb(reader.result);
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
 /**
  * News
  */
@@ -46,9 +59,20 @@ function getPostsList(tbodyWrap) {
     buildPostsList(data, tbodyWrap);
 }
 
+// Add
+function postAdd(data) {
+    let ajaxParams = {};
+    ajaxParams.method = 'POST';
+    ajaxParams.url = '/admin/add_news';
+    ajaxParams.params = data;
+    ajaxParams.dataType = 'text';
+    ajaxParams.successDefaultParam = true;
+
+    return sendAjax(ajaxParams);
+}
+
 // Delete
 function postsDelete(arrId) {
-    let data;
     let ajaxParams = {};
     ajaxParams.method = 'DELETE';
     ajaxParams.url = '/admin/delete_news';
@@ -75,7 +99,7 @@ function buildPostsList(data, tbodyWrap) {
 }
 
 $(document).ready(function (response) {
-    // Open News page
+    // Open Posts page
     $('.menu [data-id="posts"]').on('click', function (e) {
         e.preventDefault();
 
@@ -86,6 +110,29 @@ $(document).ready(function (response) {
 
         // Get news list
         getPostsList(tbodyWrap);
+    });
+
+    // Post Image
+    $('#add-posts input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
+        let inputFilename = $('#add-posts input[name="filename"]');
+        inputFilename.after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
+        inputFilename.closest(".current.flx").find('> img').remove();
+        inputFilename.closest(".current.flx").prepend("<img src='images/delete.svg' class='delete'>").prepend("<img src='" + base64Img + "'>");
+    }));
+
+    // Post add
+    $('#add-posts').on('submit', function (e) {
+        e.preventDefault();
+
+        let data = {};
+
+        data.title = $(this).find("[name='title']").val();
+        data.information = $(this).find("[name='information']").val();
+        data.filename = $(this).find('[name="fileBase64"]').val();
+
+        if (postAdd(data) === true) {
+            window.location.replace('/panel');
+        }
     });
 
     // Delete checked posts
@@ -115,7 +162,9 @@ $(document).ready(function (response) {
                 $('.adm_content[data-id="posts"] tr[data-id="' + item.id + '"]').remove();
             }
         });
-    })
+    });
+
+    // Delete item post
     $('.adm_content[data-id="posts"]').on('click', '[data-post-delete]', function (e) {
         e.preventDefault();
 
@@ -130,5 +179,5 @@ $(document).ready(function (response) {
         if (postsDelete(object) === true) {
             $('.adm_content[data-id="posts"] tr[data-id="' + item.id + '"]').remove();
         }
-    })
+    });
 });

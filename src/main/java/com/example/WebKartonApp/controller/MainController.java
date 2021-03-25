@@ -13,6 +13,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
+
 @RestController
 @RequestMapping("/main")
 public class MainController {
@@ -30,13 +34,11 @@ public class MainController {
     }
 
     @GetMapping
-    public ResponseEntity<?> getAllNews(@RequestParam(value = "page", required = false,defaultValue = "1") Integer page) {
+    public ResponseEntity<?> getAllNews(
+//            @RequestParam(value = "page", required = false,defaultValue = "1") Integer page
+    ) {
 
-        Page<News> newsPage = newsRepository.findAll
-                (PageRequest.of(page,
-                        10,
-                        Direction.DESC,"LocalDate")
-                        );
+        List<News> newsPage = newsRepository.findAll();
 
 
         return new ResponseEntity<>(newsPage, HttpStatus.OK);

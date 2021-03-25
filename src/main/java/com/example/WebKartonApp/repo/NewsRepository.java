@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 public interface NewsRepository extends JpaRepository<News, Long> {
-    Page<News> findAll(Pageable pageable);
+//    Page<News> findAll(Pageable pageable);
     @Modifying
     @Transactional
     @Query("update News n set n.title = ?1, n.information = ?2, n.filename = ?3 where n.id = ?4")

@@ -560,7 +560,8 @@ table td a{
 .adm_content[data-id="prod_page"] select{
 	margin-bottom: 20px;
 }
-.adm_content input{
+.adm_content input,
+.adm_content textarea {
 	margin-bottom: 20px;
 }
 .adm_content .current{
