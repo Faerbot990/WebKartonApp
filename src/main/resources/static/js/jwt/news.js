@@ -65,8 +65,8 @@ function postAdd(data) {
     ajaxParams.method = 'POST';
     ajaxParams.url = '/admin/add_news';
     ajaxParams.params = data;
-    ajaxParams.dataType = 'text';
-    ajaxParams.successDefaultParam = true;
+    ajaxParams.dataType = 'json';
+    ajaxParams.successDefaultParam = "";
 
     return sendAjax(ajaxParams);
 }
@@ -158,7 +158,7 @@ $(document).ready(function (response) {
         });
 
         $.each(arrId, function (key, item) {
-            if (console.log(postsDelete(item)) === true) {
+            if (console.log(postsDelete(item)) === "") {
                 $('.adm_content[data-id="posts"] tr[data-id="' + item.id + '"]').remove();
             }
         });
