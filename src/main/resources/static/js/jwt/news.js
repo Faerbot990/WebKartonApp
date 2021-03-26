@@ -1,6 +1,8 @@
+let defaultParam;
+
 // Ajax
 function sendAjax(settings) {
-    let response;
+    defaultParam = undefined;
 
     $.ajax({
         type: settings.method,
@@ -14,15 +16,15 @@ function sendAjax(settings) {
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Authorization", Cookies.get('token'));
         },
-        success: function (data = settings.successDefaultParam) {
-            response = data;
+        success: function (data) {
+            defaultParam = data ? data : settings.successDefaultParam;
         },
         error: function (xhr) {
             alert('Возникла ошибка: ' + xhr.responseCode);
         }
     });
-    console.log(typeof response, ': `'+response+'`');
-    return response;
+    console.log(typeof defaultParam, ': `'+defaultParam+'`');
+    return defaultParam;
 }
 
 // Encode image to base64
