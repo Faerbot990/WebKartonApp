@@ -53,14 +53,20 @@ function getPostsList(tbodyWrap) {
     sendAjax(ajaxParams).done(function(response){
         console.log(response);
         data = ajaxParams;
+
+        if (data === null) {
+            return;
+        }
+
+        buildPostsList(data, tbodyWrap);
     });
     // data = sendAjax(ajaxParams);
 
-    if (data === null) {
-        return;
-    }
-
-    buildPostsList(data, tbodyWrap);
+    // if (data === null) {
+    //     return;
+    // }
+    //
+    // buildPostsList(data, tbodyWrap);
 }
 
 // Add
