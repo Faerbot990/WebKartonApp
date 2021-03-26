@@ -2,8 +2,6 @@ let defaultParam;
 
 // Ajax
 function sendAjax(settings) {
-    defaultParam = undefined;
-
     $.ajax({
         type: settings.method,
         url: settings.url,
