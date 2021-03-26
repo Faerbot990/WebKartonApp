@@ -79,13 +79,11 @@ function postsDelete(arrId) {
     return sendAjax(ajaxParams).done(function (response) {
         return true;
     });
-    // return console.log(typeof sendAjax(ajaxParams));
 }
 
 // Build
 function buildPostsList(data, tbodyWrap) {
     Object.entries(data).forEach(([key, value]) => {
-        console.log(data, key, value);
         let $tr = $('<tr>').attr('data-id', value.id).append(
             $('<td>').html('<label><input type="checkbox" name="posts-checks" value="' + value.id + '"><span></span></label>'),
             $(`<td><img src="${value.filename}" class="prod_img">`),
@@ -158,7 +156,8 @@ $(document).ready(function (response) {
         });
 
         $.each(arrId, function (key, item) {
-            if (console.log(typeof postsDelete(item)) === true) {
+            console.log(postsDelete(item));
+            if (postsDelete(item) === true) {
                 $('.adm_content[data-id="posts"] tr[data-id="' + item.id + '"]').remove();
             }
         });
