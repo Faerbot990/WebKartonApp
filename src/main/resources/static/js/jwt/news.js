@@ -50,7 +50,7 @@ function getPostsList(tbodyWrap) {
 
     sendAjax(ajaxParams).done(function(response){
         console.log(response);
-        data = ajaxParams;
+        data = response;
 
         if (data === null) {
             return;
@@ -93,7 +93,7 @@ function postsDelete(arrId) {
 
 // Build
 function buildPostsList(data, tbodyWrap) {
-    Object.entries(data).forEach(([key, value]) => {
+    Object.entries(data.content).forEach(([key, value]) => {
         console.log(data, key, value);
         let $tr = $('<tr>').attr('data-id', value.id).append(
             $('<td>').html('<label><input type="checkbox" name="posts-checks" value="' + value.id + '"><span></span></label>'),
