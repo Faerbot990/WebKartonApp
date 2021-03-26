@@ -151,6 +151,7 @@ $(document).ready(function (response) {
             arrId.push(object);
         });
 
+        // Delete posts
         $.each(arrId, function (key, item) {
             postsDelete(item);
         });
@@ -171,7 +172,9 @@ $(document).ready(function (response) {
         let object = {};
         object.id = item;
 
-        postsDelete(object)
+        // Delete post
+        postsDelete(object);
+
         // Get news list
         getPostsList();
     });

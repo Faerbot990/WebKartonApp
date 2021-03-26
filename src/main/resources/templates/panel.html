@@ -505,15 +505,13 @@
 		<form action="/admin/add_news" id="add-posts" class="adm_form" method="post">
 			<button class="btn add">Добавить/Изменить</button>
 			<p>Название поста</p>
-			<input type="text" name="title">
+			<input type="text" name="title" required>
 			<p>Описание поста</p>
-			<textarea rows="4" name="information"></textarea>
+			<textarea rows="4" name="information" required></textarea>
 			<p>Изображение для поста</p>
 			<div class="current flx">
-<!--				<img src="images/prod.jpg">-->
-<!--				<img src="images/delete.svg" class="delete">-->
 				<label>
-					<input type="file" name="filename">
+					<input type="file" name="filename" required>
 					<span class="btn">Выберите файл</span>
 				</label>
 			</div>
