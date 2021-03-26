@@ -69,7 +69,7 @@ function postAdd(data) {
 
 // Delete
 function postsDelete(arrId) {
-    let response = false;
+    let data = false;
     let ajaxParams = {};
     ajaxParams.method = 'DELETE';
     ajaxParams.url = '/admin/delete_news';
@@ -77,10 +77,10 @@ function postsDelete(arrId) {
     ajaxParams.dataType = 'text';
 
     sendAjax(ajaxParams).done(function (response) {
-        response = true;
+        data = true;
     });
-
-    return response;
+    console.log(data);
+    return data;
 }
 
 // Build
@@ -158,7 +158,6 @@ $(document).ready(function (response) {
         });
 
         $.each(arrId, function (key, item) {
-            console.log(postsDelete(item));
             if (postsDelete(item) === true) {
                 $('.adm_content[data-id="posts"] tr[data-id="' + item.id + '"]').remove();
             }
