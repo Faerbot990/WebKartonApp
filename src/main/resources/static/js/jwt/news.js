@@ -1,5 +1,3 @@
-let defaultParam;
-
 // Ajax
 function sendAjax(settings) {
     return $.ajax({
@@ -15,7 +13,6 @@ function sendAjax(settings) {
             xhr.setRequestHeader("Authorization", Cookies.get('token'));
         },
         success: function (response) {
-            // defaultParam = data ? data : settings.successDefaultParam;
         },
         error: function (xhr) {
             alert('Возникла ошибка: ' + xhr.responseCode);
@@ -46,10 +43,8 @@ function getPostsList(tbodyWrap) {
     ajaxParams.url = '/main';
     ajaxParams.params = null;
     ajaxParams.dataType = 'json';
-    ajaxParams.successDefaultParam = null;
 
-    sendAjax(ajaxParams).done(function(response){
-        console.log(response);
+    sendAjax(ajaxParams).done(function (response) {
         data = response;
 
         if (data === null) {
@@ -58,13 +53,6 @@ function getPostsList(tbodyWrap) {
 
         buildPostsList(data, tbodyWrap);
     });
-    // data = sendAjax(ajaxParams);
-
-    // if (data === null) {
-    //     return;
-    // }
-    //
-    // buildPostsList(data, tbodyWrap);
 }
 
 // Add
@@ -88,7 +76,10 @@ function postsDelete(arrId) {
     ajaxParams.dataType = 'text';
     ajaxParams.successDefaultParam = true;
 
-    return console.log(typeof sendAjax(ajaxParams));
+    return sendAjax(ajaxParams).done(function (response) {
+        return true;
+    });
+    // return console.log(typeof sendAjax(ajaxParams));
 }
 
 // Build
@@ -160,7 +151,7 @@ $(document).ready(function (response) {
             return false;
         }
 
-        $.each(checkedItems, function(key, item) {
+        $.each(checkedItems, function (key, item) {
             let object = {};
             object.id = item.value;
             arrId.push(object);
