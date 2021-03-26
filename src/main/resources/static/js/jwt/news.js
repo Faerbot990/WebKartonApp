@@ -36,8 +36,9 @@ function encodeImageFileAsURL(cb) {
  * News
  */
 // Get
-function getPostsList(tbodyWrap) {
+function getPostsList() {
     let data;
+    let tbodyWrap = $('.adm_content[data-id="posts"] table tbody');
     let ajaxParams = {};
     ajaxParams.method = 'GET';
     ajaxParams.url = '/main';
@@ -50,6 +51,9 @@ function getPostsList(tbodyWrap) {
         if (data === null) {
             return;
         }
+
+        // Clear table list
+        tbodyWrap.html('');
 
         buildPostsList(data, tbodyWrap);
     });
@@ -69,17 +73,13 @@ function postAdd(data) {
 
 // Delete
 function postsDelete(arrId) {
-    let data = false;
     let ajaxParams = {};
     ajaxParams.method = 'DELETE';
     ajaxParams.url = '/admin/delete_news';
     ajaxParams.params = arrId;
     ajaxParams.dataType = 'text';
 
-    sendAjax(ajaxParams).done(function (response) {
-        data = true;
-    });
-    console.log(data);
+    sendAjax(ajaxParams).done(function () {});
     return data;
 }
 
@@ -103,13 +103,8 @@ $(document).ready(function (response) {
     $('.menu [data-id="posts"]').on('click', function (e) {
         e.preventDefault();
 
-        let tbodyWrap = $('.adm_content[data-id="posts"] table tbody');
-
-        // Clear table list
-        tbodyWrap.html('');
-
         // Get news list
-        getPostsList(tbodyWrap);
+        getPostsList();
     });
 
     // Post Image
@@ -158,9 +153,9 @@ $(document).ready(function (response) {
         });
 
         $.each(arrId, function (key, item) {
-            if (postsDelete(item) === true) {
-                $('.adm_content[data-id="posts"] tr[data-id="' + item.id + '"]').remove();
-            }
+            postsDelete(item);
+            // Get news list
+            getPostsList();
         });
     });
 
@@ -176,8 +171,8 @@ $(document).ready(function (response) {
         let object = {};
         object.id = item;
 
-        if (postsDelete(object) === true) {
-            $('.adm_content[data-id="posts"] tr[data-id="' + item.id + '"]').remove();
-        }
+        postsDelete(object)
+        // Get news list
+        getPostsList();
     });
 });
