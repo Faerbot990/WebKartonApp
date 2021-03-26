@@ -2,7 +2,7 @@ let defaultParam;
 
 // Ajax
 function sendAjax(settings) {
-    $.ajax({
+    return $.ajax({
         type: settings.method,
         url: settings.url,
         // async: false,
@@ -21,8 +21,6 @@ function sendAjax(settings) {
             alert('Возникла ошибка: ' + xhr.responseCode);
         }
     });
-    console.log(typeof defaultParam, ': `'+defaultParam+'`');
-    return defaultParam;
 }
 
 // Encode image to base64
