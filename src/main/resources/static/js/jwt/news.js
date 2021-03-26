@@ -21,7 +21,7 @@ function sendAjax(settings) {
             alert('Возникла ошибка: ' + xhr.responseCode);
         }
     });
-    console.log(typeof response);
+    console.log(typeof response, ': `'+response+'`');
     return response;
 }
 
