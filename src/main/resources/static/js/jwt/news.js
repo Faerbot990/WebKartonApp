@@ -69,16 +69,18 @@ function postAdd(data) {
 
 // Delete
 function postsDelete(arrId) {
+    let response = false;
     let ajaxParams = {};
     ajaxParams.method = 'DELETE';
     ajaxParams.url = '/admin/delete_news';
     ajaxParams.params = arrId;
     ajaxParams.dataType = 'text';
-    ajaxParams.successDefaultParam = true;
 
-    return sendAjax(ajaxParams).done(function (response) {
-        return true;
+    sendAjax(ajaxParams).done(function (response) {
+        response = true;
     });
+
+    return response;
 }
 
 // Build
