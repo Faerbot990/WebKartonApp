@@ -7,7 +7,7 @@ function sendAjax(settings) {
     $.ajax({
         type: settings.method,
         url: settings.url,
-        async: false,
+        // async: false,
         processData: false,
         crossDomain: true,
         contentType: "application/json; charset=utf-8",
@@ -160,7 +160,7 @@ $(document).ready(function (response) {
         });
 
         $.each(arrId, function (key, item) {
-            if (console.log(typeof postsDelete(item)) === "") {
+            if (console.log(typeof postsDelete(item)) === true) {
                 $('.adm_content[data-id="posts"] tr[data-id="' + item.id + '"]').remove();
             }
         });
