@@ -14,8 +14,8 @@ function sendAjax(settings) {
         beforeSend: function (xhr) {
             xhr.setRequestHeader("Authorization", Cookies.get('token'));
         },
-        success: function (data) {
-            defaultParam = data ? data : settings.successDefaultParam;
+        success: function (response) {
+            // defaultParam = data ? data : settings.successDefaultParam;
         },
         error: function (xhr) {
             alert('Возникла ошибка: ' + xhr.responseCode);
@@ -50,7 +50,11 @@ function getPostsList(tbodyWrap) {
     ajaxParams.dataType = 'json';
     ajaxParams.successDefaultParam = null;
 
-    data = sendAjax(ajaxParams);
+    sendAjax(ajaxParams).done(function(response){
+        console.log(response);
+        data = ajaxParams;
+    });
+    // data = sendAjax(ajaxParams);
 
     if (data === null) {
         return;
