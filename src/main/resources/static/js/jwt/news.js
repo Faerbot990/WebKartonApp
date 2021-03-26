@@ -80,7 +80,6 @@ function postsDelete(arrId) {
     ajaxParams.dataType = 'text';
 
     sendAjax(ajaxParams).done(function () {});
-    return data;
 }
 
 // Build
@@ -154,9 +153,10 @@ $(document).ready(function (response) {
 
         $.each(arrId, function (key, item) {
             postsDelete(item);
-            // Get news list
-            getPostsList();
         });
+
+        // Get news list
+        getPostsList();
     });
 
     // Delete item post
