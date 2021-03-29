@@ -71,21 +71,21 @@ function postAdd(data) {
 }
 
 // News Edit
-function postsGetItem(arrId) {
+function postsGetItem(data) {
     let ajaxParams = {};
     ajaxParams.method = 'GET';
-    ajaxParams.url = '/main/news/' + arrId;
+    ajaxParams.url = '/main/news/' + data.id;
     ajaxParams.dataType = 'json';
 
     return sendAjax(ajaxParams);
 }
 
 // News Delete
-function postsDelete(arrId, flagAction = false) {
+function postsDelete(data, flagAction = false) {
     let ajaxParams = {};
     ajaxParams.method = 'DELETE';
     ajaxParams.url = '/admin/delete_news';
-    ajaxParams.params = arrId;
+    ajaxParams.params = data;
     ajaxParams.dataType = 'text';
 
     sendAjax(ajaxParams).done(function () {
