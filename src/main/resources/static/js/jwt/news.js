@@ -171,7 +171,7 @@ $(document).ready(function (response) {
             inputFilename.closest(".current.flx").find('> img').remove();
             inputFilename.closest(".current.flx").prepend("<img src='images/delete.svg' class='delete'>").prepend("<img src='" + data.filename + "'>");
 
-            $('.change_window [data-id="edit_posts"]').click();
+            $('.change_window[data-id="edit_posts"]').click();
         });
     });
 

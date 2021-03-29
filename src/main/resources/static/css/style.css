@@ -54,7 +54,7 @@ p{
 	color: #363A44;
 }
 .d-none{
-	display: none;
+	display: none !important;
 }
 /* Slider */
 .slick-slider{
