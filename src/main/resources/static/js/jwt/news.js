@@ -69,18 +69,26 @@ function postAdd(data) {
     ajaxParams.dataType = 'json';
     ajaxParams.successDefaultParam = "";
 
-    sendAjax(ajaxParams).done(function () {});
+    sendAjax(ajaxParams).done(function () {
+        // Reset table list
+        $('.menu [data-id="posts"]').click();
+    });
 }
 
 // Delete
-function postsDelete(arrId) {
+function postsDelete(arrId, flagAction = false) {
     let ajaxParams = {};
     ajaxParams.method = 'DELETE';
     ajaxParams.url = '/admin/delete_news';
     ajaxParams.params = arrId;
     ajaxParams.dataType = 'text';
 
-    sendAjax(ajaxParams).done(function () {});
+    sendAjax(ajaxParams).done(function () {
+        if (flagAction) {
+            // Reset table list
+            $('.menu [data-id="posts"]').click();
+        }
+    });
 }
 
 // Build
@@ -126,11 +134,6 @@ $(document).ready(function (response) {
         data.filename = $(this).find('[name="fileBase64"]').val();
 
         postAdd(data);
-
-        setTimeout(function () {
-            // Reset table list
-            $('.menu [data-id="posts"]').click();
-        }, 1000);
     });
 
     // Delete checked posts
@@ -159,18 +162,8 @@ $(document).ready(function (response) {
         $.each(arrId, function (key, item) {
             let isLastElement = key == arrId.length -1;
 
-            if (isLastElement) {
-                console.log('last item')
-            } else {
-                console.log('Not last item');
-            }
-            postsDelete(item);
+            postsDelete(item, isLastElement);
         });
-
-        setTimeout(function () {
-            // Reset table list
-            $('.menu [data-id="posts"]').click();
-        }, 1000);
     });
 
     // Delete item post
@@ -187,10 +180,5 @@ $(document).ready(function (response) {
 
         // Delete post
         postsDelete(object);
-
-        setTimeout(function () {
-            // Reset table list
-            $('.menu [data-id="posts"]').click();
-        }, 1000);
     });
 });
