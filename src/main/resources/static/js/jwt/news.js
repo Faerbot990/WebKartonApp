@@ -156,7 +156,7 @@ $(document).ready(function (response) {
         post.done(function (data) {
             let formEdit = $('#edit-posts');
             $.each(data, function(i, key) {
-                console('i:'+i+'|key:' + key);
+                console.log('i:'+i+'|key:' + key);
                 if (key === 'localDate') {
                     return;
                 }
