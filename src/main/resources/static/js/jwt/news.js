@@ -70,6 +70,16 @@ function postAdd(data) {
     });
 }
 
+// News Edit
+function postsGetItem(arrId) {
+    let ajaxParams = {};
+    ajaxParams.method = 'GET';
+    ajaxParams.url = '/main/news/' + arrId;
+    ajaxParams.dataType = 'json';
+
+    return sendAjax(ajaxParams);
+}
+
 // News Delete
 function postsDelete(arrId, flagAction = false) {
     let ajaxParams = {};
@@ -95,7 +105,7 @@ function buildPostsList(data, tbodyWrap) {
             $('<td>').text(value.title),
             $('<td>').text(value.information),
             $('<td>').text(value.localDate),
-            $('<td>').html('<img src="images/delete.svg" data-post-delete="' + value.id + '">')
+            $('<td>').html('<img src="images/edit.svg" data-post-edit="' + value.id + '"><img src="images/delete.svg" data-post-delete="' + value.id + '">')
         );
         $tr.appendTo(tbodyWrap);
     });
@@ -131,6 +141,21 @@ $(document).ready(function (response) {
         postAdd(data);
 
         $(this).trigger("reset");
+    });
+
+    // Edit post
+    $('.adm_content[data-id="posts"]').on('click', '[data-action="posts-edit"]', function (e) {
+        e.preventDefault();
+
+        let item = $(this).attr('data-post-edit');
+        let object = {};
+        object.id = item;
+
+        // Get edit post
+        let post = postsGetItem(object);
+        post.done(function (data) {
+            console.log();
+        });
     });
 
     // Delete checked posts
