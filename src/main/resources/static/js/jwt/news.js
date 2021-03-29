@@ -1,5 +1,3 @@
-let postDelete = false;
-
 // Ajax
 function sendAjax(settings) {
     return $.ajax({
@@ -33,10 +31,7 @@ function encodeImageFileAsURL(cb) {
     }
 }
 
-/**
- * News
- */
-// Get
+// News Get
 function getPostsList() {
     let data;
     let tbodyWrap = $('.adm_content[data-id="posts"] table tbody');
@@ -60,7 +55,7 @@ function getPostsList() {
     });
 }
 
-// Add
+// News Add
 function postAdd(data) {
     let ajaxParams = {};
     ajaxParams.method = 'POST';
@@ -75,7 +70,7 @@ function postAdd(data) {
     });
 }
 
-// Delete
+// News Delete
 function postsDelete(arrId, flagAction = false) {
     let ajaxParams = {};
     ajaxParams.method = 'DELETE';
@@ -91,7 +86,7 @@ function postsDelete(arrId, flagAction = false) {
     });
 }
 
-// Build
+// News Build
 function buildPostsList(data, tbodyWrap) {
     Object.entries(data).forEach(([key, value]) => {
         let $tr = $('<tr>').attr('data-id', value.id).append(
@@ -134,6 +129,8 @@ $(document).ready(function (response) {
         data.filename = $(this).find('[name="fileBase64"]').val();
 
         postAdd(data);
+
+        $(this).trigger("reset");
     });
 
     // Delete checked posts
@@ -160,7 +157,7 @@ $(document).ready(function (response) {
 
         // Delete posts
         $.each(arrId, function (key, item) {
-            let isLastElement = key == arrId.length -1;
+            let isLastElement = key === arrId.length - 1;
 
             postsDelete(item, isLastElement);
         });
