@@ -157,9 +157,13 @@ $(document).ready(function (response) {
             let formEdit = $('#edit-posts');
             $.each(data, function(name, value) {
                 console.log('i:'+name+'|key:' + value);
-                if (name === 'localDate') {
+                if (
+                    name === 'localDate'
+                    || name === 'filename'
+                ) {
                     return;
                 }
+
                 formEdit.find('[name="'+ name +'"]').val(value);
             });
         });
