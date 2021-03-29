@@ -170,6 +170,8 @@ $(document).ready(function (response) {
             inputFilename.after("<input type='hidden' name='fileBase64' value='" + data.filename + "'>");
             inputFilename.closest(".current.flx").find('> img').remove();
             inputFilename.closest(".current.flx").prepend("<img src='images/delete.svg' class='delete'>").prepend("<img src='" + data.filename + "'>");
+
+            $('.change_window [data-id="edit_posts"]').click();
         });
     });
 
