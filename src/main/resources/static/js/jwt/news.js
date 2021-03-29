@@ -157,7 +157,13 @@ $(document).ready(function (response) {
 
         // Delete posts
         $.each(arrId, function (key, item) {
-            console.log($(this).next());
+            let isLastElement = key == arrId.length -1;
+
+            if (isLastElement) {
+                console.log('last item')
+            } else {
+                console.log('Not last item');
+            }
             postsDelete(item);
         });
 
