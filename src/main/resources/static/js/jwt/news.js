@@ -158,11 +158,11 @@ $(document).ready(function (response) {
             postsDelete(item);
         });
 
-        // Get news list
-        getPostsList();
-
-        // Reset table list
-        $('.menu [data-id="posts"]').click();
+        // // Get news list
+        // getPostsList();
+        //
+        // // Reset table list
+        // $('.menu [data-id="posts"]').click();
     });
 
     // Delete item post
@@ -180,10 +180,10 @@ $(document).ready(function (response) {
         // Delete post
         postsDelete(object);
 
-        // Get news list
-        getPostsList();
-
-        // Reset table list
-        $('.menu [data-id="posts"]').click();
+        // // Get news list
+        // getPostsList();
+        //
+        // // Reset table list
+        // $('.menu [data-id="posts"]').click();
     });
 });
