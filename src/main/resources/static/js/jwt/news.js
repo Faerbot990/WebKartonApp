@@ -121,10 +121,11 @@ $(document).ready(function (response) {
     });
 
     // Post Image
-    $('#add-posts input[name="filename"], #edit-posts input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
-        $(this).after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
-        $(this).closest(".current.flx").find('> img').remove();
-        $(this).closest(".current.flx").prepend("<img src='images/delete.svg' class='delete'>").prepend("<img src='" + base64Img + "'>");
+    $('#add-posts input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
+        let inputFilename = $('#add-posts input[name="filename"]');
+        inputFilename.after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
+        inputFilename.closest(".current.flx").find('> img').remove();
+        inputFilename.closest(".current.flx").prepend("<img src='images/delete.svg' class='delete'>").prepend("<img src='" + base64Img + "'>");
     }));
 
     // Post add
@@ -141,6 +142,14 @@ $(document).ready(function (response) {
 
         $(this).trigger("reset");
     });
+
+    // Post Image
+    $('#edit-posts input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
+        let inputFilename = $('#edit-posts input[name="filename"]');
+        inputFilename.after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
+        inputFilename.closest(".current.flx").find('> img').remove();
+        inputFilename.closest(".current.flx").prepend("<img src='images/delete.svg' class='delete'>").prepend("<img src='" + base64Img + "'>");
+    }));
 
     // Edit post
     $('.adm_content[data-id="posts"]').on('click', '[data-post-edit]', function (e) {
