@@ -144,7 +144,7 @@ $(document).ready(function (response) {
     });
 
     // Edit post
-    $('.adm_content[data-id="posts"]').on('click', '[data-action="posts-edit"]', function (e) {
+    $('.adm_content[data-id="posts"]').on('click', '[data-post-edit]', function (e) {
         e.preventDefault();
 
         let item = $(this).attr('data-post-edit');
@@ -154,7 +154,7 @@ $(document).ready(function (response) {
         // Get edit post
         let post = postsGetItem(object);
         post.done(function (data) {
-            console.log();
+            console.log(data);
         });
     });
 
