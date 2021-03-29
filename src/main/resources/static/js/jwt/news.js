@@ -3,7 +3,6 @@ function sendAjax(settings) {
     return $.ajax({
         type: settings.method,
         url: settings.url,
-        // async: false,
         processData: false,
         crossDomain: true,
         contentType: "application/json; charset=utf-8",
@@ -79,7 +78,10 @@ function postsDelete(arrId) {
     ajaxParams.params = arrId;
     ajaxParams.dataType = 'text';
 
-    sendAjax(ajaxParams).done(function () {});
+    sendAjax(ajaxParams).done(function () {
+        // Reset table list
+        $('.menu [data-id="posts"]').click();
+    });
 }
 
 // Build
@@ -158,6 +160,9 @@ $(document).ready(function (response) {
 
         // Get news list
         getPostsList();
+
+        // Reset table list
+        $('.menu [data-id="posts"]').click();
     });
 
     // Delete item post
@@ -177,5 +182,8 @@ $(document).ready(function (response) {
 
         // Get news list
         getPostsList();
+
+        // Reset table list
+        $('.menu [data-id="posts"]').click();
     });
 });
