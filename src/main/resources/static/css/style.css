@@ -53,6 +53,9 @@ p{
 	margin-bottom: 10px;
 	color: #363A44;
 }
+.d-none{
+	display: none;
+}
 /* Slider */
 .slick-slider{
     position: relative;

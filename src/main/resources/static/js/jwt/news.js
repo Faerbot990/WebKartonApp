@@ -155,8 +155,8 @@ $(document).ready(function (response) {
         let post = postsGetItem(object);
         post.done(function (data) {
             let formEdit = $('#edit-posts');
+            let inputFilename = formEdit.find('input[name="filename"]');
             $.each(data, function(name, value) {
-                console.log('i:'+name+'|key:' + value);
                 if (
                     name === 'localDate'
                     || name === 'filename'
@@ -166,6 +166,10 @@ $(document).ready(function (response) {
 
                 formEdit.find('[name="'+ name +'"]').val(value);
             });
+
+            inputFilename.after("<input type='hidden' name='fileBase64' value='" + data.filename + "'>");
+            inputFilename.closest(".current.flx").find('> img').remove();
+            inputFilename.closest(".current.flx").prepend("<img src='images/delete.svg' class='delete'>").prepend("<img src='" + data.filename + "'>");
         });
     });
 
