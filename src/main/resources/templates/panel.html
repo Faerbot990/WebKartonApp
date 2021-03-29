@@ -501,9 +501,28 @@
 		<input type="text" name="admin_email">
 	</div>
 	<div class="adm_content" data-id="add_posts">
-		<h2>Добавление/редактирование поста для блога:</h2>
+		<h2>Добавление поста для блога:</h2>
 		<form action="/admin/add_news" id="add-posts" class="adm_form" method="post">
-			<button class="btn add">Добавить/Изменить</button>
+			<button class="btn add">Добавить</button>
+			<p>Название поста</p>
+			<input type="text" name="title" required>
+			<p>Описание поста</p>
+			<textarea rows="4" name="information" required></textarea>
+			<p>Изображение для поста</p>
+			<div class="current flx">
+				<label>
+					<input type="file" name="filename" required>
+					<span class="btn">Выберите файл</span>
+				</label>
+			</div>
+		</form>
+	</div>
+	<div class="adm_content" data-id="edit_posts">
+		<h2>Редактирование поста для блога:</h2>
+		<form action="" id="edit-posts" class="adm_form" method="post">
+			<button class="btn add">Изменить</button>
+			<p>ID поста</p>
+			<input type="text" name="id" required readonly>
 			<p>Название поста</p>
 			<input type="text" name="title" required>
 			<p>Описание поста</p>

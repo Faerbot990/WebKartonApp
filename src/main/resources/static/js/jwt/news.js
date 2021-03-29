@@ -154,7 +154,14 @@ $(document).ready(function (response) {
         // Get edit post
         let post = postsGetItem(object);
         post.done(function (data) {
-            console.log(data);
+            let formEdit = $('#edit-posts');
+            $.each(data, function(i, key) {
+                console('i:'+i+'|key:' + key);
+                if (key === 'localDate') {
+                    return;
+                }
+                formEdit.find('name="'+ key +'"').val(i);
+            });
         });
     });
 
