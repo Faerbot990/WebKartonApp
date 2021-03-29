@@ -155,12 +155,12 @@ $(document).ready(function (response) {
         let post = postsGetItem(object);
         post.done(function (data) {
             let formEdit = $('#edit-posts');
-            $.each(data, function(i, key) {
-                console.log('i:'+i+'|key:' + key);
-                if (key === 'localDate') {
+            $.each(data, function(name, value) {
+                console.log('i:'+name+'|key:' + value);
+                if (name === 'localDate') {
                     return;
                 }
-                formEdit.find('name="'+ key +'"').val(i);
+                formEdit.find('name="'+ name +'"').val(value);
             });
         });
     });
