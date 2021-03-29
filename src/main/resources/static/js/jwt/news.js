@@ -160,7 +160,7 @@ $(document).ready(function (response) {
                 if (name === 'localDate') {
                     return;
                 }
-                formEdit.find('name="'+ name +'"').val(value);
+                formEdit.find('[name="'+ name +'"]').val(value);
             });
         });
     });
