@@ -1,3 +1,5 @@
+let postDelete = false;
+
 // Ajax
 function sendAjax(settings) {
     return $.ajax({
@@ -67,7 +69,7 @@ function postAdd(data) {
     ajaxParams.dataType = 'json';
     ajaxParams.successDefaultParam = "";
 
-    return sendAjax(ajaxParams);
+    sendAjax(ajaxParams).done(function () {});
 }
 
 // Delete
@@ -78,10 +80,7 @@ function postsDelete(arrId) {
     ajaxParams.params = arrId;
     ajaxParams.dataType = 'text';
 
-    sendAjax(ajaxParams).done(function () {
-        // Reset table list
-        $('.menu [data-id="posts"]').click();
-    });
+    sendAjax(ajaxParams).done(function () {});
 }
 
 // Build
@@ -126,9 +125,12 @@ $(document).ready(function (response) {
         data.information = $(this).find("[name='information']").val();
         data.filename = $(this).find('[name="fileBase64"]').val();
 
-        if (postAdd(data) === true) {
-            window.location.replace('/panel');
-        }
+        postAdd(data);
+
+        setTimeout(function () {
+            // Reset table list
+            $('.menu [data-id="posts"]').click();
+        }, 1000);
     });
 
     // Delete checked posts
@@ -155,14 +157,14 @@ $(document).ready(function (response) {
 
         // Delete posts
         $.each(arrId, function (key, item) {
+            console.log($(this).next());
             postsDelete(item);
         });
 
-        // // Get news list
-        // getPostsList();
-        //
-        // // Reset table list
-        // $('.menu [data-id="posts"]').click();
+        setTimeout(function () {
+            // Reset table list
+            $('.menu [data-id="posts"]').click();
+        }, 1000);
     });
 
     // Delete item post
@@ -180,10 +182,9 @@ $(document).ready(function (response) {
         // Delete post
         postsDelete(object);
 
-        // // Get news list
-        // getPostsList();
-        //
-        // // Reset table list
-        // $('.menu [data-id="posts"]').click();
+        setTimeout(function () {
+            // Reset table list
+            $('.menu [data-id="posts"]').click();
+        }, 1000);
     });
 });
