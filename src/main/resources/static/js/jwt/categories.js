@@ -20,7 +20,7 @@ function sendAjax(settings) {
 }
 
 // Сategories Get
-function getСategoryList() {
+function getCategoryList() {
     let data;
     let tbodyWrap = $('.adm_content[data-id="categories"] .categories_list tbody');
     let ajaxParams = {};
@@ -126,7 +126,7 @@ $(document).ready(function () {
         e.preventDefault();
 
         // Get category list
-        getСategoryList();
+        getCategoryList();
     });
 
     // Action Category add
