@@ -19,18 +19,6 @@ function sendAjax(settings) {
     });
 }
 
-// Encode image to base64
-function encodeImageFileAsURL(cb) {
-    return function () {
-        var file = this.files[0];
-        var reader = new FileReader();
-        reader.onloadend = function () {
-            cb(reader.result);
-        }
-        reader.readAsDataURL(file);
-    }
-}
-
 // News Get
 function getPostsList() {
     let data;
@@ -62,7 +50,6 @@ function postAdd(data) {
     ajaxParams.url = '/admin/add_news';
     ajaxParams.params = data;
     ajaxParams.dataType = 'json';
-    ajaxParams.successDefaultParam = "";
 
     sendAjax(ajaxParams).done(function () {
         // Reset table list
@@ -78,6 +65,20 @@ function postsGetItem(data) {
     ajaxParams.dataType = 'json';
 
     return sendAjax(ajaxParams);
+}
+
+// News Update
+function postUpdate(data) {
+    let ajaxParams = {};
+    ajaxParams.method = 'PUT';
+    ajaxParams.url = '/admin/update_news';
+    ajaxParams.params = data;
+    ajaxParams.dataType = 'json';
+
+    sendAjax(ajaxParams).done(function () {
+        // Reset table list
+        $('.menu [data-id="posts"]').click();
+    });
 }
 
 // News Delete
@@ -111,8 +112,20 @@ function buildPostsList(data, tbodyWrap) {
     });
 }
 
+// Encode image to base64
+function encodeImageFileAsURL(cb) {
+    return function () {
+        var file = this.files[0];
+        var reader = new FileReader();
+        reader.onloadend = function () {
+            cb(reader.result);
+        }
+        reader.readAsDataURL(file);
+    }
+}
+
 $(document).ready(function (response) {
-    // Open Posts page
+    // Action Open Posts page
     $('.menu [data-id="posts"]').on('click', function (e) {
         e.preventDefault();
 
@@ -120,15 +133,7 @@ $(document).ready(function (response) {
         getPostsList();
     });
 
-    // Post Image
-    $('#add-posts input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
-        let inputFilename = $('#add-posts input[name="filename"]');
-        inputFilename.after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
-        inputFilename.closest(".current.flx").find('> img').remove();
-        inputFilename.closest(".current.flx").prepend("<img src='images/delete.svg' class='delete'>").prepend("<img src='" + base64Img + "'>");
-    }));
-
-    // Post add
+    // Action Post add
     $('#add-posts').on('submit', function (e) {
         e.preventDefault();
 
@@ -143,15 +148,7 @@ $(document).ready(function (response) {
         $(this).trigger("reset");
     });
 
-    // Post Image
-    $('#edit-posts input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
-        let inputFilename = $('#edit-posts input[name="filename"]');
-        inputFilename.after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
-        inputFilename.closest(".current.flx").find('> img').remove();
-        inputFilename.closest(".current.flx").prepend("<img src='images/delete.svg' class='delete'>").prepend("<img src='" + base64Img + "'>");
-    }));
-
-    // Edit post
+    // Action Edit post
     $('.adm_content[data-id="posts"]').on('click', '[data-post-edit]', function (e) {
         e.preventDefault();
 
@@ -183,7 +180,23 @@ $(document).ready(function (response) {
         });
     });
 
-    // Delete checked posts
+    // Action Update post
+    $('#edit-posts').on('submit', function (e) {
+        e.preventDefault();
+
+        let data = {};
+
+        data.id = $(this).find("[name='id']").val();
+        data.title = $(this).find("[name='title']").val();
+        data.information = $(this).find("[name='information']").val();
+        data.filename = $(this).find('[name="fileBase64"]').val();
+
+        postUpdate(data);
+
+        $(this).trigger("reset");
+    });
+
+    // Action Delete checked posts
     $('.adm_content[data-id="posts"] [data-action="posts-delete"]').on('click', function (e) {
         e.preventDefault();
 
@@ -213,7 +226,7 @@ $(document).ready(function (response) {
         });
     });
 
-    // Delete item post
+    // Action Delete item post
     $('.adm_content[data-id="posts"]').on('click', '[data-post-delete]', function (e) {
         e.preventDefault();
 
@@ -227,5 +240,27 @@ $(document).ready(function (response) {
 
         // Delete post
         postsDelete(object);
+    });
+
+    // Post Add Image
+    $('#add-posts input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
+        let inputFilename = $('#add-posts input[name="filename"]');
+        inputFilename.after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
+        inputFilename.closest(".current.flx").find('> img').remove();
+        inputFilename.closest(".current.flx").prepend("<img src='images/delete.svg' class='delete'>").prepend("<img src='" + base64Img + "'>");
+    }));
+
+    // Post Edit Image
+    $('#edit-posts input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
+        let inputFilename = $('#edit-posts input[name="filename"]');
+        inputFilename.after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
+        inputFilename.closest(".current.flx").find('> img').remove();
+        inputFilename.closest(".current.flx").prepend("<img src='images/delete.svg' class='delete'>").prepend("<img src='" + base64Img + "'>");
+    }));
+
+    // Post Delete Image
+    $('.adm_content[data-id="edit_posts"] #edit-posts .current').on('click', '.delete', function () {
+        $(this).closest('.current').find('[name="fileBase64"]').remove();
+        $(this).closest('.current').find('img').remove();
     });
 });
