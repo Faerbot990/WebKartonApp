@@ -19,7 +19,7 @@ function sendAjax(settings) {
     });
 }
 
-// News Get
+// Сategories Get
 function getСategoryList() {
     let data;
     let tbodyWrap = $('.adm_content[data-id="categories"] .categories_list tbody');
@@ -121,15 +121,15 @@ function encodeImageFileAsURL(cb) {
 }
 
 $(document).ready(function () {
-    // Action Open Posts page
-    $('.menu [data-id="posts"]').on('click', function (e) {
+    // Action Open Category page
+    $('.menu [data-id="categories"]').on('click', function (e) {
         e.preventDefault();
 
-        // Get news list
-        getPostsList();
+        // Get category list
+        getСategoryList();
     });
 
-    // Action Post add
+    // Action Category add
     $('#add-posts').on('submit', function (e) {
         e.preventDefault();
 
@@ -238,7 +238,7 @@ $(document).ready(function () {
         postsDelete(object);
     });
 
-    // Post Add Image
+    // Category Add Image
     $('#add-posts input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
         let inputFilename = $('#add-posts input[name="filename"]');
         inputFilename.after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
@@ -246,7 +246,7 @@ $(document).ready(function () {
         inputFilename.closest(".current.flx").prepend("<img src='images/delete.svg' class='delete'>").prepend("<img src='" + base64Img + "'>");
     }));
 
-    // Post Edit Image
+    // Category Edit Image
     $('#edit-posts input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
         let inputFilename = $('#edit-posts input[name="filename"]');
         inputFilename.after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
@@ -254,7 +254,7 @@ $(document).ready(function () {
         inputFilename.closest(".current.flx").prepend("<img src='images/delete.svg' class='delete'>").prepend("<img src='" + base64Img + "'>");
     }));
 
-    // Post Delete Image
+    // Category Delete Image
     $('.adm_content[data-id="edit_posts"] #edit-posts .current').on('click', '.delete', function () {
         $(this).closest('.current').find('[name="fileBase64"]').remove();
         $(this).closest('.current').find('img').remove();
