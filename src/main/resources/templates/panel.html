@@ -22,6 +22,57 @@
 			<span data-id="settings">Настройки</span>
 		</div>
 	</div>
+	<div class="adm_content" data-id="categories">
+		<h2>Категории товаров:</h2>
+		<div class="categories_box flx">
+			<div class="add_category">
+				<h3>Добавить категорию</h3>
+				<form action="admin/add_category" id="categories" class="add_form" method="post">
+					<p>Название новой категории</p>
+					<input type="text" name="name">
+					<p>Подкатегория</p>
+					<input name="parentCategorySlug">
+					</input>
+					<div class="current flx">
+						<img src="images/prod.jpg">
+						<img src="images/delete.svg" class="delete">
+						<label>
+							<input type="file" name="image">
+							<span class="btn">Выберите файл</span>
+						</label>
+					</div>
+
+					<button class="btn add">Добавить категорию</button>
+				</form>
+			</div>
+			<div class="categories_list">
+				<table>
+					<thead>
+						<tr>
+							<td>Название категории</td>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>Бумажные пакеты</td>
+						<td>
+							<img src="images/edit.svg">
+							<img src="images/delete.svg">
+						</td>
+					</tr>
+					</tbody>
+				</table>
+				<div class="pagination flx">
+					<div class="item active">1</div>
+					<div class="item">2</div>
+					<div class="item">3</div>
+					...
+					<div class="item">50</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	<div class="adm_content active" data-id="prods">
 		<h2>Товары:</h2>
 		<div class="prod_head_wrap flx">
@@ -244,299 +295,6 @@
 			</div>
 		</div>
 	</div>
-	<div class="adm_content" data-id="posts">
-		<h2>Посты:</h2>
-		<div class="prod_head_wrap flx">
-			<div class="wrap">
-				<span class="btn add change_window" data-id="add_posts">Добавить пост</span>
-				<span class="btn d-none change_window" data-id="edit_posts">Редактировать пост</span>
-				<span class="btn" data-action="posts-delete">Удалить</span>
-			</div>
-		</div>
-		<table>
-			<thead>
-				<tr>
-					<td>
-						<label>
-							<input type="checkbox">
-							<span></span>
-						</label>
-					</td>
-					<td>Изображение</td>
-					<td>Название поста</td>
-					<td>Описание</td>
-					<td>Дата</td>
-					<td></td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>
-						<label>
-							<input type="checkbox">
-							<span></span>
-						</label>
-					</td>
-					<td>
-						<img src="images/prod.jpg" class="prod_img">
-					</td>
-					<td>Какой картон лучше?</td>
-					<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
-					<td>20.11.20</td>
-					<td>
-						<img src="images/delete.svg">
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<div class="pagination flx">
-			<div class="item active">1</div>
-			<div class="item">2</div>
-			<div class="item">3</div>
-			...
-			<div class="item">50</div>
-		</div>
-	</div>
-	<div class="adm_content" data-id="categories">
-		<h2>Категории товаров:</h2>
-		<div class="categories_box flx">
-			<div class="add_category">
-				<h3>Добавить категорию</h3>
-				<form action="admin/add_category" id="categories" class="add_form" method="post">
-					<p>Название новой категории</p>
-					<input type="text" name="name">
-					<p>Подкатегория</p>
-					<input name="parentCategorySlug">
-					</input>
-					<div class="current flx">
-						<img src="images/prod.jpg">
-						<img src="images/delete.svg" class="delete">
-						<label>
-							<input type="file" name="image">
-							<span class="btn">Выберите файл</span>
-						</label>
-					</div>
-
-					<button class="btn add">Добавить категорию</button>
-				</form>
-			</div>
-			<div class="categories_list">
-				<table>
-					<thead>
-						<tr>
-							<td>Название категории</td>
-							<td>Количество товаров</td>
-							<td></td>
-						</tr>
-					</thead>
-					<tbody th:object="${categoryAll}" >
-						<tr th:each="c :${categoryAll}">
-							<td th:text="*{}">Бумажные пакеты</td>
-							<td>10</td>
-							<td>
-								<img src="images/delete.svg">
-							</td>
-						</tr>
-						<tr>
-							<td>Бумажные пакеты</td>
-							<td>10</td>
-							<td>
-								<img src="images/delete.svg">
-							</td>
-						</tr>
-						<tr>
-							<td>Бумажные пакеты</td>
-							<td>10</td>
-							<td>
-								<img src="images/delete.svg">
-							</td>
-						</tr>
-						<tr>
-							<td>Бумажные пакеты</td>
-							<td>10</td>
-							<td>
-								<img src="images/delete.svg">
-							</td>
-						</tr>
-						<tr>
-							<td>Бумажные пакеты</td>
-							<td>10</td>
-							<td>
-								<img src="images/delete.svg">
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="pagination flx">
-					<div class="item active">1</div>
-					<div class="item">2</div>
-					<div class="item">3</div>
-					...
-				<div class="item">50</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="adm_content" data-id="orders">
-		<h2>Заказы:</h2>
-		<div class="btn">Удалить</div>
-		<table class="order_table">
-			<thead>
-				<tr>
-					<td>
-						<label>
-							<input type="checkbox">
-							<span></span>
-						</label>
-					</td>
-					<td>id заказа</td>
-					<td>контакты заказчика</td>
-					<td>товары в заказе</td>
-					<td>сумма</td>
-					<td>статус</td>
-					<td></td>
-				</tr>
-			</thead>
-			<tbody>
-				<tr class="success">
-					<td>
-						<label>
-							<input type="checkbox">
-							<span></span>
-						</label>
-					</td>
-					<td>123</td>
-					<td>Самковский Станислав <br><a href="tel:+38(077)777-77-77">+38(077)777-77-77</a><br> <a href="mailto:samkovsky@gmail.com">samkovsky@gmail.com</a></td>
-					<td>Гофро-картон 50шт, стаканчики 50шт</td>
-					<td>1200 руб.</td>
-					<td>
-						<select>
-							<option value="Успешен">Успешен</option>
-							<option value="Принят">Принят</option>
-							<option value="Выполняется">Выполняется</option>
-							<option value="Отправлено">Отправлено</option>
-							<option value="Отменен">Отменен</option>
-						</select>
-					</td>
-					<td>
-						<img src="images/delete.svg">
-					</td>
-				</tr>
-				<tr class="failed">
-					<td>
-						<label>
-							<input type="checkbox">
-							<span></span>
-						</label>
-					</td>
-					<td>123</td>
-					<td>Самковский Станислав <br><a href="tel:+38(077)777-77-77">+38(077)777-77-77</a><br> <a href="mailto:samkovsky@gmail.com">samkovsky@gmail.com</a></td>
-					<td>Гофро-картон 50шт, стаканчики 50шт</td>
-					<td>1200 руб.</td>
-					<td>
-						<select>
-							<option value="Отменен">Отменен</option>
-							<option value="Принят">Принят</option>
-							<option value="Выполняется">Выполняется</option>
-							<option value="Отправлено">Отправлено</option>
-							<option value="Успешен">Успешен</option>
-						</select>
-					</td>
-					<td>
-						<img src="images/delete.svg">
-					</td>
-				</tr>
-				<tr class="pending">
-					<td>
-						<label>
-							<input type="checkbox">
-							<span></span>
-						</label>
-					</td>
-					<td>123</td>
-					<td>Самковский Станислав <br><a href="tel:+38(077)777-77-77">+38(077)777-77-77</a><br> <a href="mailto:samkovsky@gmail.com">samkovsky@gmail.com</a></td>
-					<td>Гофро-картон 50шт, стаканчики 50шт</td>
-					<td>1200 руб.</td>
-					<td>
-						<select>
-							<option value="Выполняется">Выполняется</option>
-							<option value="Принят">Принят</option>
-							<option value="Отправлено">Отправлено</option>
-							<option value="Отменен">Отменен</option>
-							<option value="Успешен">Успешен</option>
-						</select>
-					</td>
-					<td>
-						<img src="images/delete.svg">
-					</td>
-				</tr>
-			</tbody>
-		</table>
-		<div class="pagination flx">
-			<div class="item active">1</div>
-			<div class="item">2</div>
-			<div class="item">3</div>
-			...
-			<div class="item">50</div>
-		</div>
-	</div>
-	<div class="adm_content" data-id="settings">
-		<h2>Настройки админки:</h2>
-		<p>Текущий логин админа</p>
-		<input type="text" name="admin_login">
-		<p>Текущий пароль админа</p>
-		<input type="text" name="admin_pass">
-		<div class="btn add">Сохранить доступы</div>
-		<h2>Настройки для телеграмм:</h2>
-		<p>Ключ к телеграмм каналу</p>
-		<input type="text" name="tg_key">
-		<p>Скрипт для телеграмм канала</p>
-		<input type="text" name="tg_script">
-		<h2>Почта для получения заказов:</h2>
-		<p>Текущая почта куда приходят заказы</p>
-		<input type="text" name="admin_email">
-	</div>
-	<div class="adm_content" data-id="add_posts">
-		<h2>Добавление поста для блога:</h2>
-		<form action="/admin/add_news" id="add-posts" class="adm_form" method="post">
-			<button class="btn add">Добавить</button>
-			<p>Название поста</p>
-			<input type="text" name="title" required>
-			<p>Описание поста</p>
-			<textarea rows="4" name="information" required></textarea>
-			<p>Изображение для поста</p>
-			<div class="current flx">
-				<label>
-					<input type="file" name="filename" required>
-					<span class="btn">Выберите файл</span>
-				</label>
-			</div>
-		</form>
-	</div>
-	<div class="adm_content" data-id="edit_posts">
-		<h2>Редактирование поста для блога:</h2>
-		<form action="" id="edit-posts" class="adm_form" method="post">
-			<button class="btn add">Изменить</button>
-			<p>ID поста</p>
-			<input type="text" name="id" required readonly>
-			<p>Название поста</p>
-			<input type="text" name="title" required>
-			<p>Описание поста</p>
-			<textarea rows="4" name="information" required></textarea>
-			<p>Изображение для поста</p>
-			<div class="current flx">
-				<label>
-					<input type="file" name="filename" required>
-					<span class="btn">Выберите файл</span>
-				</label>
-			</div>
-		</form>
-	</div>
 	<div class="adm_content" data-id="add_prods">
 		<h2>Добавление/редактирование товара:</h2>
 		<form action="admin/add_prod" id="add-prods" class="add_form" method="post">
@@ -593,6 +351,219 @@
 			<button class="btn add">Добавить/Изменить</button>
 		</form>
 	</div>
+	<div class="adm_content" data-id="posts">
+		<h2>Посты:</h2>
+		<div class="prod_head_wrap flx">
+			<div class="wrap">
+				<span class="btn add change_window" data-id="add_posts">Добавить пост</span>
+				<span class="btn d-none change_window" data-id="edit_posts">Редактировать пост</span>
+				<span class="btn" data-action="posts-delete">Удалить</span>
+			</div>
+		</div>
+		<table>
+			<thead>
+			<tr>
+				<td>
+					<label>
+						<input type="checkbox">
+						<span></span>
+					</label>
+				</td>
+				<td>Изображение</td>
+				<td>Название поста</td>
+				<td>Описание</td>
+				<td>Дата</td>
+				<td></td>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>
+					<label>
+						<input type="checkbox">
+						<span></span>
+					</label>
+				</td>
+				<td>
+					<img src="images/prod.jpg" class="prod_img">
+				</td>
+				<td>Какой картон лучше?</td>
+				<td>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+					tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+					quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+					consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+					cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</td>
+				<td>20.11.20</td>
+				<td>
+					<img src="images/delete.svg">
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		<div class="pagination flx">
+			<div class="item active">1</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			...
+			<div class="item">50</div>
+		</div>
+	</div>
+	<div class="adm_content" data-id="add_posts">
+		<h2>Добавление поста для блога:</h2>
+		<form action="/admin/add_news" id="add-posts" class="adm_form" method="post">
+			<button class="btn add">Добавить</button>
+			<p>Название поста</p>
+			<input type="text" name="title" required>
+			<p>Описание поста</p>
+			<textarea rows="4" name="information" required></textarea>
+			<p>Изображение для поста</p>
+			<div class="current flx">
+				<label>
+					<input type="file" name="filename" required>
+					<span class="btn">Выберите файл</span>
+				</label>
+			</div>
+		</form>
+	</div>
+	<div class="adm_content" data-id="edit_posts">
+		<h2>Редактирование поста для блога:</h2>
+		<form action="" id="edit-posts" class="adm_form" method="post">
+			<button class="btn add">Изменить</button>
+			<p>ID поста</p>
+			<input type="text" name="id" required readonly>
+			<p>Название поста</p>
+			<input type="text" name="title" required>
+			<p>Описание поста</p>
+			<textarea rows="4" name="information" required></textarea>
+			<p>Изображение для поста</p>
+			<div class="current flx">
+				<label>
+					<input type="file" name="filename">
+					<span class="btn">Выберите файл</span>
+				</label>
+			</div>
+		</form>
+	</div>
+	<div class="adm_content" data-id="orders">
+		<h2>Заказы:</h2>
+		<div class="btn">Удалить</div>
+		<table class="order_table">
+			<thead>
+			<tr>
+				<td>
+					<label>
+						<input type="checkbox">
+						<span></span>
+					</label>
+				</td>
+				<td>id заказа</td>
+				<td>контакты заказчика</td>
+				<td>товары в заказе</td>
+				<td>сумма</td>
+				<td>статус</td>
+				<td></td>
+			</tr>
+			</thead>
+			<tbody>
+			<tr class="success">
+				<td>
+					<label>
+						<input type="checkbox">
+						<span></span>
+					</label>
+				</td>
+				<td>123</td>
+				<td>Самковский Станислав <br><a href="tel:+38(077)777-77-77">+38(077)777-77-77</a><br> <a href="mailto:samkovsky@gmail.com">samkovsky@gmail.com</a></td>
+				<td>Гофро-картон 50шт, стаканчики 50шт</td>
+				<td>1200 руб.</td>
+				<td>
+					<select>
+						<option value="Успешен">Успешен</option>
+						<option value="Принят">Принят</option>
+						<option value="Выполняется">Выполняется</option>
+						<option value="Отправлено">Отправлено</option>
+						<option value="Отменен">Отменен</option>
+					</select>
+				</td>
+				<td>
+					<img src="images/delete.svg">
+				</td>
+			</tr>
+			<tr class="failed">
+				<td>
+					<label>
+						<input type="checkbox">
+						<span></span>
+					</label>
+				</td>
+				<td>123</td>
+				<td>Самковский Станислав <br><a href="tel:+38(077)777-77-77">+38(077)777-77-77</a><br> <a href="mailto:samkovsky@gmail.com">samkovsky@gmail.com</a></td>
+				<td>Гофро-картон 50шт, стаканчики 50шт</td>
+				<td>1200 руб.</td>
+				<td>
+					<select>
+						<option value="Отменен">Отменен</option>
+						<option value="Принят">Принят</option>
+						<option value="Выполняется">Выполняется</option>
+						<option value="Отправлено">Отправлено</option>
+						<option value="Успешен">Успешен</option>
+					</select>
+				</td>
+				<td>
+					<img src="images/delete.svg">
+				</td>
+			</tr>
+			<tr class="pending">
+				<td>
+					<label>
+						<input type="checkbox">
+						<span></span>
+					</label>
+				</td>
+				<td>123</td>
+				<td>Самковский Станислав <br><a href="tel:+38(077)777-77-77">+38(077)777-77-77</a><br> <a href="mailto:samkovsky@gmail.com">samkovsky@gmail.com</a></td>
+				<td>Гофро-картон 50шт, стаканчики 50шт</td>
+				<td>1200 руб.</td>
+				<td>
+					<select>
+						<option value="Выполняется">Выполняется</option>
+						<option value="Принят">Принят</option>
+						<option value="Отправлено">Отправлено</option>
+						<option value="Отменен">Отменен</option>
+						<option value="Успешен">Успешен</option>
+					</select>
+				</td>
+				<td>
+					<img src="images/delete.svg">
+				</td>
+			</tr>
+			</tbody>
+		</table>
+		<div class="pagination flx">
+			<div class="item active">1</div>
+			<div class="item">2</div>
+			<div class="item">3</div>
+			...
+			<div class="item">50</div>
+		</div>
+	</div>
+	<div class="adm_content" data-id="settings">
+		<h2>Настройки админки:</h2>
+		<p>Текущий логин админа</p>
+		<input type="text" name="admin_login">
+		<p>Текущий пароль админа</p>
+		<input type="text" name="admin_pass">
+		<div class="btn add">Сохранить доступы</div>
+		<h2>Настройки для телеграмм:</h2>
+		<p>Ключ к телеграмм каналу</p>
+		<input type="text" name="tg_key">
+		<p>Скрипт для телеграмм канала</p>
+		<input type="text" name="tg_script">
+		<h2>Почта для получения заказов:</h2>
+		<p>Текущая почта куда приходят заказы</p>
+		<input type="text" name="admin_email">
+	</div>
 </div>	
 <div class="popup_box" id="delete_category">
 	<div class="popup">
@@ -607,6 +578,7 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
 <script src="/js/main.js"></script>
+<script src="/js/jwt/categories.js"></script>
 <script src="/js/jwt/news.js"></script>
 </body>
 </html>
