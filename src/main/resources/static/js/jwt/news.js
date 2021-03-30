@@ -73,7 +73,7 @@ function postUpdate(data) {
     ajaxParams.method = 'PUT';
     ajaxParams.url = '/admin/update_news';
     ajaxParams.params = data;
-    ajaxParams.dataType = 'json';
+    ajaxParams.dataType = 'text';
 
     sendAjax(ajaxParams).done(function () {
         // Reset table list
@@ -124,7 +124,7 @@ function encodeImageFileAsURL(cb) {
     }
 }
 
-$(document).ready(function (response) {
+$(document).ready(function () {
     // Action Open Posts page
     $('.menu [data-id="posts"]').on('click', function (e) {
         e.preventDefault();
