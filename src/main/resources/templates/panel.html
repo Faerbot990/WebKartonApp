@@ -29,15 +29,12 @@
 				<h3>Добавить категорию</h3>
 				<form action="admin/add_category" id="categories" class="add_form" method="post">
 					<p>Название новой категории</p>
-					<input type="text" name="name">
+					<input type="text" name="name" required>
 					<p>Подкатегория</p>
-					<input name="parentCategorySlug">
-					</input>
+					<input type="text" name="nameSub" required>
 					<div class="current flx">
-						<img src="images/prod.jpg">
-						<img src="images/delete.svg" class="delete">
 						<label>
-							<input type="file" name="image">
+							<input type="file" name="filename">
 							<span class="btn">Выберите файл</span>
 						</label>
 					</div>
@@ -49,12 +46,16 @@
 				<table>
 					<thead>
 						<tr>
+							<td>Изображение</td>
 							<td>Название категории</td>
+							<td>Название подкатегории</td>
 							<td></td>
 						</tr>
 					</thead>
 					<tbody>
 					<tr>
+						<td><img src="images/prod.jpg" class="prod_img"></td>
+						<td>Пакеты</td>
 						<td>Бумажные пакеты</td>
 						<td>
 							<img src="images/edit.svg">
