@@ -5,6 +5,8 @@ import com.example.WebKartonApp.model.Product;
 import com.example.WebKartonApp.service.CategoryService;
 import com.example.WebKartonApp.service.ProductService;
 import lombok.Data;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +27,12 @@ public class ProductController {
     @GetMapping
     public String getIndex(Model model) {
         return "index";
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<?> getAllCategory(){
+        List<Category> categories = categoryService.findAll();
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
    @GetMapping("/categories/{categorySlug}")
