@@ -44,7 +44,24 @@ public class AdminController {
     private final CategoryRepository categoryRepository;
 
 
+    @PostMapping("/add_category")
+    public ResponseEntity<?> addCategory(@RequestBody Category category, BindingResult bindingResult
+    ) throws IOException {
+        if (bindingResult.hasErrors()) {
+            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
 
+            return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
+        } else {
+            category.setSlug(transliterate(category.getName()));
+            category.setNameSubSlug(transliterate(category.getNameSub()));
+            Category saveCategory = categoryService.save(category);
+
+            log.debug("ADMIN added product to DB: id={}, product={}, category={}", category.getSlug(), category.getName(),
+                    category.getParentCategory());
+
+            return new ResponseEntity<>(saveCategory, HttpStatus.CREATED);
+        }
+    }
 
     @DeleteMapping("/delete_category")
     public void deleteProduct(@RequestBody Category category) {
