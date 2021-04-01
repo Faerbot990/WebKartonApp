@@ -18,10 +18,14 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = { "slug", "productName", "productColor", "productDescription", "price" })
+@EqualsAndHashCode(of = { "id","slug", "productName", "productColor", "productDescription", "price" })
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Product {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Length(max = 255)
     private String slug;
 
     @NotBlank(message = "")
@@ -45,9 +49,10 @@ public class Product {
     private String quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_slug")
+    @JoinColumn(name = "category_id")
     private Category productCategory;
 
     private LocalDate localDate;
+
 
 }

@@ -1,10 +1,12 @@
 package com.example.WebKartonApp.service.impl;
 
 import com.example.WebKartonApp.model.Category;
+import com.example.WebKartonApp.model.SubCategory;
 import com.example.WebKartonApp.repo.CategoryRepository;
 import com.example.WebKartonApp.service.CategoryService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -16,8 +18,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category getOne(String slug) {
-        return categoryRepository.getBySlug(slug);
+    public Category getOne(Long id) {
+        return categoryRepository.getOne(id);
     }
 
     @Override
@@ -27,11 +29,17 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category save(Category category) {
+        category.setLocalDate(LocalDate.now());
         return categoryRepository.save(category);
     }
 
-    @Override
-    public List<Category> getSubcategoriesByCategorySlug(String slug) {
-        return categoryRepository.findByParentCategorySlug(slug);
-    }
+//    @Override
+//    public void savCategoryInfoById(String name, SubCategory subCategory, Long id) {
+//        categoryRepository.saveCategoryInfoById(name, subCategory, id);
+//    }
+
+    //    @Override
+//    public List<Category> getSubcategoriesByCategorySlug(String slug) {
+//        return categoryRepository.findByParentCategorySlug(slug);
+//    }
 }

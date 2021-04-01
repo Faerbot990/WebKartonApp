@@ -11,14 +11,6 @@ public interface ProductService {
 
     List<Product> findAll();
 
-    List<Product> filter(List<String> productName, List<String> category, List<Integer> prices);
-
-    List<Product> findByProductOrderByPriceDesc(String product);
-
-    List<Product> findByProductOrderByNameDesc(String product);
-
-    List<Product> findByProductOrderByCategoryDesc(String product);
-
     List<Product> findByCategorySlug(String slug);
 
     List<Product> findBySlug(String slug);

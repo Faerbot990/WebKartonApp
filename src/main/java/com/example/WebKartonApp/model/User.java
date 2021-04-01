@@ -21,13 +21,6 @@ import java.util.Set;
 @EqualsAndHashCode(of = {"id", "username", "password"})
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class User implements UserDetails {
-    public List<Product> getProductList() {
-        return productList;
-    }
-
-    public void setProductList(List<Product> productList) {
-        this.productList = productList;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,9 +36,6 @@ public class User implements UserDetails {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Product> productList;
 
     public boolean isAdmin() {
         return roles.contains(Role.ROLE_ADMIN);

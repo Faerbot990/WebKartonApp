@@ -37,36 +37,25 @@ public class ProductController {
 
    @GetMapping("/categories/{categorySlug}")
    public String getCategory(@PathVariable String categorySlug, Model model) {
-    Category category = categoryService.getOne(categorySlug);
-    List<Category> subCategories = categoryService.getSubcategoriesByCategorySlug(categorySlug);
+//    Category category = categoryService.getOne(categorySlug);
+//    List<Category> subCategories = categoryService.getSubcategoriesByCategorySlug(categorySlug);
     List<Product> products = productService.findByCategorySlug(categorySlug);
 
-    model.addAttribute("category", category);
-    model.addAttribute("subcategories", subCategories);
+//    model.addAttribute("category", category);
+//    model.addAttribute("subcategories", subCategories);
     model.addAttribute("products", products);
 
     return "catalog";
    }
-//    @GetMapping("/categories/{categorySlug}/{subCategorySlug}")
-//    public String getCategorySubcategory(@PathVariable String categorySlug, Model model) {
-//        Category category = categoryService.getOne(categorySlug);
-//        List<Category> subCategories = categoryService.getSubcategoriesByCategorySlug(categorySlug);
-//        List<Product> products = productService.findByCategorySlug(categorySlug);
-//
-//        model.addAttribute("category", category);
-//        model.addAttribute("subcategories", subCategories);
-//        model.addAttribute("products", products);
-//
-//        return "catalog";
-//    }
+
 
    @GetMapping("/categories/{categorySlug}/{subCategorySlug}")
    public String getSubCategory(@PathVariable String categorySlug, @PathVariable String subCategorySlug, Model model) {
-    Category category = categoryService.getOne(subCategorySlug);
+//    Category category = categoryService.getOne(subCategorySlug);
     List<Category> subCategories = Collections.emptyList();
     List<Product> products = productService.findByCategorySlug(subCategorySlug);
 
-    model.addAttribute("category", category);
+//    model.addAttribute("category", category);
 
     model.addAttribute("subcategories", subCategories);
     model.addAttribute("products", products);

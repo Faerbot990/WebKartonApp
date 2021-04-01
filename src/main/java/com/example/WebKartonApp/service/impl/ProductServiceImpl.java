@@ -33,39 +33,6 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll();
     }
 
-    @Override
-    public List<Product> filter(List<String> productName, List<String> category, List<Integer> prices) {
-        List<Product> productList;
-
-        if (!prices.isEmpty()) {
-            productList = productRepository.findByPriceBetweenOrderByPriceDesc(prices.get(0), prices.get(1));
-        } else if (!productName.isEmpty() && !category.isEmpty()) {
-            productList = productRepository.findByProductNameInAndProductCategoryInOrderByPriceDesc(productName, category);
-        } else if (!productName.isEmpty() || !category.isEmpty()) {
-            productList = productRepository.findByProductNameInOrProductCategoryInOrderByPriceDesc(productName, category);
-        } else {
-            productList = productRepository.findAll();
-        }
-        return productList;
-    }
-
-
-
-    @Override
-    public List<Product> findByProductOrderByPriceDesc(String productName) {
-        return productRepository.findByProductNameOrderByPriceDesc(productName);
-    }
-
-    @Override
-    public List<Product> findByProductOrderByNameDesc(String product) {
-        return null;
-    }
-
-    @Override
-    public List<Product> findByProductOrderByCategoryDesc(String productCategory) {
-        return productRepository.findByProductCategoryOrderByPriceDesc(productCategory);
-    }
-
 
     @Override
     public void saveProductInfoById(String productName,

@@ -13,15 +13,6 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findByProductNameInAndProductCategoryInOrderByPriceDesc(List<String> productName, List<String> category);
-
-    List<Product> findByProductNameInOrProductCategoryInOrderByPriceDesc(List<String> productName, List<String> category);
-
-    List<Product> findByPriceBetweenOrderByPriceDesc(Integer startingPrice, Integer endingPrice);
-
-    List<Product> findByProductNameOrderByPriceDesc(String productName);
-
-    List<Product> findByProductCategoryOrderByPriceDesc(String productCategory);
 
     List<Product> findBySlug(String slug);
 
@@ -37,5 +28,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
                              String quantity,
                              Double price,
                              String productDescription,
-                             String filename, Long id);
+                             String filename,
+                             Long id);
 }

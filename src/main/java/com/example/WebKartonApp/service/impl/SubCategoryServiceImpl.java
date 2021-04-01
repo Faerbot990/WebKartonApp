@@ -1,0 +1,36 @@
+package com.example.WebKartonApp.service.impl;
+
+import com.example.WebKartonApp.model.Category;
+import com.example.WebKartonApp.model.SubCategory;
+import com.example.WebKartonApp.repo.CategoryRepository;
+import com.example.WebKartonApp.repo.SubCategoryRepository;
+import com.example.WebKartonApp.service.SubCategoryService;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class SubCategoryServiceImpl implements SubCategoryService {
+    private final SubCategoryRepository subCategoryRepository;
+
+    public SubCategoryServiceImpl(SubCategoryRepository subCategoryRepository) {
+        this.subCategoryRepository = subCategoryRepository;
+    }
+
+    @Override
+    public SubCategory getOne(Long id) {
+        return subCategoryRepository.getOne(id);
+    }
+
+    @Override
+    public List<SubCategory> findAll() {
+        return subCategoryRepository.findAll();
+    }
+
+    @Override
+    public SubCategory save(SubCategory subCategory) {
+        return subCategoryRepository.save(subCategory);
+    }
+
+
+}

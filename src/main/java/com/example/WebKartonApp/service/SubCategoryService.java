@@ -6,14 +6,15 @@ import com.example.WebKartonApp.model.SubCategory;
 
 import java.util.List;
 
-public interface CategoryService {
- Category getOne(Long id);
+public interface SubCategoryService {
+ SubCategory getOne(Long id);
 
 
- List<Category> findAll();
+
+ List<SubCategory> findAll();
 //
 // List<Category> getSubcategoriesByCategorySlug(String slug);
 
 
- Category save(Category category);
+ SubCategory save(SubCategory subCategory);
 }
