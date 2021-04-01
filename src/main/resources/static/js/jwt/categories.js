@@ -43,17 +43,17 @@ function getCategoryList() {
     });
 }
 
-// News Add
-function postAdd(data) {
+// Category Add
+function categoryAdd(data) {
     let ajaxParams = {};
     ajaxParams.method = 'POST';
-    ajaxParams.url = '/admin/add_news';
+    ajaxParams.url = '/admin/add_category';
     ajaxParams.params = data;
     ajaxParams.dataType = 'json';
 
     sendAjax(ajaxParams).done(function () {
         // Reset table list
-        $('.menu [data-id="posts"]').click();
+        $('.menu [data-id="categories"]').click();
     });
 }
 
@@ -101,7 +101,9 @@ function postsDelete(data, flagAction = false) {
 function buildCategoryList(data, tbodyWrap) {
     Object.entries(data).forEach(([key, value]) => {
         let $tr = $('<tr>').attr('data-id', value.slug).append(
+            $('<td>').html('<img src="' + value.image + '" class="prod_img">'),
             $('<td>').text(value.name),
+            $('<td>').text(value.nameSub),
             $('<td>').html('<img src="images/edit.svg" data-category-edit="' + value.slug + '"><img src="images/delete.svg" data-category-delete="' + value.slug + '">')
         );
         $tr.appendTo(tbodyWrap);
@@ -130,16 +132,16 @@ $(document).ready(function () {
     });
 
     // Action Category add
-    $('#add-posts').on('submit', function (e) {
+    $('#categories').on('submit', function (e) {
         e.preventDefault();
 
         let data = {};
 
-        data.title = $(this).find("[name='title']").val();
-        data.information = $(this).find("[name='information']").val();
-        data.filename = $(this).find('[name="fileBase64"]').val();
+        data.name = $(this).find("[name='name']").val();
+        data.nameSub = $(this).find("[name='nameSub']").val();
+        data.image = $(this).find('[name="fileBase64"]').val();
 
-        postAdd(data);
+        categoryAdd(data);
 
         $(this).trigger("reset");
     });
@@ -239,8 +241,8 @@ $(document).ready(function () {
     });
 
     // Category Add Image
-    $('#add-posts input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
-        let inputFilename = $('#add-posts input[name="filename"]');
+    $('#categories input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
+        let inputFilename = $('#categories input[name="filename"]');
         inputFilename.after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
         inputFilename.closest(".current.flx").find('> img').remove();
         inputFilename.closest(".current.flx").prepend("<img src='images/delete.svg' class='delete'>").prepend("<img src='" + base64Img + "'>");
