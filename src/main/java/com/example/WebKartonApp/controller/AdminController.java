@@ -87,8 +87,7 @@ public class AdminController {
 
             return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
         } else {
-            SubCategory subCategory = subCategoryService.getOne(productDto.getSubcategoryId());
-//            Category category = categoryService.getOne(productDto.getCategoryId());
+            Category category = categoryService.getOne(productDto.getCategoryId());
 
             Product product = new Product(
                     productDto.getId(),
@@ -99,7 +98,7 @@ public class AdminController {
                     productDto.getFilename(),
                     productDto.getPrice(),
                     productDto.getQuantity(),
-                    subCategory,
+                    category,
                     productDto.getLocalDate()
             );
             Product savedProduct = productService.save(product);
