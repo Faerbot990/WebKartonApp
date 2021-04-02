@@ -37,14 +37,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void saveProductInfoById(String productName,
-                                    Category productCategory,
+                                    SubCategory subCategory,
                                     String color,
                                     String description,
                                     Double price,
                                     String filename,
                                     String quantity,
                                     Long id) {
-        productRepository.saveProductInfoById(productName,productCategory , color,quantity,price,description,filename,id);
+        productRepository.saveProductInfoById(productName,subCategory,color,quantity,price,description,filename,id);
 
     }
 
@@ -54,10 +54,10 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.save(product);
     }
 
-    @Override
-    public List<Product> findByCategorySlug(String slug) {
-        return productRepository.findByProductCategorySlug(slug);
-    }
+//    @Override
+//    public List<Product> findByCategorySlug(String slug) {
+//        return productRepository.findByProductCategorySlug(slug);
+//    }
 
     @Override
     public List<Product> findBySlug(String slug) {

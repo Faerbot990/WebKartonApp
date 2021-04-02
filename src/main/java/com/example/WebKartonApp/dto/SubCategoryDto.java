@@ -10,6 +10,6 @@ public class SubCategoryDto {
     private Long id;
     private String subCategoryName;
     private String image;
-    private long categoryId;
+    private Long categoryId;
     private LocalDate localDate;
 }

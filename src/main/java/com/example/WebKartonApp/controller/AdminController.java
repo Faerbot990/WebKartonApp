@@ -10,6 +10,7 @@ import com.example.WebKartonApp.model.SubCategory;
 import com.example.WebKartonApp.repo.CategoryRepository;
 import com.example.WebKartonApp.repo.NewsRepository;
 import com.example.WebKartonApp.repo.ProductRepository;
+import com.example.WebKartonApp.repo.SubCategoryRepository;
 import com.example.WebKartonApp.service.CategoryService;
 import com.example.WebKartonApp.service.NewsService;
 import com.example.WebKartonApp.service.ProductService;
@@ -44,6 +45,8 @@ public class AdminController {
     private final CategoryService categoryService;
     private final CategoryRepository categoryRepository;
     private final SubCategoryService subCategoryService;
+    private final SubCategoryRepository subCategoryRepository;
+
 
 
     @PostMapping("/add_category")
@@ -55,11 +58,15 @@ public class AdminController {
             return new ResponseEntity<>(saveCategory, HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/delete_category")
+    public void deleteCategory(@RequestBody Category category) {
+        categoryRepository.delete(category);
+    }
+
     @PostMapping("/add_subcategory")
     public ResponseEntity<?> addSubCategory(
             @RequestBody SubCategoryDto subCategoryDto,
             BindingResult bindingResult)  {
-//        subCategory.setSubCategoryNameSlug(transliterate(subCategory.getSubCategoryName()));
         Category category = categoryService.getOne(subCategoryDto.getCategoryId());
         SubCategory subCategory = new SubCategory(subCategoryDto.getId(),
                 transliterate(subCategoryDto.getSubCategoryName()),
@@ -70,44 +77,36 @@ public class AdminController {
         SubCategory saveSubCategory = subCategoryService.save(subCategory);
         return new ResponseEntity<>(saveSubCategory, HttpStatus.CREATED);
     }
-
-
-    @DeleteMapping("/delete_category")
-    public void deleteProduct(@RequestBody Category category) {
-        categoryRepository.delete(category);
+    @DeleteMapping("/delete_subcategory")
+    public void deleteSubCategory(@RequestBody SubCategory subCategory) {
+        subCategoryRepository.delete(subCategory);
     }
+
+
 
     @PostMapping("/add_prod")
     public ResponseEntity<?> addProduct(
             @RequestBody ProductDto productDto,
-            BindingResult bindingResult
-    ) {
-        if (bindingResult.hasErrors()) {
-            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
+            BindingResult bindingResult) {
+        SubCategory subCategory = subCategoryService.getOne(productDto.getSubcategoryId());
 
-            return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
-        } else {
-            Category category = categoryService.getOne(productDto.getCategoryId());
+        Product product = new Product(productDto.getId(),
+                transliterate(productDto.getProductName()),
+                productDto.getProductName(),
+                productDto.getProductColor(),
+                productDto.getProductDescription(),
+                productDto.getFilename(),
+                productDto.getPrice(),
+                productDto.getQuantity(),
+                subCategory,
+                productDto.getLocalDate());
 
-            Product product = new Product(
-                    productDto.getId(),
-                    transliterate(productDto.getProductName()),
-                    productDto.getProductName(),
-                    productDto.getProductColor(),
-                    productDto.getProductDescription(),
-                    productDto.getFilename(),
-                    productDto.getPrice(),
-                    productDto.getQuantity(),
-                    category,
-                    productDto.getLocalDate()
-            );
-            Product savedProduct = productService.save(product);
+Product savedProduct = productService.save(product);
 
             log.info("ADMIN added product to DB: id={}, product={}", savedProduct.getSlug(),
                     savedProduct.getProductName());
 
             return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
-        }
     }
 
     // @PutMapping("/update_prod")

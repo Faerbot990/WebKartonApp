@@ -12,7 +12,7 @@ public interface ProductService {
 
     List<Product> findAll();
 
-    List<Product> findByCategorySlug(String slug);
+//    List<Product> findByCategorySlug(String slug);
 
     List<Product> findBySlug(String slug);
 
@@ -26,7 +26,7 @@ public interface ProductService {
 
 
     void saveProductInfoById(String productName,
-                             Category productCategory,
+                             SubCategory subCategory,
                              String color,
                              String description,
                              Double price,

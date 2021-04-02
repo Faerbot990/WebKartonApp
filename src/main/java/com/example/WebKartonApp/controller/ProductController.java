@@ -39,11 +39,11 @@ public class ProductController {
    public String getCategory(@PathVariable String categorySlug, Model model) {
 //    Category category = categoryService.getOne(categorySlug);
 //    List<Category> subCategories = categoryService.getSubcategoriesByCategorySlug(categorySlug);
-    List<Product> products = productService.findByCategorySlug(categorySlug);
+//    List<Product> products = productService.findByCategorySlug(categorySlug);
 
 //    model.addAttribute("category", category);
 //    model.addAttribute("subcategories", subCategories);
-    model.addAttribute("products", products);
+//    model.addAttribute("products", products);
 
     return "catalog";
    }
@@ -53,12 +53,12 @@ public class ProductController {
    public String getSubCategory(@PathVariable String categorySlug, @PathVariable String subCategorySlug, Model model) {
 //    Category category = categoryService.getOne(subCategorySlug);
     List<Category> subCategories = Collections.emptyList();
-    List<Product> products = productService.findByCategorySlug(subCategorySlug);
+//    List<Product> products = productService.findByCategorySlug(subCategorySlug);
 
 //    model.addAttribute("category", category);
 
     model.addAttribute("subcategories", subCategories);
-    model.addAttribute("products", products);
+//    model.addAttribute("products", products);
 
     return "catalog";
    }

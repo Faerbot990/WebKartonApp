@@ -1,4 +1,3 @@
-
 create sequence hibernate_sequence start 1 increment 1;
 create table category
 (
@@ -28,7 +27,7 @@ create table product
     product_name        varchar(255),
     quantity            varchar(255),
     slug                varchar(255),
-    category_id         int8,
+    subcategory_id      int8,
     primary key (id)
 );
 create table subcategory
@@ -54,7 +53,7 @@ create table usr
     primary key (id)
 );
 alter table if exists product
-    add constraint FK1mtsbur82frn64de7balymq9s foreign key (category_id) references category;
+    add constraint FKku369nri8u3s17uom8or57trs foreign key (subcategory_id) references subcategory;
 alter table if exists subcategory
     add constraint FKe4hdbsmrx9bs9gpj1fh4mg0ku foreign key (category_id) references category;
 alter table if exists user_role
