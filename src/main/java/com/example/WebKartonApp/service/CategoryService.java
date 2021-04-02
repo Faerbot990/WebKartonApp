@@ -16,4 +16,6 @@ public interface CategoryService {
 
 
  Category save(Category category);
+
+// void savCategoryInfoById(String name,SubCategory subCategory, Long id);
 }

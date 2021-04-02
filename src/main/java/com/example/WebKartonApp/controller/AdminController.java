@@ -2,6 +2,7 @@ package com.example.WebKartonApp.controller;
 
 import com.example.WebKartonApp.dto.CategoryDto;
 import com.example.WebKartonApp.dto.ProductDto;
+import com.example.WebKartonApp.dto.SubCategoryDto;
 import com.example.WebKartonApp.model.Category;
 import com.example.WebKartonApp.model.News;
 import com.example.WebKartonApp.model.Product;
@@ -15,8 +16,6 @@ import com.example.WebKartonApp.service.ProductService;
 import com.example.WebKartonApp.service.SubCategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lombok.var;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,8 +28,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Date;
 import java.util.Map;
 
 @RestController
@@ -49,43 +46,31 @@ public class AdminController {
     private final SubCategoryService subCategoryService;
 
 
-    @PostMapping("/add_subcategory")
-    public ResponseEntity<?> addSubCategory(
-            @RequestBody SubCategory subCategory,
-            BindingResult bindingResult)  {
-            subCategory.setSubCategoryNameSlug(transliterate(subCategory.getSubCategoryName()));
-            SubCategory saveSubCategory = subCategoryService.save(subCategory);
-            return new ResponseEntity<>(saveSubCategory, HttpStatus.CREATED);
-    }
-
     @PostMapping("/add_category")
     public ResponseEntity<?> addCategory(
-            @RequestBody CategoryDto categoryDto,
-            BindingResult bindingResult
-    ) {
-        if (bindingResult.hasErrors()) {
-            Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
-
-            return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
-        } else {
-//            category.setSlug(transliterate(category.getName()));
-
-            SubCategory subCategory = subCategoryService.getOne(categoryDto.getSubcategoryId());
-
-            Category category = new Category(
-                    categoryDto.getId(),
-                    transliterate(categoryDto.getName()),
-                    categoryDto.getName(),
-                    subCategory,
-                    categoryDto.getLocalDate());
-
-
+            @RequestBody Category category,
+            BindingResult bindingResult)  {
+           category.setSlug(transliterate(category.getName()));
             Category saveCategory = categoryService.save(category);
-            log.debug("ADMIN added product to DB: id={}, product={}, category={}", category.getSlug(), category.getName());
-
             return new ResponseEntity<>(saveCategory, HttpStatus.CREATED);
-        }
     }
+
+    @PostMapping("/add_subcategory")
+    public ResponseEntity<?> addSubCategory(
+            @RequestBody SubCategoryDto subCategoryDto,
+            BindingResult bindingResult)  {
+//        subCategory.setSubCategoryNameSlug(transliterate(subCategory.getSubCategoryName()));
+        Category category = categoryService.getOne(subCategoryDto.getCategoryId());
+        SubCategory subCategory = new SubCategory(subCategoryDto.getId(),
+                transliterate(subCategoryDto.getSubCategoryName()),
+                subCategoryDto.getSubCategoryName(),
+                subCategoryDto.getImage(),
+                category,
+                subCategoryDto.getLocalDate());
+        SubCategory saveSubCategory = subCategoryService.save(subCategory);
+        return new ResponseEntity<>(saveSubCategory, HttpStatus.CREATED);
+    }
+
 
     @DeleteMapping("/delete_category")
     public void deleteProduct(@RequestBody Category category) {
@@ -102,7 +87,8 @@ public class AdminController {
 
             return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
         } else {
-            Category category = categoryService.getOne(productDto.getCategoryId());
+            SubCategory subCategory = subCategoryService.getOne(productDto.getSubcategoryId());
+//            Category category = categoryService.getOne(productDto.getCategoryId());
 
             Product product = new Product(
                     productDto.getId(),
@@ -113,13 +99,13 @@ public class AdminController {
                     productDto.getFilename(),
                     productDto.getPrice(),
                     productDto.getQuantity(),
-                    category,
+                    subCategory,
                     productDto.getLocalDate()
             );
             Product savedProduct = productService.save(product);
 
-            log.info("ADMIN added product to DB: id={}, product={}, category={}", savedProduct.getSlug(),
-                    savedProduct.getProductName(), category);
+            log.info("ADMIN added product to DB: id={}, product={}", savedProduct.getSlug(),
+                    savedProduct.getProductName());
 
             return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
         }

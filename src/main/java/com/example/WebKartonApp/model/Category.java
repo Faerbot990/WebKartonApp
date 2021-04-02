@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = { "id","slug", "name", "subCategories"})
+@EqualsAndHashCode(of = { "id","slug", "name"})
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 public class Category {
     @Id
@@ -25,10 +25,6 @@ public class Category {
 
     @Length(max = 255)
     private String name;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subcategory_id")
-    private SubCategory subCategories;
 
     private LocalDate localDate;
 

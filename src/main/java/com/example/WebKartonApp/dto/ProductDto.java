@@ -15,5 +15,6 @@ public class ProductDto {
     private Double price;
     private String quantity;
     private LocalDate localDate;
-    private long categoryId;
+    private long subcategoryId;
+//    private long categoryId;
 }

@@ -7,6 +7,7 @@ import com.example.WebKartonApp.repo.SubCategoryRepository;
 import com.example.WebKartonApp.service.SubCategoryService;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -29,6 +30,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
 
     @Override
     public SubCategory save(SubCategory subCategory) {
+        subCategory.setLocalDate(LocalDate.now());
         return subCategoryRepository.save(subCategory);
     }
 

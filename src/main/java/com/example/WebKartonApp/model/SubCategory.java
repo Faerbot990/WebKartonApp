@@ -6,6 +6,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 
 
 @Entity
@@ -29,5 +30,11 @@ public class SubCategory {
 
     @Length(max = 999999)
     private String image;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category productCategory;
+
+    private LocalDate localDate;
 
 }

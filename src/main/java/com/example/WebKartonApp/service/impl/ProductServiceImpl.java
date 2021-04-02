@@ -3,6 +3,7 @@ package com.example.WebKartonApp.service.impl;
 
 import com.example.WebKartonApp.model.Category;
 import com.example.WebKartonApp.model.Product;
+import com.example.WebKartonApp.model.SubCategory;
 import com.example.WebKartonApp.repo.ProductRepository;
 import com.example.WebKartonApp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
