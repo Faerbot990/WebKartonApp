@@ -109,30 +109,30 @@ Product savedProduct = productService.save(product);
             return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
     }
 
-    // @PutMapping("/update_prod")
-    // public ResponseEntity<?> updateProduct(
-    // @RequestBody Product product,
-    // BindingResult bindingResult
-    // ) throws IOException {
-    // if (bindingResult.hasErrors()) {
-    // Map<String, String> errorsMap = ControllerUtils.getErrors(bindingResult);
-    //
-    // return new ResponseEntity<>(errorsMap, HttpStatus.BAD_REQUEST);
-    // } else {
-    //// saveFile(product, file);
-    //
-    // productService.saveProductInfoById(product.getProductName(),
-    // product.getProductCategory(),
-    // product.getProductColor(),
-    // product.getProductDescription(),
-    // product.getPrice(),
-    // product.getFilename(),
-    // product.getQuantity(),
-    // product.getId());
-    //
-    // return new ResponseEntity<>(HttpStatus.OK);
-    // }
-    // }
+    @PutMapping("/update_prod")
+    public ResponseEntity<?> addUpdateProduct(
+            @RequestBody ProductDto productDto,
+            BindingResult bindingResult) {
+        SubCategory subCategory = subCategoryService.getOne(productDto.getSubcategoryId());
+
+        Product product = new Product(productDto.getId(),
+                transliterate(productDto.getProductName()),
+                productDto.getProductName(),
+                productDto.getProductColor(),
+                productDto.getProductDescription(),
+                productDto.getFilename(),
+                productDto.getPrice(),
+                productDto.getQuantity(),
+                subCategory,
+                productDto.getLocalDate());
+
+        Product savedProduct = productService.save(product);
+
+        log.info("ADMIN added product to DB: id={}, product={}", savedProduct.getSlug(),
+                savedProduct.getProductName());
+
+        return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
+    }
 
     @DeleteMapping("/delete_prod")
     public void deleteProduct(@RequestBody Product product) {
