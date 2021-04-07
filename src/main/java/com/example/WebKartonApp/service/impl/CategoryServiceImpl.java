@@ -1,9 +1,11 @@
 package com.example.WebKartonApp.service.impl;
 
+
+
 import com.example.WebKartonApp.model.Category;
-import com.example.WebKartonApp.model.SubCategory;
 import com.example.WebKartonApp.repo.CategoryRepository;
 import com.example.WebKartonApp.service.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -13,6 +15,8 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
+
+    @Autowired
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }

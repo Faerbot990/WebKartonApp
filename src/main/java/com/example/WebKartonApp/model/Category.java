@@ -1,11 +1,13 @@
 package com.example.WebKartonApp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.*;
 
 @Entity
 @Table(name = "category")
@@ -13,9 +15,10 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = { "id","slug", "name"})
+@EqualsAndHashCode(callSuper = false)
 @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class Category {
+public class Category  {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -26,6 +29,20 @@ public class Category {
     @Length(max = 255)
     private String name;
 
+    @Length(max = 999999)
+    private String image;
+
     private LocalDate localDate;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="categoryId")
+    @JsonManagedReference
+    private List<SubCategory> subCategory;
+
+
+
+
+
+//    @OneToMany (mappedBy = "category")
+//    private Set<SubCategory> subCategory;
 
 }

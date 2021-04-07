@@ -57,6 +57,14 @@ public class AdminController {
             Category saveCategory = categoryService.save(category);
             return new ResponseEntity<>(saveCategory, HttpStatus.CREATED);
     }
+    @PutMapping("/update_category")
+    public ResponseEntity<?> updateCategory(
+            @RequestBody Category category,
+            BindingResult bindingResult)  {
+        category.setSlug(transliterate(category.getName()));
+        Category saveCategory = categoryService.save(category);
+        return new ResponseEntity<>(saveCategory, HttpStatus.CREATED);
+    }
 
     @DeleteMapping("/delete_category")
     public void deleteCategory(@RequestBody Category category) {
@@ -65,6 +73,20 @@ public class AdminController {
 
     @PostMapping("/add_subcategory")
     public ResponseEntity<?> addSubCategory(
+            @RequestBody SubCategoryDto subCategoryDto,
+            BindingResult bindingResult)  {
+        Category category = categoryService.getOne(subCategoryDto.getCategoryId());
+        SubCategory subCategory = new SubCategory(subCategoryDto.getId(),
+                transliterate(subCategoryDto.getSubCategoryName()),
+                subCategoryDto.getSubCategoryName(),
+                subCategoryDto.getImage(),
+                category,
+                subCategoryDto.getLocalDate());
+        SubCategory saveSubCategory = subCategoryService.save(subCategory);
+        return new ResponseEntity<>(saveSubCategory, HttpStatus.CREATED);
+    }
+    @PutMapping("/update_subcategory")
+    public ResponseEntity<?> updateSubCategory(
             @RequestBody SubCategoryDto subCategoryDto,
             BindingResult bindingResult)  {
         Category category = categoryService.getOne(subCategoryDto.getCategoryId());
