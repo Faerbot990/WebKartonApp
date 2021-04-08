@@ -99,14 +99,23 @@ function postsDelete(data, flagAction = false) {
 
 // Categories Build
 function buildCategoryList(data, tbodyWrap) {
-    Object.entries(data).forEach(([key, value]) => {
-        let $tr = $('<tr>').attr('data-id', value.slug).append(
-            $('<td>').html('<img src="' + value.image + '" class="prod_img">'),
-            $('<td>').text(value.name),
-            $('<td>').text(value.nameSub),
-            $('<td>').html('<img src="images/edit.svg" data-category-edit="' + value.slug + '"><img src="images/delete.svg" data-category-delete="' + value.slug + '">')
+    Object.entries(data).forEach(([key, valueCatalog]) => {
+        let $tr = $('<tr>').attr('data-id', valueCatalog.slug).append(
+            $('<td>').html('<img src="' + valueCatalog.image + '" class="prod_img">'),
+            $('<td>').text(valueCatalog.name),
+            $('<td>').text('---'),
+            $('<td>').html('<img src="images/edit.svg" data-category-edit="' + valueCatalog.slug + '"><img src="images/delete.svg" data-category-delete="' + valueCatalog.slug + '">')
         );
         $tr.appendTo(tbodyWrap);
+        Object.entries(valueCatalog.subCategory).forEach(([key, value]) => {
+            let $tr = $('<tr>').attr('data-id', value.slug).append(
+                $('<td>').html('<img src="' + value.image + '" class="prod_img">'),
+                $('<td>').text('---'),
+                $('<td>').text(value.subCategoryNameSlug),
+                $('<td>').html('<img src="images/edit.svg" data-category-edit="' + value.slug + '"><img src="images/delete.svg" data-category-delete="' + value.slug + '">')
+            );
+            $tr.appendTo(tbodyWrap);
+        });
     });
 }
 
