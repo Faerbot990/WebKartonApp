@@ -16,8 +16,8 @@ import java.util.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class Category  {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,15 +34,8 @@ public class Category  {
 
     private LocalDate localDate;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy ="categoryId")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "categoryId")
     @JsonManagedReference
     private List<SubCategory> subCategory;
-
-
-
-
-
-//    @OneToMany (mappedBy = "category")
-//    private Set<SubCategory> subCategory;
 
 }

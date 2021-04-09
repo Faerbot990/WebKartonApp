@@ -1,6 +1,7 @@
 package com.example.WebKartonApp.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.format.datetime.DateFormatter;
@@ -10,6 +11,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,8 +20,8 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of = { "id","slug", "productName", "productColor", "productDescription", "price" })
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+@EqualsAndHashCode(of = {"id", "slug", "productName", "productColor", "productDescription", "price"})
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

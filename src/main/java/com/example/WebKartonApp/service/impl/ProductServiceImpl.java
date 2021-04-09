@@ -1,7 +1,5 @@
 package com.example.WebKartonApp.service.impl;
 
-
-import com.example.WebKartonApp.model.Category;
 import com.example.WebKartonApp.model.Product;
 import com.example.WebKartonApp.model.SubCategory;
 import com.example.WebKartonApp.repo.ProductRepository;
@@ -10,9 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -44,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
                                     String filename,
                                     String quantity,
                                     Long id) {
-        productRepository.saveProductInfoById(productName,subCategory,color,quantity,price,description,filename,id);
+        productRepository.saveProductInfoById(productName, subCategory, color, quantity, price, description, filename, id);
 
     }
 

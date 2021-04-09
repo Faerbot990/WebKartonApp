@@ -1,7 +1,6 @@
 package com.example.WebKartonApp.service.impl;
 
 
-import com.example.WebKartonApp.model.Role;
 import com.example.WebKartonApp.model.User;
 import com.example.WebKartonApp.repo.UserRepository;
 import com.example.WebKartonApp.service.UserService;

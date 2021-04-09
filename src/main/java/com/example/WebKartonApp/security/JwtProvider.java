@@ -52,7 +52,6 @@ public class JwtProvider {
                 .compact();
     }
 
-
     public boolean validateToken(String token) {
 
         try {
@@ -76,6 +75,5 @@ public class JwtProvider {
     public String resolveToken(HttpServletRequest request) {
         return request.getHeader(authorizationHeader);
     }
-
 
 }

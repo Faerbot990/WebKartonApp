@@ -25,7 +25,6 @@ public class MainController {
     private final NewsService newsService;
     private final NewsRepository newsRepository;
 
-
     @Autowired
     public MainController(ProductService productService, NewsService newsService, NewsRepository newsRepository) {
         this.productService = productService;
@@ -37,9 +36,7 @@ public class MainController {
     public ResponseEntity<?> getAllNews(
 //            @RequestParam(value = "page", required = false,defaultValue = "1") Integer page
     ) {
-
         List<News> newsPage = newsRepository.findAll();
-
 
         return new ResponseEntity<>(newsPage, HttpStatus.OK);
     }

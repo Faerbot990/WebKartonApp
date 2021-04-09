@@ -17,18 +17,19 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
-public class SubCategory  {
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+public class SubCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Length(max = 255)
-    private String subCategoryName;
+    private String subCategoryNameSlug;
 
     @Length(max = 255)
-    private String subCategoryNameSlug;
+    private String subCategoryName;
+
 
     @Length(max = 999999)
     private String image;
@@ -36,7 +37,6 @@ public class SubCategory  {
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     private Category categoryId;
-
 
     private LocalDate localDate;
 

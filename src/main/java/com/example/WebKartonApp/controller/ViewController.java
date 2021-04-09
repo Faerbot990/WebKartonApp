@@ -16,13 +16,4 @@ public class ViewController {
     public String getIndex() {
         return "index";
     }
-//
-//    @GetMapping
-//    public String getAllCategory(Model model, @PathVariable String categoryList ) {
-//        model.addAttribute("categoryList", categoryService.findAll());
-//        List<Category> categoryList = categoryService.findAll();
-//        return "catalog";
-//    }
-
-
 }

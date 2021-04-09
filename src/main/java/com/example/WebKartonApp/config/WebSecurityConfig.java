@@ -34,14 +34,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/").permitAll()
-////                .antMatchers("/auth/loginpost").permitAll()
-//                        .antMatchers("/login.html").permitAll()
-////                        .antMatchers("/static/**").permitAll()
                 .anyRequest().permitAll()
-//                .authenticated()
                 .and()
                 .apply(jwtConfig);
     }
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
