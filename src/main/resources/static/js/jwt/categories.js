@@ -23,6 +23,7 @@ function sendAjax(settings) {
 function getCategoryList() {
     let data;
     let tbodyWrap = $('.adm_content[data-id="categories"] .categories_list tbody');
+    let optionList = $('#category-parent');
     let ajaxParams = {};
     ajaxParams.method = 'GET';
     ajaxParams.url = '/categories';
@@ -38,8 +39,9 @@ function getCategoryList() {
 
         // Clear table list
         tbodyWrap.html('');
+        optionList.html('<option value="">Верхний уровень</option>');
 
-        buildCategoryList(data, tbodyWrap);
+        buildCategoryList(data, tbodyWrap, optionList);
     });
 }
 
@@ -98,7 +100,7 @@ function postsDelete(data, flagAction = false) {
 }
 
 // Categories Build
-function buildCategoryList(data, tbodyWrap) {
+function buildCategoryList(data, tbodyWrap, optionList) {
     Object.entries(data).forEach(([key, category]) => {
         let $tr = $('<tr>').attr('data-category-id', category.id).append(
             $('<td>').html('<img src="' + category.image + '" class="prod_img">'),
@@ -106,7 +108,10 @@ function buildCategoryList(data, tbodyWrap) {
             $('<td>').text('---'),
             $('<td>').html('<img src="images/edit.svg" data-category-edit="' + category.id + '"><img src="images/delete.svg" data-category-delete="' + category.id + '">')
         );
-        $tr.appendTo(tbodyWrap);
+
+        let $option = $('<option>').attr('value', category.id).text(category.name);
+        $option.appendTo(optionList);
+
         Object.entries(category.subCategory).forEach(([key, value]) => {
             let $tr = $('<tr>').attr('data-subcategory-id', value.id).append(
                 $('<td>').html('<img src="' + value.image + '" class="prod_img">'),

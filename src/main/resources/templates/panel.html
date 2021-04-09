@@ -30,8 +30,10 @@
 				<form action="admin/add_category" id="categories" class="add_form" method="post">
 					<p>Название новой категории</p>
 					<input type="text" name="name" required>
-					<p>Подкатегория</p>
-					<input type="text" name="nameSub" required>
+					<p>Родительская категория</p>
+					<select name="parent" id="category-parent" required>
+						<option value="">Верхний уровень</option>
+					</select>
 					<div class="current flx">
 						<label>
 							<input type="file" name="filename">
