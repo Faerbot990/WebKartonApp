@@ -3,6 +3,7 @@ package com.example.WebKartonApp.service.impl;
 import com.example.WebKartonApp.model.SubCategory;
 import com.example.WebKartonApp.repo.SubCategoryRepository;
 import com.example.WebKartonApp.service.SubCategoryService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ public class SubCategoryServiceImpl implements SubCategoryService {
     }
 
     @Override
-    public List<SubCategory> findAll() {
+    public List<SubCategory> findAll(Sort.Direction desc, String localDate) {
         return subCategoryRepository.findAll();
     }
 

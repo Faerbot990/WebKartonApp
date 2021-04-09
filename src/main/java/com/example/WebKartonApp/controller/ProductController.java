@@ -1,12 +1,14 @@
 package com.example.WebKartonApp.controller;
 
 import com.example.WebKartonApp.model.Category;
+import com.example.WebKartonApp.model.News;
 import com.example.WebKartonApp.model.Product;
 import com.example.WebKartonApp.model.SubCategory;
 import com.example.WebKartonApp.service.CategoryService;
 import com.example.WebKartonApp.service.ProductService;
 import com.example.WebKartonApp.service.SubCategoryService;
 import lombok.Data;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -31,11 +33,8 @@ public class ProductController {
         return "index";
     }
 
-    @GetMapping("/categories")
-    public ResponseEntity<?> getAllCategory() {
-        List<Category> categories = categoryService.findAll();
-        return new ResponseEntity<>(categories, HttpStatus.OK);
-    }
+
+
 
     @GetMapping("/categories/{categorySlug}")
     public String getCategory(@PathVariable String categorySlug, Model model) {
@@ -65,10 +64,10 @@ public class ProductController {
         return "catalog";
     }
 
-    @GetMapping("/products/{productSlug}")
-    public String getSubCategory(@PathVariable String productSlug, Model model) {
-        model.addAttribute("product", productService.findBySlug(productSlug).get(0));
-
-        return "product";
-    }
+//    @GetMapping("/products/{productSlug}")
+//    public String getSubCategory(@PathVariable String productSlug, Model model) {
+//        model.addAttribute("product", productService.findBySlug(productSlug).get(0));
+//
+//        return "product";
+//    }
 }
