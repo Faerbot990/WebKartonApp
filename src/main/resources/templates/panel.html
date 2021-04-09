@@ -30,8 +30,10 @@
 				<form action="admin/add_category" id="categories" class="add_form" method="post">
 					<p>Название новой категории</p>
 					<input type="text" name="name" required>
-					<p>Подкатегория</p>
-					<input type="text" name="nameSub" required>
+					<p>Родительская категория</p>
+					<select name="parent" id="category-parent" required>
+						<option value="">Верхний уровень</option>
+					</select>
 					<div class="current flx">
 						<label>
 							<input type="file" name="filename">
@@ -53,7 +55,7 @@
 						</tr>
 					</thead>
 					<tbody>
-					<tr>
+					<!--tr>
 						<td><img src="images/prod.jpg" class="prod_img"></td>
 						<td>Пакеты</td>
 						<td>Бумажные пакеты</td>
@@ -61,7 +63,7 @@
 							<img src="images/edit.svg">
 							<img src="images/delete.svg">
 						</td>
-					</tr>
+					</tr-->
 					</tbody>
 				</table>
 				<div class="pagination flx">
@@ -363,7 +365,7 @@
 		</div>
 		<table>
 			<thead>
-			<tr>
+			<!--tr>
 				<td>
 					<label>
 						<input type="checkbox">
@@ -375,7 +377,7 @@
 				<td>Описание</td>
 				<td>Дата</td>
 				<td></td>
-			</tr>
+			</tr-->
 			</thead>
 			<tbody>
 			<tr>

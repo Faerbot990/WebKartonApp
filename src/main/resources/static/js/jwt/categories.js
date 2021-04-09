@@ -23,6 +23,7 @@ function sendAjax(settings) {
 function getCategoryList() {
     let data;
     let tbodyWrap = $('.adm_content[data-id="categories"] .categories_list tbody');
+    let optionList = $('#category-parent');
     let ajaxParams = {};
     ajaxParams.method = 'GET';
     ajaxParams.url = '/categories';
@@ -38,8 +39,9 @@ function getCategoryList() {
 
         // Clear table list
         tbodyWrap.html('');
+        optionList.html('<option value="">Верхний уровень</option>');
 
-        buildCategoryList(data, tbodyWrap);
+        buildCategoryList(data, tbodyWrap, optionList);
     });
 }
 
@@ -48,6 +50,20 @@ function categoryAdd(data) {
     let ajaxParams = {};
     ajaxParams.method = 'POST';
     ajaxParams.url = '/admin/add_category';
+    ajaxParams.params = data;
+    ajaxParams.dataType = 'json';
+
+    sendAjax(ajaxParams).done(function () {
+        // Reset table list
+        $('.menu [data-id="categories"]').click();
+    });
+}
+
+// Sub Category Add
+function subCategoryAdd(data) {
+    let ajaxParams = {};
+    ajaxParams.method = 'POST';
+    ajaxParams.url = '/admin/add_subcategory';
     ajaxParams.params = data;
     ajaxParams.dataType = 'json';
 
@@ -81,39 +97,56 @@ function postUpdate(data) {
     });
 }
 
-// News Delete
-function postsDelete(data, flagAction = false) {
+// Category Delete
+function categoryDelete(data) {
     let ajaxParams = {};
     ajaxParams.method = 'DELETE';
-    ajaxParams.url = '/admin/delete_news';
+    ajaxParams.url = '/admin/delete_category';
     ajaxParams.params = data;
     ajaxParams.dataType = 'text';
 
     sendAjax(ajaxParams).done(function () {
-        if (flagAction) {
-            // Reset table list
-            $('.menu [data-id="posts"]').click();
-        }
+        // Reset table list
+        $('.menu [data-id="categories"]').click();
+    });
+}
+
+// Sub Category Delete
+function subCategoryDelete(data) {
+    let ajaxParams = {};
+    ajaxParams.method = 'DELETE';
+    ajaxParams.url = '/admin/delete_subcategory';
+    ajaxParams.params = data;
+    ajaxParams.dataType = 'text';
+
+    sendAjax(ajaxParams).done(function () {
+        // Reset table list
+        $('.menu [data-id="categories"]').click();
     });
 }
 
 // Categories Build
-function buildCategoryList(data, tbodyWrap) {
-    Object.entries(data).forEach(([key, valueCatalog]) => {
-        let $tr = $('<tr>').attr('data-id', valueCatalog.slug).append(
-            $('<td>').html('<img src="' + valueCatalog.image + '" class="prod_img">'),
-            $('<td>').text(valueCatalog.name),
-            $('<td>').text('---'),
-            $('<td>').html('<img src="images/edit.svg" data-category-edit="' + valueCatalog.slug + '"><img src="images/delete.svg" data-category-delete="' + valueCatalog.slug + '">')
+function buildCategoryList(data, tbodyWrap, optionList) {
+    Object.entries(data).forEach(([key, category]) => {
+        let $tr = $('<tr>').attr('data-category-id', category.id).append(
+            $('<td>').html('<img src="' + category.image + '" class="prod_img">'),
+            $('<td>').text(category.name),
+            $('<td>').text(''),
+            $('<td>').html('<img src="images/edit.svg" data-category-edit="' + category.id + '"><img src="images/delete.svg" data-category-delete="' + category.id + '">')
         );
+        let $option = $('<option>').attr('value', category.id).text(category.name);
+
         $tr.appendTo(tbodyWrap);
-        Object.entries(valueCatalog.subCategory).forEach(([key, value]) => {
-            let $tr = $('<tr>').attr('data-id', value.slug).append(
+        $option.appendTo(optionList);
+
+        Object.entries(category.subCategory).forEach(([key, value]) => {
+            let $tr = $('<tr>').attr('data-subcategory-id', value.id).append(
                 $('<td>').html('<img src="' + value.image + '" class="prod_img">'),
-                $('<td>').text('---'),
-                $('<td>').text(value.subCategoryNameSlug),
-                $('<td>').html('<img src="images/edit.svg" data-category-edit="' + value.slug + '"><img src="images/delete.svg" data-category-delete="' + value.slug + '">')
+                $('<td>').text(category.name),
+                $('<td>').text(value.subCategoryName),
+                $('<td>').html('<img src="images/edit.svg" data-subcategory-edit="' + value.id + '"><img src="images/delete.svg" data-subcategory-delete="' + value.id + '">')
             );
+
             $tr.appendTo(tbodyWrap);
         });
     });
@@ -145,12 +178,20 @@ $(document).ready(function () {
         e.preventDefault();
 
         let data = {};
+        let parentId = $(this).find("[name='parent']").val();
 
-        data.name = $(this).find("[name='name']").val();
-        data.nameSub = $(this).find("[name='nameSub']").val();
-        data.image = $(this).find('[name="fileBase64"]').val();
+        if (parentId === '') {
+            data.name = $(this).find("[name='name']").val();
+            data.image = $(this).find('[name="fileBase64"]').val();
 
-        categoryAdd(data);
+            categoryAdd(data);
+        } else {
+            data.subCategoryName = $(this).find("[name='name']").val();
+            data.categoryId = $(this).find("[name='parent']").val();
+            data.image = $(this).find('[name="fileBase64"]').val();
+
+            subCategoryAdd(data);
+        }
 
         $(this).trigger("reset");
     });
@@ -203,50 +244,36 @@ $(document).ready(function () {
         $(this).trigger("reset");
     });
 
-    // Action Delete checked posts
-    $('.adm_content[data-id="posts"] [data-action="posts-delete"]').on('click', function (e) {
+    // Action Delete Category
+    $('.adm_content[data-id="categories"]').on('click', '[data-category-delete]', function (e) {
         e.preventDefault();
 
-        if (confirm("Вы уверены, что хотите удалить выбранные посты?") === false) {
+        if (confirm("Вы уверены, что хотите удалить категорию?") === false) {
             return false;
         }
 
-        let arrId = [];
-        let checkedItems = $('[name="posts-checks"]:checked');
-
-        if (checkedItems.length === 0) {
-            alert("Выберите необходимые посты");
-            return false;
-        }
-
-        $.each(checkedItems, function (key, item) {
-            let object = {};
-            object.id = item.value;
-            arrId.push(object);
-        });
-
-        // Delete posts
-        $.each(arrId, function (key, item) {
-            let isLastElement = key === arrId.length - 1;
-
-            postsDelete(item, isLastElement);
-        });
-    });
-
-    // Action Delete item post
-    $('.adm_content[data-id="posts"]').on('click', '[data-post-delete]', function (e) {
-        e.preventDefault();
-
-        if (confirm("Вы уверены, что хотите удалить пост?") === false) {
-            return false;
-        }
-
-        let item = $(this).attr('data-post-delete');
+        let item = $(this).attr('data-category-delete');
         let object = {};
         object.id = item;
 
-        // Delete post
-        postsDelete(object);
+        // Delete category
+        categoryDelete(object);
+    });
+
+    // Action Delete Sub Category
+    $('.adm_content[data-id="categories"]').on('click', '[data-subcategory-delete]', function (e) {
+        e.preventDefault();
+
+        if (confirm("Вы уверены, что хотите удалить подкатегорию?") === false) {
+            return false;
+        }
+
+        let item = $(this).attr('data-subcategory-delete');
+        let object = {};
+        object.id = item;
+
+        // Delete sub category
+        subCategoryDelete(object);
     });
 
     // Category Add Image

@@ -325,42 +325,42 @@ $(document).ready(function (response) {
         return false;
     });*/
 
-    $('#categories input[name="image"]').on('change', encodeImageFileAsURL(function (base64Img) {
-        $('#categories input[name="image"]')
-            .after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
-    }));
-
-    $('#categories').on('submit', function (e) {
-        e.preventDefault();
-
-        let url = $(this).attr('action');
-        let data = {};
-
-        let file = $('[name="filename"]').prop('files')[0];
-
-
-        data.name = $("[name='name']").val();
-        data.parentCategorySlug = $("[name='parentCategorySlug']").val();
-        data.image = $('[name="fileBase64"]').val();
-
-        $.ajax({
-            type: 'POST',
-            url: url,
-            processData: false,
-            crossDomain: true,
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify(data),
-            dataType: 'json',
-            beforeSend: function (xhr) {
-                xhr.setRequestHeader("Authorization", Cookies.get('token'));
-            },
-            success: function () {
-                window.location.replace('/panel');
-            },
-            error: function (xhr, str) {
-                alert('Возникла ошибка: ' + xhr.responseCode);
-            }
-        });
-        //return false;
-    });
+    // $('#categories input[name="image"]').on('change', encodeImageFileAsURL(function (base64Img) {
+    //     $('#categories input[name="image"]')
+    //         .after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
+    // }));
+    //
+    // $('#categories').on('submit', function (e) {
+    //     e.preventDefault();
+    //
+    //     let url = $(this).attr('action');
+    //     let data = {};
+    //
+    //     let file = $('[name="filename"]').prop('files')[0];
+    //
+    //
+    //     data.name = $("[name='name']").val();
+    //     data.parentCategorySlug = $("[name='parentCategorySlug']").val();
+    //     data.image = $('[name="fileBase64"]').val();
+    //
+    //     $.ajax({
+    //         type: 'POST',
+    //         url: url,
+    //         processData: false,
+    //         crossDomain: true,
+    //         contentType: "application/json; charset=utf-8",
+    //         data: JSON.stringify(data),
+    //         dataType: 'json',
+    //         beforeSend: function (xhr) {
+    //             xhr.setRequestHeader("Authorization", Cookies.get('token'));
+    //         },
+    //         success: function () {
+    //             window.location.replace('/panel');
+    //         },
+    //         error: function (xhr, str) {
+    //             alert('Возникла ошибка: ' + xhr.responseCode);
+    //         }
+    //     });
+    //     //return false;
+    // });
 });
