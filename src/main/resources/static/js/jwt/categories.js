@@ -108,8 +108,9 @@ function buildCategoryList(data, tbodyWrap, optionList) {
             $('<td>').text('---'),
             $('<td>').html('<img src="images/edit.svg" data-category-edit="' + category.id + '"><img src="images/delete.svg" data-category-delete="' + category.id + '">')
         );
-
         let $option = $('<option>').attr('value', category.id).text(category.name);
+
+        $tr.appendTo(tbodyWrap);
         $option.appendTo(optionList);
 
         Object.entries(category.subCategory).forEach(([key, value]) => {
@@ -119,6 +120,7 @@ function buildCategoryList(data, tbodyWrap, optionList) {
                 $('<td>').text(value.subCategoryName),
                 $('<td>').html('<img src="images/edit.svg" data-category-edit="' + value.id + '"><img src="images/delete.svg" data-category-delete="' + value.id + '">')
             );
+
             $tr.appendTo(tbodyWrap);
         });
     });
