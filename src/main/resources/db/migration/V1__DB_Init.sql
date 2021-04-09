@@ -2,6 +2,7 @@ create sequence hibernate_sequence start 1 increment 1;
 create table category
 (
     id         int8 not null,
+    image      varchar(999999),
     local_date date,
     name       varchar(255),
     slug       varchar(255),
@@ -37,7 +38,7 @@ create table subcategory
     local_date             date,
     sub_category_name      varchar(255),
     sub_category_name_slug varchar(255),
-    category_id            int8,
+    category_id_id         int8,
     primary key (id)
 );
 create table user_role
@@ -55,6 +56,6 @@ create table usr
 alter table if exists product
     add constraint FKku369nri8u3s17uom8or57trs foreign key (subcategory_id) references subcategory;
 alter table if exists subcategory
-    add constraint FKe4hdbsmrx9bs9gpj1fh4mg0ku foreign key (category_id) references category;
+    add constraint FK4i06eeh4u804069yunsflotiq foreign key (category_id_id) references category;
 alter table if exists user_role
-    add constraint FKfpm8swft53ulq2hl11yplpr5 foreign key (user_id) references usr
+    add constraint FKfpm8swft53ulq2hl11yplpr5 foreign key (user_id) references usr;

@@ -1,7 +1,6 @@
 package com.example.WebKartonApp.service;
 
 
-import com.example.WebKartonApp.model.Category;
 import com.example.WebKartonApp.model.Product;
 import com.example.WebKartonApp.model.SubCategory;
 

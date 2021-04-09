@@ -1,11 +1,17 @@
 package com.example.WebKartonApp.dto;
 
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.hibernate.validator.constraints.Length;
+import lombok.NoArgsConstructor;
+
 
 import java.time.LocalDate;
 
+
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class SubCategoryDto {
     private Long id;
     private String subCategoryName;

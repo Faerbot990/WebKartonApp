@@ -1,8 +1,6 @@
 package com.example.WebKartonApp.service.impl;
 
-import com.example.WebKartonApp.model.Category;
 import com.example.WebKartonApp.model.SubCategory;
-import com.example.WebKartonApp.repo.CategoryRepository;
 import com.example.WebKartonApp.repo.SubCategoryRepository;
 import com.example.WebKartonApp.service.SubCategoryService;
 import org.springframework.stereotype.Service;

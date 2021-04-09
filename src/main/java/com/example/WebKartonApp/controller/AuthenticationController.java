@@ -28,15 +28,9 @@ import java.util.Map;
 @Slf4j
 public class AuthenticationController {
 
-
     private final AuthenticationManager authenticationManager;
-
-
     private final UserService userService;
-
-
     private final JwtProvider jwtProvider;
-
 
     @Autowired
     public AuthenticationController(AuthenticationManager authenticationManager, UserService userService, JwtProvider jwtProvider) {
@@ -44,7 +38,6 @@ public class AuthenticationController {
         this.userService = userService;
         this.jwtProvider = jwtProvider;
     }
-
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticate(@RequestBody AuthenticationRequestDTO request) {
@@ -54,7 +47,6 @@ public class AuthenticationController {
             User user = userService.findByUsernameAndPassword(request.getUsername(), request.getPassword());
             String userRole = user.getRoles().iterator().next().name();
             String token = jwtProvider.createToken(request.getUsername(), userRole);
-
 
             Map<Object, Object> response = new HashMap<>();
             response.put("username", request.getUsername());

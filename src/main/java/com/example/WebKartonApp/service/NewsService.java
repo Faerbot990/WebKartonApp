@@ -17,5 +17,4 @@ public interface NewsService {
 
     News save(News news);
 
-
 }
