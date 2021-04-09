@@ -59,6 +59,20 @@ function categoryAdd(data) {
     });
 }
 
+// Sub Category Add
+function subCategoryAdd(data) {
+    let ajaxParams = {};
+    ajaxParams.method = 'PUT';
+    ajaxParams.url = '/admin/add_subcategory';
+    ajaxParams.params = data;
+    ajaxParams.dataType = 'json';
+
+    sendAjax(ajaxParams).done(function () {
+        // Reset table list
+        $('.menu [data-id="categories"]').click();
+    });
+}
+
 // News Edit
 function postsGetItem(data) {
     let ajaxParams = {};
@@ -105,7 +119,7 @@ function buildCategoryList(data, tbodyWrap, optionList) {
         let $tr = $('<tr>').attr('data-category-id', category.id).append(
             $('<td>').html('<img src="' + category.image + '" class="prod_img">'),
             $('<td>').text(category.name),
-            $('<td>').text('---'),
+            $('<td>').text(''),
             $('<td>').html('<img src="images/edit.svg" data-category-edit="' + category.id + '"><img src="images/delete.svg" data-category-delete="' + category.id + '">')
         );
         let $option = $('<option>').attr('value', category.id).text(category.name);
@@ -116,9 +130,9 @@ function buildCategoryList(data, tbodyWrap, optionList) {
         Object.entries(category.subCategory).forEach(([key, value]) => {
             let $tr = $('<tr>').attr('data-subcategory-id', value.id).append(
                 $('<td>').html('<img src="' + value.image + '" class="prod_img">'),
-                $('<td>').text('---'),
+                $('<td>').text(category.name),
                 $('<td>').text(value.subCategoryName),
-                $('<td>').html('<img src="images/edit.svg" data-category-edit="' + value.id + '"><img src="images/delete.svg" data-category-delete="' + value.id + '">')
+                $('<td>').html('<img src="images/edit.svg" data-subcategory-edit="' + value.id + '"><img src="images/delete.svg" data-subcategory-delete="' + value.id + '">')
             );
 
             $tr.appendTo(tbodyWrap);
@@ -152,12 +166,20 @@ $(document).ready(function () {
         e.preventDefault();
 
         let data = {};
+        let parentId = $(this).find("[name='parent']").val();
 
-        data.name = $(this).find("[name='name']").val();
-        data.nameSub = $(this).find("[name='nameSub']").val();
-        data.image = $(this).find('[name="fileBase64"]').val();
+        if (parentId === '') {
+            data.name = $(this).find("[name='name']").val();
+            data.image = $(this).find('[name="fileBase64"]').val();
 
-        categoryAdd(data);
+            categoryAdd(data);
+        } else {
+            data.subCategoryName = $(this).find("[name='name']").val();
+            data.categoryId = $(this).find("[name='parent']").val();
+            data.image = $(this).find('[name="fileBase64"]').val();
+
+            subCategoryAdd(data);
+        }
 
         $(this).trigger("reset");
     });
