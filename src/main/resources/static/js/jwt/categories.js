@@ -97,19 +97,31 @@ function postUpdate(data) {
     });
 }
 
-// News Delete
-function postsDelete(data, flagAction = false) {
+// Category Delete
+function categoryDelete(data) {
     let ajaxParams = {};
     ajaxParams.method = 'DELETE';
-    ajaxParams.url = '/admin/delete_news';
+    ajaxParams.url = '/admin/delete_category';
     ajaxParams.params = data;
     ajaxParams.dataType = 'text';
 
     sendAjax(ajaxParams).done(function () {
-        if (flagAction) {
-            // Reset table list
-            $('.menu [data-id="posts"]').click();
-        }
+        // Reset table list
+        $('.menu [data-id="categories"]').click();
+    });
+}
+
+// Sub Category Delete
+function subCategoryDelete(data) {
+    let ajaxParams = {};
+    ajaxParams.method = 'DELETE';
+    ajaxParams.url = '/admin/delete_subcategory';
+    ajaxParams.params = data;
+    ajaxParams.dataType = 'text';
+
+    sendAjax(ajaxParams).done(function () {
+        // Reset table list
+        $('.menu [data-id="categories"]').click();
     });
 }
 
@@ -232,50 +244,36 @@ $(document).ready(function () {
         $(this).trigger("reset");
     });
 
-    // Action Delete checked posts
-    $('.adm_content[data-id="posts"] [data-action="posts-delete"]').on('click', function (e) {
+    // Action Delete Category
+    $('.adm_content[data-id="categories"]').on('click', '[data-category-delete]', function (e) {
         e.preventDefault();
 
-        if (confirm("Вы уверены, что хотите удалить выбранные посты?") === false) {
+        if (confirm("Вы уверены, что хотите удалить категорию?") === false) {
             return false;
         }
 
-        let arrId = [];
-        let checkedItems = $('[name="posts-checks"]:checked');
-
-        if (checkedItems.length === 0) {
-            alert("Выберите необходимые посты");
-            return false;
-        }
-
-        $.each(checkedItems, function (key, item) {
-            let object = {};
-            object.id = item.value;
-            arrId.push(object);
-        });
-
-        // Delete posts
-        $.each(arrId, function (key, item) {
-            let isLastElement = key === arrId.length - 1;
-
-            postsDelete(item, isLastElement);
-        });
-    });
-
-    // Action Delete item post
-    $('.adm_content[data-id="posts"]').on('click', '[data-post-delete]', function (e) {
-        e.preventDefault();
-
-        if (confirm("Вы уверены, что хотите удалить пост?") === false) {
-            return false;
-        }
-
-        let item = $(this).attr('data-post-delete');
+        let item = $(this).attr('data-category-delete');
         let object = {};
         object.id = item;
 
-        // Delete post
-        postsDelete(object);
+        // Delete category
+        categoryDelete(object);
+    });
+
+    // Action Delete Sub Category
+    $('.adm_content[data-id="categories"]').on('click', '[data-subcategory-delete]', function (e) {
+        e.preventDefault();
+
+        if (confirm("Вы уверены, что хотите удалить подкатегорию?") === false) {
+            return false;
+        }
+
+        let item = $(this).attr('data-subcategory-delete');
+        let object = {};
+        object.id = item;
+
+        // Delete sub category
+        subCategoryDelete(object);
     });
 
     // Category Add Image
