@@ -65,7 +65,7 @@ function subCategoryAdd(data) {
     ajaxParams.method = 'PUT';
     ajaxParams.url = '/admin/add_subcategory';
     ajaxParams.params = data;
-    ajaxParams.dataType = 'json';
+    ajaxParams.dataType = 'text';
 
     sendAjax(ajaxParams).done(function () {
         // Reset table list
