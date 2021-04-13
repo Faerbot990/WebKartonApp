@@ -22,7 +22,7 @@ function sendAjax(settings) {
 // Сategories Get
 function getCategoryList() {
     let data;
-    let optionList = $('#add-prods #parent');
+    let optionList = $('#add-prods select[name="parent"]');
     let ajaxParams = {};
     ajaxParams.method = 'GET';
     ajaxParams.url = '/categories';
