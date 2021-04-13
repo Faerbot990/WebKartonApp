@@ -43,6 +43,14 @@ function getCategoryList() {
     });
 }
 
+// Categories Build
+function buildCategoryList(data, tbodyWrap, optionList) {
+    Object.entries(data).forEach(([key, category]) => {
+        let $option = $('<option>').attr('value', category.id).text(category.name);
+        $option.appendTo(optionList);
+    });
+}
+
 // Encode image to base64
 function encodeImageFileAsURL(cb) {
     return function () {

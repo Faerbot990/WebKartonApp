@@ -128,8 +128,27 @@ function subCategoryDelete(data) {
 // Categories Build
 function buildCategoryList(data, tbodyWrap, optionList) {
     Object.entries(data).forEach(([key, category]) => {
+        let $tr = $('<tr>').attr('data-category-id', category.id).append(
+            $('<td>').html('<img src="' + category.image + '" class="prod_img">'),
+            $('<td>').text(category.name),
+            $('<td>').text(''),
+            $('<td>').html('<img src="images/edit.svg" data-category-edit="' + category.id + '"><img src="images/delete.svg" data-category-delete="' + category.id + '">')
+        );
         let $option = $('<option>').attr('value', category.id).text(category.name);
+
+        $tr.appendTo(tbodyWrap);
         $option.appendTo(optionList);
+
+        Object.entries(category.subCategory).forEach(([key, value]) => {
+            let $tr = $('<tr>').attr('data-subcategory-id', value.id).append(
+                $('<td>').html('<img src="' + value.image + '" class="prod_img">'),
+                $('<td>').text(category.name),
+                $('<td>').text(value.subCategoryName),
+                $('<td>').html('<img src="images/edit.svg" data-subcategory-edit="' + value.id + '"><img src="images/delete.svg" data-subcategory-delete="' + value.id + '">')
+            );
+
+            $tr.appendTo(tbodyWrap);
+        });
     });
 }
 
