@@ -4,6 +4,7 @@ import com.example.WebKartonApp.model.Category;
 import com.example.WebKartonApp.repo.CategoryRepository;
 import com.example.WebKartonApp.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -25,7 +26,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> findAll() {
+    public List<Category> findAll(Sort.Direction desc, String localDate) {
         return categoryRepository.findAll();
     }
 

@@ -34,7 +34,7 @@ public class SubCategory {
     @Length(max = 999999)
     private String image;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JsonBackReference
     private Category categoryId;
 
