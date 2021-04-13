@@ -302,16 +302,10 @@
 		<h2>Добавление/редактирование товара:</h2>
 		<form action="admin/add_prod" id="add-prods" class="add_form" method="post">
 			<p>Название товара</p>
-			<input type="text" name="productName">
+			<input type="text" name="name">
 			<p>Категория товара</p>
-			<select name="productCategory">
+			<select name="parent">
 				<option value="" selected>Выберите категорию</option>
-				<option value="karton">Картон</option>
-				<option value="Бумага">Бумага</option>
-				<option value="Переплетные материалы">Переплетеные материалы</option>
-				<option value="Кондитерская упаковка">Кондитерская упаковка</option>
-				<option value="Одноразовая посуда">Одноразовая посуда</option>
-				<option value="Бумажные изделия">Бумажные изделия</option>
 			</select>
 			<div class="subcategory-wrapper"></div>
 

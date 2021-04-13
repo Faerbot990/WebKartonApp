@@ -73,11 +73,11 @@ function subCategoryAdd(data) {
     });
 }
 
-// News Edit
-function postsGetItem(data) {
+// Сategory Edit
+function categoryGet(data) {
     let ajaxParams = {};
     ajaxParams.method = 'GET';
-    ajaxParams.url = '/main/news/' + data.id;
+    ajaxParams.url = '/category/' + data.id;
     ajaxParams.dataType = 'json';
 
     return sendAjax(ajaxParams);
@@ -128,27 +128,8 @@ function subCategoryDelete(data) {
 // Categories Build
 function buildCategoryList(data, tbodyWrap, optionList) {
     Object.entries(data).forEach(([key, category]) => {
-        let $tr = $('<tr>').attr('data-category-id', category.id).append(
-            $('<td>').html('<img src="' + category.image + '" class="prod_img">'),
-            $('<td>').text(category.name),
-            $('<td>').text(''),
-            $('<td>').html('<img src="images/edit.svg" data-category-edit="' + category.id + '"><img src="images/delete.svg" data-category-delete="' + category.id + '">')
-        );
         let $option = $('<option>').attr('value', category.id).text(category.name);
-
-        $tr.appendTo(tbodyWrap);
         $option.appendTo(optionList);
-
-        Object.entries(category.subCategory).forEach(([key, value]) => {
-            let $tr = $('<tr>').attr('data-subcategory-id', value.id).append(
-                $('<td>').html('<img src="' + value.image + '" class="prod_img">'),
-                $('<td>').text(category.name),
-                $('<td>').text(value.subCategoryName),
-                $('<td>').html('<img src="images/edit.svg" data-subcategory-edit="' + value.id + '"><img src="images/delete.svg" data-subcategory-delete="' + value.id + '">')
-            );
-
-            $tr.appendTo(tbodyWrap);
-        });
     });
 }
 
@@ -197,17 +178,17 @@ $(document).ready(function () {
     });
 
     // Action Edit post
-    $('.adm_content[data-id="posts"]').on('click', '[data-post-edit]', function (e) {
+    $('.adm_content[data-id="categories"]').on('click', '[data-category-edit]', function (e) {
         e.preventDefault();
 
-        let item = $(this).attr('data-post-edit');
+        let item = $(this).attr('data-category-edit');
         let object = {};
         object.id = item;
 
         // Get edit post
-        let post = postsGetItem(object);
+        let post = categoryGet(object);
         post.done(function (data) {
-            let formEdit = $('#edit-posts');
+            let formEdit = $('#categories');
             let inputFilename = formEdit.find('input[name="filename"]');
             $.each(data, function(name, value) {
                 if (
@@ -285,7 +266,7 @@ $(document).ready(function () {
     }));
 
     // Category Edit Image
-    $('#edit-posts input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
+    $('#categories input[name="filename"]').on('change', encodeImageFileAsURL(function (base64Img) {
         let inputFilename = $('#edit-posts input[name="filename"]');
         inputFilename.after("<input type='hidden' name='fileBase64' value='" + base64Img + "'>");
         inputFilename.closest(".current.flx").find('> img').remove();
@@ -293,7 +274,7 @@ $(document).ready(function () {
     }));
 
     // Category Delete Image
-    $('.adm_content[data-id="edit_posts"] #edit-posts .current').on('click', '.delete', function () {
+    $('.adm_content[data-id="categories"] #categories .current').on('click', '.delete', function () {
         $(this).closest('.current').find('[name="fileBase64"]').remove();
         $(this).closest('.current').find('img').remove();
     });
