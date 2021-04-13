@@ -60,9 +60,4 @@ public class ProductServiceImpl implements ProductService {
     public List<Product> findBySlug(String slug) {
         return productRepository.findBySlug(slug);
     }
-
-    @Override
-    public List<Product> getProductsBySubcategoryName(String name) {
-        return null;
-    }
 }
