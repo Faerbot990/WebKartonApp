@@ -56,6 +56,9 @@ function encodeImageFileAsURL(cb) {
 }
 
 $(document).ready(function () {
+    // Get category list
+    getCategoryList();
+
     // Action Open Products page
     $('.menu [data-id="prods"]').on('click', function (e) {
         e.preventDefault();
