@@ -36,14 +36,9 @@ public class SubCategory {
     @Length(max = 999999)
     private String image;
 
-//    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-//    @JsonBackReference
-//    private Category parentCategory;
-
     private LocalDate localDate;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL//, mappedBy = "subcategoryId"
-    )
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Product> products;
 

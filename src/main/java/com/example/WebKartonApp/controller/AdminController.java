@@ -95,7 +95,7 @@ public class AdminController {
         SubCategoryDto subCategoryDto = changeRequest.getSubCategoryDto().toDto();
         if(subCategoryDto.getId() != null)
             return new ResponseEntity<>("Cannot save subCategory with predefined id ", HttpStatus.FORBIDDEN);
-
+        subCategoryDto.setSubCategoryName(transliterate(subCategoryDto.getSubCategoryName()));
         SubCategory savedSubcategory = subCategoryService.save(subCategoryDto);
 
         //adding subcat to cat and updating cat
@@ -116,16 +116,9 @@ public class AdminController {
         if(subCategoryDto.getId() == null)
             return new ResponseEntity<>("Cannot update subCategory without id ", HttpStatus.FORBIDDEN);
 
-       // Category category = categoryRepository.getOne(changeRequest.getCategoryId());
-
-//        subCategoryRepository.findById(subCategoryDto.getId())
-//                .orElseThrow(() -> new IllegalArgumentException("Cant find subCategory with id" + subCategoryDto.getId()));
-
-        //SubCategory updated =  mapper.map(subCategoryDto, SubCategory.class);
+        subCategoryDto.setSubCategoryName(transliterate(subCategoryDto.getSubCategoryName()));
         SubCategory saveSubCategory = subCategoryService.save(subCategoryDto);
 
-        //category.getSubCategories().add(updated);
-        //categoryRepository.save(category);
 
         return new ResponseEntity<>(saveSubCategory, HttpStatus.NO_CONTENT);
     }
@@ -146,6 +139,7 @@ public class AdminController {
 
         SubCategory subCategory = subCategoryRepository.findById(changeRequest.getSubcategoryId()).
                 orElseThrow(() -> new IllegalArgumentException("Cant find subCategory with id" + changeRequest.getSubcategoryId()));;
+        productDto.setProductName(transliterate(productDto.getProductName()));
 
         Product savedProduct = productService.save(productDto);
         productRepository.save(savedProduct);
@@ -166,9 +160,7 @@ public class AdminController {
         if(productDto.getId() == null)
             return new ResponseEntity<>("Cannot update product without id ", HttpStatus.FORBIDDEN);
 
-        productRepository.findById(productDto.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Cant find product with id" + productDto.getId()));
-
+        productDto.setProductName(transliterate(productDto.getProductName()));
         productService.save(productDto);
 
 

@@ -11,8 +11,6 @@ public interface SubCategoryService {
     SubCategoryDto getOne(Long id);
 
     List<SubCategoryDto> findAll(Sort.Direction desc, String localDate);
-//
-// List<Category> getSubcategoriesByCategorySlug(String slug);
 
     SubCategory save(SubCategoryDto subCategory);
 }

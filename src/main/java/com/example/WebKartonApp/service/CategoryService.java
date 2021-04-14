@@ -11,11 +11,7 @@ public interface CategoryService {
     CategoryDto getOne(Long id);
 
     List<CategoryDto> findAll(Sort.Direction desc, String localDate);
-// List <Category> findByCategoryName(String name);
-// List<Category> getSubcategoriesByCategorySlug(String slug);
 
     Category save(CategoryDto category);
-
-// void savCategoryInfoById(String name,SubCategory subCategory, Long id);
 
 }
