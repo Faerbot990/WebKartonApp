@@ -1,8 +1,7 @@
 package com.example.WebKartonApp.controller;
 
 
-import com.example.WebKartonApp.model.Category;
-import com.example.WebKartonApp.model.Product;
+import com.example.WebKartonApp.dto.read.ProductDto;
 import com.example.WebKartonApp.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,8 +24,8 @@ public class MenuController {
     }
 
     @GetMapping("/product")
-    public ResponseEntity<?> getAllProduct() {
-        List<Product> products = productService.findAll();
+    public ResponseEntity<List<ProductDto>> getAllProduct() {
+        List<ProductDto> products = productService.findAll();
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 }

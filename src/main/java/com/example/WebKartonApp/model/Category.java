@@ -34,8 +34,9 @@ public class Category {
 
     private LocalDate localDate;
 
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "categoryId")
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL//, mappedBy = "categoryId"
+    )
     @JsonManagedReference
-    private List<SubCategory> subCategory;
+    private List<SubCategory> subCategories;
 
 }

@@ -1,21 +1,21 @@
-package com.example.WebKartonApp.dto;
+package com.example.WebKartonApp.dto.read;
 
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 import java.time.LocalDate;
-
+import java.util.List;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubCategoryDto {
+public class CategoryDto {
     private Long id;
-    private String subCategoryName;
+    private String slug;
+    private String name;
     private String image;
-    private Long categoryId;
     private LocalDate localDate;
+    List<SubCategoryDto> subCategories;
 }

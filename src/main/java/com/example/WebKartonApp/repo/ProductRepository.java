@@ -18,18 +18,17 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findBySlug(String slug);
 
-//    List<Product> findByProductCategorySlug(String slug);
 
-    @Modifying
-    @Transactional
-    @Query("update Product p set p.productName = ?1, p.subCategory = ?2, p.productColor =?3, p.quantity = ?4, p.price = ?5, " +
-            "p.productDescription = ?6, p.filename =?7  where p.id = ?8")
-    void saveProductInfoById(String productName,
-                             SubCategory subCategory,
-                             String productColor,
-                             String quantity,
-                             Double price,
-                             String productDescription,
-                             String filename,
-                             Long id);
+//    @Modifying
+//    @Transactional
+//    @Query("update Product p set p.productName = ?1, p.subCategory = ?2, p.productColor =?3, p.quantity = ?4, p.price = ?5, " +
+//            "p.productDescription = ?6, p.filename =?7  where p.id = ?8")
+//    void saveProductInfoById(String productName,
+//                             SubCategory subCategory,
+//                             String productColor,
+//                             String quantity,
+//                             Double price,
+//                             String productDescription,
+//                             String filename,
+//                             Long id);
 }

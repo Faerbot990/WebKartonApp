@@ -50,9 +50,9 @@ public class Product {
     @NotBlank(message = "")
     private String quantity;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "subcategory_id")
-    private SubCategory subCategory;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "subcategoryId")
+//    private SubCategory subCategory;
 
     private LocalDate localDate;
 

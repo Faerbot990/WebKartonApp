@@ -1,7 +1,7 @@
 package com.example.WebKartonApp.controller;
 
-import com.example.WebKartonApp.model.Category;
-import com.example.WebKartonApp.model.SubCategory;
+import com.example.WebKartonApp.dto.read.CategoryDto;
+import com.example.WebKartonApp.dto.read.SubCategoryDto;
 import com.example.WebKartonApp.service.CategoryService;
 import com.example.WebKartonApp.service.SubCategoryService;
 import lombok.RequiredArgsConstructor;
@@ -23,25 +23,25 @@ public class CategoryController {
     private final SubCategoryService subCategoryService;
 
     @GetMapping("/categories")
-    public ResponseEntity<?> getAllCategory() {
-        List<Category> categories = categoryService.findAll(Sort.Direction.DESC,"localDate");
+    public ResponseEntity<List<CategoryDto>> getAllCategory() {
+        List<CategoryDto> categories = categoryService.findAll(Sort.Direction.DESC,"localDate");
         return new ResponseEntity<>(categories, HttpStatus.OK);
     }
     @GetMapping("/category/{id}")
-    public ResponseEntity<?> getCategory(@PathVariable("id") Long categoryId) {
+    public ResponseEntity<CategoryDto> getCategory(@PathVariable("id") Long categoryId) {
 
-        Category category = categoryService.getOne(categoryId);
+        CategoryDto category = categoryService.getOne(categoryId);
         return new ResponseEntity<>(category, HttpStatus.OK);
     }
     @GetMapping("/subcategories")
-    public ResponseEntity<?> getAllSubCategory() {
-        List<SubCategory> subCategories = subCategoryService.findAll(Sort.Direction.DESC,"localDate");
+    public ResponseEntity<List<SubCategoryDto>> getAllSubCategory() {
+        List<SubCategoryDto> subCategories = subCategoryService.findAll(Sort.Direction.DESC,"localDate");
         return new ResponseEntity<>(subCategories, HttpStatus.OK);
     }
     @GetMapping("/subcategory/{id}")
-    public ResponseEntity<?> getSubCategory(@PathVariable("id") Long subCategoryId) {
+    public ResponseEntity<SubCategoryDto> getSubCategory(@PathVariable("id") Long subCategoryId) {
 
-        SubCategory subCategory = subCategoryService.getOne(subCategoryId);
+        SubCategoryDto subCategory = subCategoryService.getOne(subCategoryId);
         return new ResponseEntity<>(subCategory, HttpStatus.OK);
     }
 

@@ -1,7 +1,13 @@
 package com.example.WebKartonApp.controller;
 
-import com.example.WebKartonApp.dto.ProductDto;
-import com.example.WebKartonApp.dto.SubCategoryDto;
+import com.example.WebKartonApp.dto.read.CategoryBaseDto;
+import com.example.WebKartonApp.dto.read.CategoryDto;
+import com.example.WebKartonApp.dto.read.ProductDto;
+import com.example.WebKartonApp.dto.read.SubCategoryDto;
+import com.example.WebKartonApp.dto.write.CategoryChangeRequest;
+import com.example.WebKartonApp.dto.write.ProductChangeRequest;
+import com.example.WebKartonApp.dto.write.SubCategoryChangeRequest;
+;
 import com.example.WebKartonApp.model.Category;
 import com.example.WebKartonApp.model.News;
 import com.example.WebKartonApp.model.Product;
@@ -16,9 +22,9 @@ import com.example.WebKartonApp.service.ProductService;
 import com.example.WebKartonApp.service.SubCategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
@@ -45,25 +52,34 @@ public class AdminController {
     private final CategoryRepository categoryRepository;
     private final SubCategoryService subCategoryService;
     private final SubCategoryRepository subCategoryRepository;
-
+    private final ModelMapper mapper;
 
     @PostMapping("/add_category")
-    public ResponseEntity<?> addCategory(
-            @RequestBody Category category,
-            BindingResult bindingResult) {
-        category.setSlug(transliterate(category.getName()));
-        Category saveCategory = categoryService.save(category);
+    public ResponseEntity<Category> addCategory(
+            @RequestBody CategoryChangeRequest changeRequest
+            ) {
+        CategoryBaseDto dto = changeRequest.getDto();
+        dto.setSlug(transliterate(dto.getName()));
+        Category saveCategory = categoryService.save(dto.toDto());
         return new ResponseEntity<>(saveCategory, HttpStatus.CREATED);
     }
 
     @PutMapping("/update_category")
-    public ResponseEntity<?> updateCategory(
-            @RequestBody Category category,
-            BindingResult bindingResult) {
-        category.setSlug(transliterate(category.getName()));
+    public ResponseEntity<Category> updateCategory(
+            @RequestBody CategoryChangeRequest changeRequest
+            ) {
+        CategoryBaseDto dto = changeRequest.getDto();
+        dto.setSlug(transliterate(dto.getName()));
 
-        Category saveCategory = categoryService.save(category);
-        return new ResponseEntity<>(saveCategory, HttpStatus.CREATED);
+        Category fromDb = categoryRepository.getOne(dto.getId());
+        fromDb.setImage(dto.getImage());
+        fromDb.setLocalDate(dto.getLocalDate());
+        fromDb.setName(dto.getName());
+        fromDb.setSlug(dto.getSlug());
+
+
+        fromDb =  categoryRepository.save(fromDb);
+        return new ResponseEntity<>(fromDb, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete_category")
@@ -73,35 +89,44 @@ public class AdminController {
 
     @PostMapping("/add_subcategory")
     public ResponseEntity<?> addSubCategory(
-            @RequestBody SubCategoryDto subCategoryDto,
-            BindingResult bindingResult) {
-        Category category = categoryService.getOne(subCategoryDto.getCategoryId());
+            @RequestBody SubCategoryChangeRequest changeRequest
+            ) {
+        SubCategoryDto subCategoryDto = changeRequest.getSubCategoryDto().toDto();
+        if(subCategoryDto.getId() != null)
+            return new ResponseEntity<>("Cannot save subCategory with predefined id ", HttpStatus.FORBIDDEN);
 
-        SubCategory subCategory = new SubCategory(subCategoryDto.getId(),
-                transliterate(subCategoryDto.getSubCategoryName()),
-                subCategoryDto.getSubCategoryName(),
-                subCategoryDto.getImage(),
-                category,
-                subCategoryDto.getLocalDate());
-        SubCategory saveSubCategory = subCategoryService.save(subCategory);
-        return new ResponseEntity<>(saveSubCategory, HttpStatus.CREATED);
+        SubCategory savedSubcategory = subCategoryService.save(subCategoryDto);
+
+        //adding subcat to cat and updating cat
+        Category category = categoryRepository.findById(changeRequest.getCategoryId()).
+                orElseThrow(() -> new IllegalArgumentException("Cant find category with id" + changeRequest.getCategoryId()));
+
+        category.getSubCategories().add(savedSubcategory);
+        categoryRepository.save(category);
+
+        return new ResponseEntity<>(savedSubcategory, HttpStatus.CREATED);
     }
 
     @PutMapping("/update_subcategory")
     public ResponseEntity<?> updateSubCategory(
-            @RequestBody SubCategoryDto subCategoryDto,
-            BindingResult bindingResult) {
-        Category category = categoryService.getOne(subCategoryDto.getCategoryId());
+            @RequestBody SubCategoryChangeRequest changeRequest
+            ) {
+        SubCategoryDto subCategoryDto = changeRequest.getSubCategoryDto().toDto();
+        if(subCategoryDto.getId() == null)
+            return new ResponseEntity<>("Cannot update subCategory without id ", HttpStatus.FORBIDDEN);
 
+       // Category category = categoryRepository.getOne(changeRequest.getCategoryId());
 
-        SubCategory subCategory = new SubCategory(subCategoryDto.getId(),
-                transliterate(subCategoryDto.getSubCategoryName()),
-                subCategoryDto.getSubCategoryName(),
-                subCategoryDto.getImage(),
-                category,
-                subCategoryDto.getLocalDate());
-        SubCategory saveSubCategory = subCategoryService.save(subCategory);
-        return new ResponseEntity<>(saveSubCategory, HttpStatus.CREATED);
+//        subCategoryRepository.findById(subCategoryDto.getId())
+//                .orElseThrow(() -> new IllegalArgumentException("Cant find subCategory with id" + subCategoryDto.getId()));
+
+        //SubCategory updated =  mapper.map(subCategoryDto, SubCategory.class);
+        SubCategory saveSubCategory = subCategoryService.save(subCategoryDto);
+
+        //category.getSubCategories().add(updated);
+        //categoryRepository.save(category);
+
+        return new ResponseEntity<>(saveSubCategory, HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/delete_subcategory")
@@ -112,22 +137,20 @@ public class AdminController {
 
     @PostMapping("/add_prod")
     public ResponseEntity<?> addProduct(
-            @RequestBody ProductDto productDto,
-            BindingResult bindingResult) {
-        SubCategory subCategory = subCategoryService.getOne(productDto.getSubcategoryId());
+            @RequestBody ProductChangeRequest changeRequest
+            ) {
+        ProductDto productDto = changeRequest.getProductDto();
+        if(productDto.getId() != null)
+            return new ResponseEntity<>("Cannot save product with predefined id ", HttpStatus.FORBIDDEN);
 
-        Product product = new Product(productDto.getId(),
-                transliterate(productDto.getProductName()),
-                productDto.getProductName(),
-                productDto.getProductColor(),
-                productDto.getProductDescription(),
-                productDto.getFilename(),
-                productDto.getPrice(),
-                productDto.getQuantity(),
-                subCategory,
-                productDto.getLocalDate());
+        SubCategory subCategory = subCategoryRepository.findById(changeRequest.getSubcategoryId()).
+                orElseThrow(() -> new IllegalArgumentException("Cant find subCategory with id" + changeRequest.getSubcategoryId()));;
 
-        Product savedProduct = productService.save(product);
+        Product savedProduct = productService.save(productDto);
+        productRepository.save(savedProduct);
+
+        subCategory.getProducts().add(savedProduct);
+        subCategoryRepository.save(subCategory);
 
         log.info("ADMIN added product to DB: id={}, product={}", savedProduct.getSlug(),
                 savedProduct.getProductName());
@@ -136,29 +159,22 @@ public class AdminController {
     }
 
     @PutMapping("/update_prod")
-    public ResponseEntity<?> addUpdateProduct(
-            @RequestBody ProductDto productDto,
-            BindingResult bindingResult) {
-        SubCategory subCategory = subCategoryService.getOne(productDto.getSubcategoryId());
+    public ResponseEntity<?> updateProduct(
+            @RequestBody ProductChangeRequest changeRequest) {
+        ProductDto productDto = changeRequest.getProductDto();
+        if(productDto.getId() == null)
+            return new ResponseEntity<>("Cannot update product without id ", HttpStatus.FORBIDDEN);
 
-        Product product = new Product(productDto.getId(),
-                transliterate(productDto.getProductName()),
-                productDto.getProductName(),
-                productDto.getProductColor(),
-                productDto.getProductDescription(),
-                productDto.getFilename(),
-                productDto.getPrice(),
-                productDto.getQuantity(),
-                subCategory,
-                productDto.getLocalDate()
-                );
+        productRepository.findById(productDto.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Cant find product with id" + productDto.getId()));
 
-        Product savedProduct = productService.save(product);
+        productService.save(productDto);
 
-        log.info("ADMIN added product to DB: id={}, product={}", savedProduct.getSlug(),
-                savedProduct.getProductName());
 
-        return new ResponseEntity<>(savedProduct, HttpStatus.CREATED);
+        log.info("ADMIN updated prod in DB: id={}, product={}", productDto.getId(),
+                productDto.getProductName());
+
+        return new ResponseEntity<>(productDto, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/delete_prod")
