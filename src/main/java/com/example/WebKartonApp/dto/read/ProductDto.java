@@ -1,4 +1,4 @@
-package com.example.WebKartonApp.dto;
+package com.example.WebKartonApp.dto.read;
 
 import lombok.Data;
 
@@ -15,5 +15,4 @@ public class ProductDto {
     private Double price;
     private String quantity;
     private LocalDate localDate;
-    private Long subcategoryId;
 }

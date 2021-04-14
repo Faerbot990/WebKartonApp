@@ -1,20 +1,17 @@
 package com.example.WebKartonApp.service;
 
 
+import com.example.WebKartonApp.dto.read.CategoryDto;
 import com.example.WebKartonApp.model.Category;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;
 
 public interface CategoryService {
-    Category getOne(Long id);
+    CategoryDto getOne(Long id);
 
-    List<Category> findAll(Sort.Direction desc, String localDate);
-// List <Category> findByCategoryName(String name);
-// List<Category> getSubcategoriesByCategorySlug(String slug);
+    List<CategoryDto> findAll(Sort.Direction desc, String localDate);
 
-    Category save(Category category);
-
-// void savCategoryInfoById(String name,SubCategory subCategory, Long id);
+    Category save(CategoryDto category);
 
 }

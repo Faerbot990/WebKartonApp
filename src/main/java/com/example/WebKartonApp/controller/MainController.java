@@ -21,13 +21,11 @@ import java.util.List;
 @RequestMapping("/main")
 public class MainController {
 
-    private final ProductService productService;
     private final NewsService newsService;
     private final NewsRepository newsRepository;
 
     @Autowired
-    public MainController(ProductService productService, NewsService newsService, NewsRepository newsRepository) {
-        this.productService = productService;
+    public MainController(NewsService newsService, NewsRepository newsRepository) {
         this.newsService = newsService;
         this.newsRepository = newsRepository;
     }
