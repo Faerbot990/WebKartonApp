@@ -38,7 +38,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 @RestController
-@PreAuthorize("hasRole('ROLE_ADMIN')")
+//@PreAuthorize("hasRole('ROLE_ADMIN')")
 @RequestMapping("/admin")
 @Slf4j
 @RequiredArgsConstructor
