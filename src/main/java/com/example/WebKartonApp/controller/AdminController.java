@@ -138,8 +138,9 @@ public class AdminController {
             return new ResponseEntity<>("Cannot save product with predefined id ", HttpStatus.FORBIDDEN);
 
         SubCategory subCategory = subCategoryRepository.findById(changeRequest.getSubcategoryId()).
-                orElseThrow(() -> new IllegalArgumentException("Cant find subCategory with id" + changeRequest.getSubcategoryId()));;
-        productDto.setProductName(transliterate(productDto.getProductName()));
+                orElseThrow(() -> new IllegalArgumentException("Cant find subCategory with id" + changeRequest.getSubcategoryId()));
+
+        productDto.setSlug(transliterate(productDto.getProductName()));
 
         Product savedProduct = productService.save(productDto);
         productRepository.save(savedProduct);

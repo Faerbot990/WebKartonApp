@@ -9,6 +9,7 @@ import java.time.LocalDate;
 public class ProductDto {
     private Long id;
     private String productName;
+    private String slug;
     private String productColor;
     private String productDescription;
     private String filename;
