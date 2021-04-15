@@ -35,6 +35,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -74,7 +75,7 @@ public class AdminController {
 
         Category fromDb = categoryRepository.getOne(dto.getId());
         fromDb.setImage(dto.getImage());
-        fromDb.setLocalDate(dto.getLocalDate());
+        fromDb.setLocalDate(LocalDate.now());
         fromDb.setName(dto.getName());
         fromDb.setSlug(dto.getSlug());
 
@@ -120,7 +121,7 @@ public class AdminController {
         SubCategory saveSubCategory = subCategoryService.save(subCategoryDto);
 
 
-        return new ResponseEntity<>(saveSubCategory, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(saveSubCategory, HttpStatus.OK);
     }
 
     @DeleteMapping("/delete_subcategory")
@@ -161,7 +162,7 @@ public class AdminController {
         if(productDto.getId() == null)
             return new ResponseEntity<>("Cannot update product without id ", HttpStatus.FORBIDDEN);
 
-        productDto.setProductName(transliterate(productDto.getProductName()));
+        productDto.setSlug(transliterate(productDto.getProductName()));
         productService.save(productDto);
 
 
